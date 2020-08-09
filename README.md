@@ -1,2 +1,2 @@
-# templeGuideAndroid
+# Rider application.
  

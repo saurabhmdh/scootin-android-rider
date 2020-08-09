@@ -9,9 +9,10 @@
         android:fitsSystemWindows="true">
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/cancel_action"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:lottie_rawRes="@raw/indian_flag"
+            android:layout_height="wrap_content"
+            app:lottie_rawRes="@raw/delivery_latest"
             app:lottie_loop="false"
             app:lottie_autoPlay="true" />
     </androidx.constraintlayout.widget.ConstraintLayout>

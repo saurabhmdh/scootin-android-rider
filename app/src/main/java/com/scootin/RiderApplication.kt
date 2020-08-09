@@ -15,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
-class ScootinApplication: MultiDexApplication() {
+class RiderApplication: MultiDexApplication() {
 
 
     @Inject
