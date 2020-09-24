@@ -241,7 +241,7 @@ deps.shimmer = "com.facebook.shimmer:shimmer:$versions.shimmer"
 deps.MPAndroidChart = "com.github.PhilJay:MPAndroidChart:$versions.mp_android_chart"
 deps.cardIO = "io.card:android-sdk:$versions.cardIO"
 deps.lingver = "com.github.YarikSOffice:lingver:$versions.lingver"
-
+deps.circleImage="de.hdodenhof:circleimageview:2.1.0"
 def espresso = [:]
 espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
 espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
@@ -252,6 +252,7 @@ deps.adjust = "com.adjust.sdk:adjust-android:$versions.adjust_android"
 deps.adjust_installreferrer = "com.android.installreferrer:installreferrer:$versions.adjust_installreferrer"
 deps.adjust_google_play_services_ads_identifier = "com.google.android.gms:play-services-ads-identifier:$versions.adjust_ads"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottieVersion"
+
 
 def mockito = [:]
 mockito.core = "org.mockito:mockito-core:$versions.mockito"

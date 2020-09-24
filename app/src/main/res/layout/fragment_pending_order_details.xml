@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/pending_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_pending_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount : $95"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/pending_icon"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:textColor="#000"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status : accept"
+            android:layout_below="@id/txt_order_id"
+            android:layout_toRightOf="@id/pending_icon"
+            android:layout_marginLeft="8dp"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019-06-24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"/>
+    </RelativeLayout >
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_item_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item List"
+        android:textSize="15sp"
+        android:layout_below="@id/cardview"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_item_list"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_Customer_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customer Details"
+        android:textSize="12sp"
+        android:layout_below="@id/recycler_view"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_customer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apeksha"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_below="@id/txt_Customer_details"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_delivery_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delivery Address"
+        android:textSize="12sp"
+        android:layout_below="@id/txt_customer_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/delivery_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="17"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_below="@id/txt_delivery_address"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+</RelativeLayout>

@@ -108,7 +108,7 @@ dependencies {
 
     debugImplementation deps.chunk.runtime
     releaseImplementation deps.chunk.runtime_no_op
-
+    implementation deps.circleImage
     implementation deps.navigation.navigation_ui_ktx
     implementation deps.navigation.fragment_ktx
     implementation deps.lottie
