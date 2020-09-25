@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/order_list_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/pending_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/ic_accepted_icon"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="5dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order # "
+                android:textSize="18sp"
+                android:layout_toRightOf="@id/pending_icon"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="#000"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DBP/00009"
+                android:textSize="18sp"
+                android:layout_toRightOf="@id/txt_order_id"
+                android:layout_marginTop="16dp"
+                android:textColor="#000"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_orderdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Date:"
+                android:layout_below="@id/txt_order_id"
+                android:layout_toRightOf="@id/pending_icon"
+                android:layout_marginLeft="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/orderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019-06-24"
+                android:layout_below="@id/txt_order_id"
+                android:layout_toRightOf="@id/txt_orderdate"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_forward_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

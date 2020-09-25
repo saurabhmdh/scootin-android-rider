@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="2dp">
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pending_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:srcCompat="@drawable/ic_pending_icon"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"/>
@@ -24,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Amount : $95"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_toRightOf="@id/pending_icon"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="8dp"
@@ -43,10 +48,17 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"/>
+
     </RelativeLayout >
 
 
     </androidx.cardview.widget.CardView>
+    <View
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#a9a9a9"
+        android:layout_below="@id/cardview"/>
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_item_list"
         android:layout_width="wrap_content"
@@ -56,11 +68,18 @@
         android:layout_below="@id/cardview"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"/>
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#a9a9a9"
+        android:layout_below="@id/txt_item_list"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_item_list"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="2dp"/>
     <androidx.appcompat.widget.AppCompatTextView
@@ -93,7 +112,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"/>
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/delivery_address"
+        android:id="@+id/delivery_address_line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="17"
@@ -102,4 +121,172 @@
         android:layout_below="@id/txt_delivery_address"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/delivery_address_line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delhi 110091"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_below="@id/delivery_address_line1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="18dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/delivery_address_line3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delhi dl"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_below="@id/delivery_address_line2"
+        android:layout_marginLeft="8dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/delivery_address_line4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="India"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:layout_below="@id/delivery_address_line3"
+        android:layout_marginLeft="8dp" />
+    <View
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#a9a9a9"
+        android:layout_below="@id/delivery_address_line4"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_telephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telephone"
+        android:textSize="15sp"
+        android:layout_below="@id/imageView2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/telephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="980675432"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_below="@id/txt_telephone"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+    <View
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="#a9a9a9"
+        android:layout_below="@id/telephone"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_order_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Details"
+        android:textSize="15sp"
+        android:layout_below="@id/imageView3"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtotal"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_below="@id/txt_order_details"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subtotal_amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$95"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:textColor="#000"
+        android:layout_below="@id/txt_order_details"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tax"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_below="@id/subtotal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tax_amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:textColor="#000"
+        android:layout_below="@id/subtotal_amt"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/grand_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GrandTotal"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_below="@id/tax"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/grangtotal_amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$95"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:textColor="#000"
+        android:layout_below="@id/tax_amt"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"/>
+    <RelativeLayout
+        android:id="@+id/showMap"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:background="@drawable/green_rectangle"
+        android:layout_below="@id/grand_total"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show on map "
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textColor="#3cb043"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:background="@drawable/green_rectangle"
+        android:layout_below="@id/showMap"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set As Delivered"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:textColor="#3cb043"/>
+
+    </RelativeLayout>
 </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

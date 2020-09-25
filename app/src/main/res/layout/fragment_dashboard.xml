@@ -227,7 +227,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:src="@drawable/location"
-            android:tint="#80ff00"
+            android:tint="#3cb043"
             android:layout_marginTop="16dp"/>
 
         <TextView
@@ -237,7 +237,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
             android:text="You are online"
-            android:textColor="#80ff00"
+            android:textColor="#3cb043"
             android:textSize="18dp" />
 
 
