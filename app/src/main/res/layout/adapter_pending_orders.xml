@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/pending_icon"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    app:srcCompat="@drawable/ic_pending_icon"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="5dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order #DBP/00009"
+        android:textSize="20sp"
+        android:layout_toRightOf="@id/pending_icon"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="#000"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Date:2019-06-24"
+        android:layout_below="@id/txt_order_id"
+        android:layout_toRightOf="@id/pending_icon"
+        android:layout_marginLeft="8dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_forward_arrow"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"/>
+</RelativeLayout>

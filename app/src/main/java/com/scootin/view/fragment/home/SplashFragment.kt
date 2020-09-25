@@ -41,7 +41,7 @@ class SplashFragment : Fragment() {
 
     private fun gotoNextFragment() {
         findNavController().navigate(
-            R.id.nav_home,
+            R.id.nav_dashboard,
             null,
             NavOptions.Builder().setPopUpTo(R.id.splash_fragment, true).build()
         )

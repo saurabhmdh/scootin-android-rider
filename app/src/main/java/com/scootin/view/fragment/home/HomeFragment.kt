@@ -58,4 +58,5 @@ class HomeFragment :  Fragment() {
             adapter.submitList(it.data)
         }
     }
+
 }
