@@ -21,8 +21,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDashboardBinding.bind(view)
+
         binding.pendingOrdersTab.setOnClickListener {
-       findNavController().navigate(DashboardFragmentDirections.actionHomeFragmentToPendingOrdersFragment())
+            findNavController().navigate(DashboardFragmentDirections.actionHomeFragmentToPendingOrdersFragment())
         }
         binding.completedOrdersTab.setOnClickListener {
             findNavController().navigate(DashboardFragmentDirections.actionHomeFragmentToCompletedOrdersFragment())
