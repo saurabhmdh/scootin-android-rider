@@ -45,6 +45,7 @@
 
         </FrameLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_container"
             android:layout_width="match_parent"
@@ -56,11 +57,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-
             app:menu="@menu/menu_item"
-            app:headerLayout="@layout/header_layout"
-            />
-<!--        app:menu="@menu/activity_home_drawer"-->
+            app:headerLayout="@layout/header_layout" />
+
+
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
 

@@ -1,105 +1,82 @@
 package com.scootin.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 import com.scootin.R
 import com.scootin.databinding.ActivityMainBinding
-import com.scootin.view.fragment.home.HomeFragment
-import com.scootin.view.fragment.home.dashboard.DashboardFragment
-import com.scootin.view.fragment.home.orders.OrdersFragment
-import com.scootin.view.fragment.home.settings.SettingsFragment
-
 import dagger.hilt.android.AndroidEntryPoint
-
+import timber.log.Timber
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
-    var previousMenuItem: MenuItem? = null
+
+    private val topLevelDestinations = setOf(R.id.nav_dashboard)
+
+
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
         setUpToolbar()
-        binding.drawerLayout.closeDrawers()
-        if (savedInstanceState == null) {
-            setupNavigationBar()
-        }
 
+        navController = findNavController(R.id.home_navigation_fragment)
 
-    }
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        setupNavigationBar()
-    }
+        appBarConfiguration = AppBarConfiguration.Builder(topLevelDestinations)
+            .setOpenableLayout(binding.drawerLayout)
+            .build()
 
-    private fun setupNavigationBar(){
-        val actionBarDrawerToggle = ActionBarDrawerToggle(
-            this@MainActivity,
-            binding.drawerLayout,
-            R.string.open_drawer,
-            R.string.close_drawer
-        )
-        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
-        actionBarDrawerToggle.syncState()
-        binding.navView.setNavigationItemSelectedListener {
-            if (previousMenuItem != null) {
-                previousMenuItem?.isChecked = false
-            }
-            it.isCheckable = true
-            it.isChecked = true
-            previousMenuItem = it
+        binding.navView.setupWithNavController(navController)
+        binding.navView.setNavigationItemSelectedListener(this)
 
-            when (it.itemId) {
-                R.id.dashboard_menu -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(binding.frameLayout.id, DashboardFragment())
-                        .commit()
-                    supportActionBar?.title = "Dashboard"
-                    binding.drawerLayout.closeDrawers()
-                }
-                R.id.orders_menu -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(binding.frameLayout.id,OrdersFragment())
-                        .commit()
-                    supportActionBar?.title = "Orders"
-                    binding.drawerLayout.closeDrawers()
-                }
-                R.id.settings_menu -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(binding.frameLayout.id,SettingsFragment())
-                        .commit()
-                    supportActionBar?.title = "Settings"
-                    binding.drawerLayout.closeDrawers()
-                }
-
-
-            }
-
-            return@setNavigationItemSelectedListener true
-        }
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
-    fun setUpToolbar() {
+    private fun setUpToolbar() {
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setTitle("Dashboard")
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setHomeButtonEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
+        }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == android.R.id.home) {
-            binding.drawerLayout.openDrawer(GravityCompat.START)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.orders_menu -> {
+                navController.navigate(R.id.orders_menu)
+            }
+            R.id.settings_menu -> {
+                navController.navigate(R.id.orders_menu)
+            }
         }
-        return super.onOptionsItemSelected(item)
+        binding.drawerLayout.closeDrawers()
+        return true
     }
+
+    override fun onBackPressed() {
+        val drawer = binding.drawerLayout
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onSupportNavigateUp() = NavigationUI.navigateUp(navController, appBarConfiguration)
 }
