@@ -1,5 +1,6 @@
 package com.scootin.view.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -56,13 +57,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    @SuppressLint("ResourceType")
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.orders_menu -> {
                 navController.navigate(R.id.orders_menu)
             }
             R.id.settings_menu -> {
-                navController.navigate(R.id.orders_menu)
+                navController.navigate(R.id.settings_menu)
             }
         }
         binding.drawerLayout.closeDrawers()
