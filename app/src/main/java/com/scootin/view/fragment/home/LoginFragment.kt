@@ -11,8 +11,9 @@ import com.scootin.network.AppExecutors
 import com.scootin.network.response.PendingOrderItemList
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class LoginFragment:Fragment(R.layout.fragment_login) {
     private var binding by autoCleared<FragmentLoginBinding>()
 
