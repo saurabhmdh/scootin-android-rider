@@ -58,7 +58,7 @@ class AllOrdersAdapter(
                     }
                 }
                 else{
-                    binding.statusIcon.setImageResource(R.drawable.ic_pending_icon)
+                    binding.statusIcon.setImageResource(R.drawable.ic_clock)
                     binding.orderListTab.setOnClickListener {
                         itemAdapterClickListener.onPendingOrderSelected(it)
                     }

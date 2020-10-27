@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .build()
 
         binding.navView.setupWithNavController(navController)
+        binding.navView.setItemIconTintList(null)
         binding.navView.setNavigationItemSelectedListener(this)
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
