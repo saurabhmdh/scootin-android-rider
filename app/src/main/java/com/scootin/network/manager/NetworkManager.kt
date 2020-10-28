@@ -12,7 +12,8 @@ import javax.inject.Singleton
 
 @Singleton
 class NetworkManager @Inject constructor(
-    private val context: Context
+    private val context: Context,
+    private val tokenAuthenticator: TokenAuthenticator
 ) {
 
     fun getClient(): OkHttpClient {
@@ -32,7 +33,7 @@ class NetworkManager @Inject constructor(
             readTimeout(AppConstants.TIMEOUT_SECOND.toLong(), TimeUnit.SECONDS)
             connectTimeout(AppConstants.TIMEOUT_SECOND.toLong(), TimeUnit.SECONDS)
         }
-
+        builder.authenticator(tokenAuthenticator)
         return builder.build()
 
     }
