@@ -9,99 +9,18 @@
         android:id="@+id/splash_fragment"
         android:name="com.scootin.view.fragment.home.SplashFragment"
         android:label=""
-        tools:layout="@layout/fragment_splash" />
-
-    <fragment
-        android:id="@+id/nav_dashboard"
-        android:name="com.scootin.view.fragment.home.dashboard.DashboardFragment"
-        android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard">
-        <action
-            android:id="@+id/action_homeFragment_to_pendingOrdersFragment"
-            app:destination="@id/nav_pending_orders"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_homeFragment_to_completedOrdersFragment"
-            app:destination="@id/nav_completed_orders"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_homeFragment_to_acceptOrdersFragment"
-            app:destination="@id/nav_accept_orders"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_splash">
+        <action android:id="@+id/action_splash_to_login"
+            app:destination="@id/nav_login"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_pending_orders"
-        android:name="com.scootin.view.fragment.home.orders.PendingOrdersFragment"
-        android:label="Pending Orders">
-        <action
-            android:id="@+id/action_pendingOrdersFragment_to_pendingOrderDetailsFragment"
-            app:destination="@id/nav_pending_orders_details"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_completed_orders_details"
-        android:name="com.scootin.view.fragment.home.orders.CompletedOrderDetailsFragment"
-        android:label="Completed Orders"/>
-    <fragment
-        android:id="@+id/nav_completed_orders"
-        android:name="com.scootin.view.fragment.home.orders.CompletedOrdersFragment"
-        android:label="Completed Orders">
-        <action
-            android:id="@+id/action_completedOrdersFragment_to_completedOrderDetailsFragment"
-            app:destination="@id/nav_completed_orders_details"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_pending_orders_details"
-        android:name="com.scootin.view.fragment.home.orders.PendingOrderDetailsFragment"
-        android:label="Pending Orders"/>
-
-    <fragment
-        android:id="@+id/nav_accept_orders_details"
-        android:name="com.scootin.view.fragment.home.orders.AcceptOrderDetailsFragment"
-        android:label="Accept Orders"/>
-
-    <fragment
-        android:id="@+id/nav_accept_orders"
-        android:name="com.scootin.view.fragment.home.orders.AcceptOrdersFragment"
-        android:label="Accept Orders">
-        <action
-            android:id="@+id/action_acceptOrdersFragment_to_acceptOrderDetailsFragment"
-            app:destination="@id/nav_accept_orders_details"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/orders_menu"
-        android:name="com.scootin.view.fragment.home.orders.OrdersFragment"
-        android:label="All Orders">
-        <action
-            android:id="@+id/action_allOrdersFragment_to_completedOrderFragment"
-            app:destination="@id/nav_completed_orders_details"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_allOrdersFramentg_to_pendingOrdersFragment"
-            app:destination="@id/nav_pending_orders_details"
-            app:popUpToInclusive="true" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/settings_menu"
-        android:name="com.scootin.view.fragment.home.settings.SettingsFragment"
-        android:label="Settings"/>
     <fragment
         android:id="@+id/nav_login"
         android:name="com.scootin.view.fragment.home.LoginFragment"
-        android:label="">
-        <action
-            android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/nav_dashboard"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:label=""/>
+
 
 </navigation>
