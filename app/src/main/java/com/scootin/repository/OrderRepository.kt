@@ -35,4 +35,10 @@ class OrderRepository @Inject constructor(
     ): LiveData<Resource<List<OrderListResponse>>> = object : NetworkBoundResource<List<OrderListResponse>>(context) {
         override suspend fun createCall() = services.getCompletedOrders(riderId)
     }.asLiveData()
+    fun getAcceptedOrderDetails(
+        orderId:Long,
+        context: CoroutineContext
+    ): LiveData<Resource<List<OrderListResponse>>> = object : NetworkBoundResource<List<OrderListResponse>>(context) {
+        override suspend fun createCall() = services.getAcceptedOrdersDetails(orderId)
+    }.asLiveData()
 }
