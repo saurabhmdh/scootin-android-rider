@@ -2,6 +2,7 @@ package com.scootin.bindings
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -19,6 +20,10 @@ fun ImageView.setImage(url: String?) {
         .load(url)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
+}
+@BindingAdapter("setToIntText")
+fun TextView.setToIntText(value: Long) {
+    text = value.toString()
 }
 
 fun getDefaultImage() = RequestOptions().apply {
