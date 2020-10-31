@@ -5,7 +5,7 @@
 
         <variable
             name="data"
-            type="com.scootin.network.response.AcceptedOrderResponse"/>
+            type="com.scootin.network.response.OrderListResponse"/>
 
     </data>
     <androidx.cardview.widget.CardView

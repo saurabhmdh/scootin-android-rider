@@ -6,10 +6,10 @@ import com.scootin.network.manager.AppHeaders
 
 import com.scootin.network.response.OrderListResponse
 
-import com.scootin.network.response.AcceptedOrderResponse
 
 import com.scootin.network.response.ResponseUser
 import com.scootin.network.response.TempleInfo
+import com.scootin.network.response.UnAssignedOrderResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,7 +25,12 @@ interface APIService {
     suspend fun refreshToken(@Body options: Map<String, String>, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
 
     @POST("/notification/rider/{id}/update-fcm")
-    suspend fun updateFCMID(@Path("id") userMobileNumber: String, @Body requestFCM: RequestFCM): Response<ResponseUser>
+    suspend fun updateFCMID(@Path("id") userMobileNumber: String, @Body requestFCM: RequestFCM, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
+
+
+    @POST("/order-history/riders/unassigned")
+    suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>
+
 
     @POST("/order-history/riders/accepted/{riderId}")
     suspend fun getAcceptedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>

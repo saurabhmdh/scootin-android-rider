@@ -17,11 +17,10 @@ import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.AcceptOrderAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
 
-import com.scootin.viewmodel.orders.AcceptedOrderViewModel
-
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
     private var binding by autoCleared<FragmentAcceptOrdersBinding>()
@@ -30,7 +29,6 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
     @Inject
     lateinit var appExecutors: AppExecutors
     private lateinit var acceptOrderAdapter: AcceptOrderAdapter
-    private val viewModel: AcceptedOrderViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,7 +59,7 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
         viewModel.getAcceptedOrders(AppHeaders.userID).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    completedOrdersAdapter.submitList(it.data)
+                    acceptOrderAdapter.submitList(it.data)
                 }
                 Status.ERROR -> {
 
