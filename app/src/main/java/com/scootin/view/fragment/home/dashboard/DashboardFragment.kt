@@ -16,7 +16,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
 
     @Inject
     lateinit var appExecutors: AppExecutors
-    private lateinit var pendingOrdersAdapter: PendingOrdersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

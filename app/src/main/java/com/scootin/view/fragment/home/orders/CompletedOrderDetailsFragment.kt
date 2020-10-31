@@ -25,8 +25,7 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_completed_order_d
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCompletedOrderDetailsBinding.bind(view)
         setAdaper()
-        pendingOrdersAdapter.submitList(setList())
-
+//        pendingOrdersAdapter.submitList(setList())
     }
 
     private fun setAdaper() {
