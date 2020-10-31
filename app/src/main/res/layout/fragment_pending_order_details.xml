@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="data"
+            type="com.scootin.network.response.NormalOrderResponse"/>
+
+    </data>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -30,18 +38,36 @@
                 android:id="@+id/txt_order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount : $95"
+                android:text="Amount :"
                 android:textSize="18sp"
                 android:layout_toRightOf="@id/pending_icon"
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="8dp"
                 android:textColor="#000"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status : accept"
+                app:setPrice="@{data.orderDetails.totalAmount}"
+                android:textSize="18sp"
+                android:layout_toRightOf="@id/txt_order_id"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="#000"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status :"
                 android:layout_below="@id/txt_order_id"
                 android:layout_toRightOf="@id/pending_icon"
+                android:layout_marginLeft="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.orderDetails.orderStatus}"
+                android:layout_below="@id/txt_order_id"
+                android:layout_toRightOf="@id/txt_status"
                 android:layout_marginLeft="8dp"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -92,7 +118,7 @@
             android:id="@+id/txt_customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apeksha"
+            android:text="@{data.orderDetails.userInfo.firstName}"
             android:textColor="#000"
             android:textSize="18sp"
             android:padding="4dp"
@@ -112,7 +138,7 @@
             android:id="@+id/delivery_address_line1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="R.no 26 New Delhi"
+            app:setOneLineAddress="@{data.orderDetails.addressDetails}"
             android:textColor="#000"
             android:textSize="15sp"
             android:layout_below="@id/txt_delivery_address"
@@ -134,7 +160,7 @@
             android:id="@+id/telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="980675432"
+            android:text="@{data.orderDetails.userInfo.mobileNumber}"
             android:textColor="#000"
             android:textSize="15sp"
             android:drawableLeft="@drawable/ic_call"
@@ -259,3 +285,4 @@
             android:textColor="#3cb043"/>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
+</layout>

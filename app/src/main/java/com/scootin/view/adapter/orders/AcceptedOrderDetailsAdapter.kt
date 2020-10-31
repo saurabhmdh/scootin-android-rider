@@ -1,22 +1,17 @@
 package com.scootin.view.adapter.orders
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.scootin.databinding.AdapterPendingOrdersBinding
+import com.scootin.databinding.AdapterPendingOrdersItemListBinding
 import com.scootin.network.AppExecutors
-import com.scootin.network.response.OrderListResponse
-import com.scootin.network.response.PendingOrdersList
 import com.scootin.network.response.UnAssignedOrderResponse
 import com.scootin.view.adapter.DataBoundListAdapter
 import timber.log.Timber
 
-class PendingOrdersAdapter (
-    val appExecutors: AppExecutors,
-    val itemAdapterClickListener: ItemAdapterClickLister
-) : DataBoundListAdapter<UnAssignedOrderResponse, AdapterPendingOrdersBinding>(
+class AcceptedOrderDetailsAdapter (
+    val appExecutors: AppExecutors
+) : DataBoundListAdapter<UnAssignedOrderResponse, AdapterPendingOrdersItemListBinding>(
     appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<UnAssignedOrderResponse>() {
         override fun areItemsTheSame(
@@ -25,8 +20,6 @@ class PendingOrdersAdapter (
         ): Boolean {
             return oldItem.id == newItem.id
         }
-
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
             oldItem: UnAssignedOrderResponse,
             newItem: UnAssignedOrderResponse
@@ -35,27 +28,21 @@ class PendingOrdersAdapter (
         }
     }
 ) {
-    override fun createBinding(parent: ViewGroup): AdapterPendingOrdersBinding =
-        AdapterPendingOrdersBinding.inflate(
+    override fun createBinding(parent: ViewGroup): AdapterPendingOrdersItemListBinding =
+        AdapterPendingOrdersItemListBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
 
     override fun bind(
-        binding: AdapterPendingOrdersBinding,
+        binding: AdapterPendingOrdersItemListBinding,
         item: UnAssignedOrderResponse,
         position: Int,
         isLast: Boolean
     ) {
         Timber.i("item = $item")
         item.apply {
-            binding.orderId.setText(item.id.toString())
-            binding.orderDate.setText(item.orderStatus)
+            binding.itemName.setText(item.id.toString())
+            binding.qty.setText(item.totalAmount.toString())
         }
-        binding.orderListTab.setOnClickListener {
-            itemAdapterClickListener.onItemSelected(item)
-        }
-    }
-    interface ItemAdapterClickLister {
-        fun onItemSelected(view: UnAssignedOrderResponse)
     }
 }

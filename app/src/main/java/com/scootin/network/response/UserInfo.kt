@@ -6,7 +6,7 @@ data class UserInfo(
     val deleted: Boolean,
     val email: Any,
     val fcmId: String,
-    val firstName: Any,
+    val firstName: String,
     val id: Int,
     val lastName: Any,
     val mobileNumber: String,

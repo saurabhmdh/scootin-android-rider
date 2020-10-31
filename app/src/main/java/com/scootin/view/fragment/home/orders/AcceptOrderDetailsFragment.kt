@@ -3,6 +3,7 @@ package com.scootin.view.fragment.home.orders
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptOrderDetailsBinding
 import com.scootin.databinding.FragmentCompletedOrderDetailsBinding
@@ -10,14 +11,17 @@ import com.scootin.network.AppExecutors
 import com.scootin.network.response.PendingOrderItemList
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
+import com.scootin.viewmodel.order.OrderDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 @AndroidEntryPoint
 class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_accept_order_details) {
     private var binding by autoCleared<FragmentAcceptOrderDetailsBinding>()
 
+
     @Inject
     lateinit var appExecutors: AppExecutors
+    private val viewModel: OrderDetailsViewModel by viewModels()
     private lateinit var pendingOrdersAdapter: PendingOrderDetailsItemAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

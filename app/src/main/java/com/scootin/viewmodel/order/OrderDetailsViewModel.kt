@@ -11,6 +11,6 @@ internal constructor(
     private val orderRepository: OrderRepository
 ) : ObservableViewModel() {
 
-    fun getAcceptedOrderDetails(orderId: Long) = orderRepository.getAcceptedOrderDetails(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
+    fun getNormalOrder(orderId: Long) = orderRepository.getOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
 }

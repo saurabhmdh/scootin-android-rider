@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.scootin.databinding.AdapterPendingOrdersBinding
 import com.scootin.databinding.AdapterPendingOrdersItemListBinding
 import com.scootin.network.AppExecutors
+import com.scootin.network.response.NormalOrderResponse
 import com.scootin.network.response.PendingOrderItemList
 import com.scootin.network.response.PendingOrdersList
 import com.scootin.network.response.UnAssignedOrderResponse
@@ -15,18 +16,18 @@ import timber.log.Timber
 
 class PendingOrderDetailsItemAdapter (
     val appExecutors: AppExecutors
-) : DataBoundListAdapter<UnAssignedOrderResponse, AdapterPendingOrdersItemListBinding>(
+) : DataBoundListAdapter<NormalOrderResponse.OrderInventoryDetails, AdapterPendingOrdersItemListBinding>(
     appExecutors,
-    diffCallback = object : DiffUtil.ItemCallback<UnAssignedOrderResponse>() {
+    diffCallback = object : DiffUtil.ItemCallback<NormalOrderResponse.OrderInventoryDetails>() {
         override fun areItemsTheSame(
-            oldItem: UnAssignedOrderResponse,
-            newItem: UnAssignedOrderResponse
+            oldItem: NormalOrderResponse.OrderInventoryDetails,
+            newItem: NormalOrderResponse.OrderInventoryDetails
         ): Boolean {
             return oldItem.id == newItem.id
         }
         override fun areContentsTheSame(
-            oldItem: UnAssignedOrderResponse,
-            newItem: UnAssignedOrderResponse
+            oldItem: NormalOrderResponse.OrderInventoryDetails,
+            newItem: NormalOrderResponse.OrderInventoryDetails
         ): Boolean {
             return oldItem == newItem
         }
@@ -39,14 +40,11 @@ class PendingOrderDetailsItemAdapter (
 
     override fun bind(
         binding: AdapterPendingOrdersItemListBinding,
-        item: UnAssignedOrderResponse,
+        item: NormalOrderResponse.OrderInventoryDetails,
         position: Int,
         isLast: Boolean
     ) {
-        Timber.i("item = $item")
-        item.apply {
-            binding.itemName.setText(item.id.toString())
-            binding.qty.setText(item.totalAmount.toString())
-        }
+
+        binding.data=item
     }
 }

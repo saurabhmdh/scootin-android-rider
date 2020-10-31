@@ -41,7 +41,7 @@ class OrdersFragment:Fragment(R.layout.fragment_orders) {
                         }
 
                         override fun onPendingOrderSelected(view: View) {
-                            findNavController().navigate(OrdersFragmentDirections.actionAllOrdersFramentgToPendingOrdersFragment())
+                           // findNavController().navigate(OrdersFragmentDirections.actionAllOrdersFramentgToPendingOrdersFragment())
                         }
 
                     })

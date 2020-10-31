@@ -14,7 +14,9 @@ import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
+import timber.log.Timber
 
 @AndroidEntryPoint
 class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_details) {
@@ -24,22 +26,21 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
 
     @Inject
     lateinit var appExecutors: AppExecutors
-    private lateinit var pendingOrdersAdapter: PendingOrderDetailsItemAdapter
+    private var pendingOrdersAdapter by autoCleared<PendingOrderDetailsItemAdapter>()
+    private val args: PendingOrderDetailsFragmentArgs by navArgs()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrderDetailsBinding.bind(view)
+        binding.lifecycleOwner = this
         setAdaper()
-
-
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        viewModel.getAllUnAssigned().observe(viewLifecycleOwner) {
+        Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
+        viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    pendingOrdersAdapter.submitList(it.data)
+                    binding.data = it.data
+                    pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
                 }
                 Status.ERROR -> {
 
@@ -49,7 +50,16 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
                 }
             }
         }
+
+
+
+
     }
+
+//    private fun setupListeners() {
+//
+//    }
+
 
     private fun setAdaper() {
         pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors)
@@ -58,4 +68,5 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
             adapter = pendingOrdersAdapter
         }
     }
+
 }

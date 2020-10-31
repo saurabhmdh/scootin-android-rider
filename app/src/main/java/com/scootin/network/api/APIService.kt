@@ -3,13 +3,9 @@ package com.scootin.network.api
 import com.scootin.network.RequestFCM
 import com.scootin.network.RequestHistory
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.response.*
 
-import com.scootin.network.response.OrderListResponse
 
-
-import com.scootin.network.response.ResponseUser
-import com.scootin.network.response.TempleInfo
-import com.scootin.network.response.UnAssignedOrderResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -39,7 +35,6 @@ interface APIService {
     @POST("/order-history/riders/completed/{riderId}")
     suspend fun getCompletedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
 
-    @POST("/order/orders/accept-normal-order-by-rider/{riderId}/{orderId}")
-    suspend fun getAcceptedOrdersDetails(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
-
+    @GET("order/orders/get-order/{orderId}")
+    suspend fun getOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<NormalOrderResponse>
 }
