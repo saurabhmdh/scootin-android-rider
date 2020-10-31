@@ -8,15 +8,17 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptOrdersBinding
-import com.scootin.databinding.FragmentCompletedOrdersBinding
+
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
-import com.scootin.network.response.PendingOrdersList
+
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.AcceptOrderAdapter
-import com.scootin.view.adapter.orders.CompletedOrdersAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
+
+import com.scootin.viewmodel.orders.AcceptedOrderViewModel
+
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,18 +29,19 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
 
     @Inject
     lateinit var appExecutors: AppExecutors
-    private lateinit var completedOrdersAdapter: AcceptOrderAdapter
+    private lateinit var acceptOrderAdapter: AcceptOrderAdapter
+    private val viewModel: AcceptedOrderViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAcceptOrdersBinding.bind(view)
         setAdaper()
-        setupListeners()
 
+        setupListeners()
     }
 
     private fun setAdaper() {
-        completedOrdersAdapter =
+        acceptOrderAdapter =
             AcceptOrderAdapter(
                 appExecutors,
                 object : AcceptOrderAdapter.ItemAdapterClickLister {
@@ -49,10 +52,9 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
                 })
 
         binding.recyclerView.apply {
-            adapter = completedOrdersAdapter
+            adapter = acceptOrderAdapter
         }
     }
-
 
     private fun setupListeners() {
         Timber.i("Saurabh Rider Id? ${AppHeaders.userID}")
@@ -70,7 +72,6 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
             }
         }
     }
-
 
 
 }
