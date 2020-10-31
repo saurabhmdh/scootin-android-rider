@@ -1,7 +1,9 @@
 package com.scootin.network.api
 
 import com.scootin.network.RequestFCM
+import com.scootin.network.RequestHistory
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.response.AcceptedOrderResponse
 import com.scootin.network.response.ResponseUser
 import com.scootin.network.response.TempleInfo
 import retrofit2.Response
@@ -20,4 +22,7 @@ interface APIService {
 
     @POST("/notification/rider/{id}/update-fcm")
     suspend fun updateFCMID(@Path("id") userMobileNumber: String, @Body requestFCM: RequestFCM): Response<ResponseUser>
+
+    @POST("/order-history/riders/accepted/{riderId}")
+    suspend fun postAcceptedOrder(@Path("id") id: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<AcceptedOrderResponse>>
 }
