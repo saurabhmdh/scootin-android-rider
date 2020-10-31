@@ -9,25 +9,24 @@ import com.scootin.databinding.AdapterPendingOrdersItemListBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.response.PendingOrderItemList
 import com.scootin.network.response.PendingOrdersList
+import com.scootin.network.response.UnAssignedOrderResponse
 import com.scootin.view.adapter.DataBoundListAdapter
 import timber.log.Timber
 
 class PendingOrderDetailsItemAdapter (
     val appExecutors: AppExecutors
-) : DataBoundListAdapter<PendingOrderItemList, AdapterPendingOrdersItemListBinding>(
+) : DataBoundListAdapter<UnAssignedOrderResponse, AdapterPendingOrdersItemListBinding>(
     appExecutors,
-    diffCallback = object : DiffUtil.ItemCallback<PendingOrderItemList>() {
+    diffCallback = object : DiffUtil.ItemCallback<UnAssignedOrderResponse>() {
         override fun areItemsTheSame(
-            oldItem: PendingOrderItemList,
-            newItem: PendingOrderItemList
+            oldItem: UnAssignedOrderResponse,
+            newItem: UnAssignedOrderResponse
         ): Boolean {
             return oldItem.id == newItem.id
         }
-
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem: PendingOrderItemList,
-            newItem: PendingOrderItemList
+            oldItem: UnAssignedOrderResponse,
+            newItem: UnAssignedOrderResponse
         ): Boolean {
             return oldItem == newItem
         }
@@ -40,14 +39,14 @@ class PendingOrderDetailsItemAdapter (
 
     override fun bind(
         binding: AdapterPendingOrdersItemListBinding,
-        item: PendingOrderItemList,
+        item: UnAssignedOrderResponse,
         position: Int,
         isLast: Boolean
     ) {
         Timber.i("item = $item")
         item.apply {
-            binding.itemName.setText(item_name)
-            binding.qty.setText(item_quantity)
+            binding.itemName.setText(item.id.toString())
+            binding.qty.setText(item.totalAmount.toString())
         }
     }
 }

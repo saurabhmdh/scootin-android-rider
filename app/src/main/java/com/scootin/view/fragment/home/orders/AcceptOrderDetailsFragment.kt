@@ -24,7 +24,7 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_accept_order_details
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAcceptOrderDetailsBinding.bind(view)
         setAdaper()
-        pendingOrdersAdapter.submitList(setList())
+//        pendingOrdersAdapter.submitList(setList())
 
     }
 
