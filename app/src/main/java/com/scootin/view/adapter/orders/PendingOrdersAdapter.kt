@@ -52,10 +52,16 @@ class PendingOrdersAdapter (
             binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
-            itemAdapterClickListener.onItemSelected(item)
+            if(item.directOrder) {
+                itemAdapterClickListener.onHandwrittenListOrderSelected(item)
+            }
+            else{
+                itemAdapterClickListener.onItemSelected(item)
+            }
         }
     }
     interface ItemAdapterClickLister {
         fun onItemSelected(view: UnAssignedOrderResponse)
+        fun onHandwrittenListOrderSelected(view: UnAssignedOrderResponse)
     }
 }

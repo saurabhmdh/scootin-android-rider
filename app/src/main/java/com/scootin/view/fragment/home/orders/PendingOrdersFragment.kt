@@ -59,6 +59,10 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
                         findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToPendingOrderDetailsFragment(item.id))
                     }
 
+                    override fun onHandwrittenListOrderSelected(item: UnAssignedOrderResponse) {
+                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToDirectOrderDetailsFragment(item.id))
+                    }
+
                 })
 
         binding.recyclerView.apply {

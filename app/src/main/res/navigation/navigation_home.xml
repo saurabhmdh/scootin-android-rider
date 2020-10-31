@@ -17,6 +17,8 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+
+
         <action
             android:id="@+id/action_homeFragment_to_completedOrdersFragment"
             app:destination="@id/nav_completed_orders"
@@ -41,6 +43,12 @@
             android:id="@+id/action_pendingOrdersFragment_to_pendingOrderDetailsFragment"
             app:destination="@id/nav_pending_orders_details"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_pendingOrdersFragment_to_directOrderDetailsFragment"
+            app:destination="@id/direct_order_details"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
@@ -112,9 +120,11 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/order_details"
-        android:name="com.scootin.view.fragment.home.orders.PendingOrderDetailsFragment">
-
+        android:id="@+id/direct_order_details"
+        android:name="com.scootin.view.fragment.home.orders.DirectOrderDetailsFragment">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
     </fragment>
 
 </navigation>

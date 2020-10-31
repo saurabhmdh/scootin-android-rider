@@ -39,6 +39,7 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
         viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
+                    Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
                 }

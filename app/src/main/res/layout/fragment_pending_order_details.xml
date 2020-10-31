@@ -133,7 +133,7 @@
             android:textSize="15sp"
             android:layout_below="@id/txt_customer_name"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="2dp"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/delivery_address_line1"
             android:layout_width="wrap_content"
@@ -199,7 +199,7 @@
             android:id="@+id/subtotal_amt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$95"
+            app:setPrice="@{data.orderDetails.paymentDetails.totalAmount}"
             android:textSize="15sp"
             android:layout_alignParentRight="true"
             android:textColor="#000"
@@ -223,7 +223,7 @@
             android:id="@+id/tax_amt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$0"
+            app:setPrice="@{data.orderDetails.paymentDetails.deliveryFreeAmount}"
             android:textSize="15sp"
             android:layout_alignParentRight="true"
             android:textColor="#000"
@@ -246,7 +246,7 @@
             android:id="@+id/grangtotal_amt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$95"
+            app:setPrice="@{data.orderDetails.totalAmount}"
             android:textSize="15sp"
             android:layout_alignParentRight="true"
             android:textColor="#000"
@@ -254,35 +254,6 @@
             android:layout_marginRight="16dp"
             android:padding="4dp"
             android:layout_marginTop="2dp"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/showMap"
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:background="@drawable/green_rectangle"
-            android:layout_below="@id/grand_total"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="Show on map "
-            android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:textColor="#3cb043"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:background="@drawable/green_rectangle"
-            android:layout_below="@id/showMap"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:text="Set As Delivered"
-            android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:textColor="#3cb043"/>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
 </layout>

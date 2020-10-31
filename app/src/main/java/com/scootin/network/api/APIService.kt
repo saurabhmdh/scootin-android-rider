@@ -37,4 +37,7 @@ interface APIService {
 
     @GET("order/orders/get-order/{orderId}")
     suspend fun getOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<NormalOrderResponse>
+
+    @GET("order/orders/get-direct-order/{orderId}")
+    suspend fun getDirectOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<DirectOrderResponse>
 }
