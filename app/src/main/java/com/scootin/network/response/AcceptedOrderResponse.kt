@@ -33,31 +33,31 @@ data class Address(
         )
     }
 }
-data class UserInfo(
-    val active: Boolean,
-    val createdAt: Long,
-    val deleted: Boolean,
-    val email: Any,
-    val fcmId: String,
-    val firstName: Any,
-    val id: Int,
-    val lastName: Any,
-    val mobileNumber: String,
-    val modified: Long,
-    val otp: String,
-    val otpExpireTime: Long,
-    val password: Any,
-    val profilePicture: Any,
-    val walletInfoDetails: WalletInfoDetails
-){
-    data class WalletInfoDetails(
-        val balance: Long,
-        val currency: String,
-        val id: Int,
-        val lastUpdated: OrderDate,
-        val lastUpdatedBy: String
-    )
-}
+//data class UserInfo(
+//    val active: Boolean,
+//    val createdAt: Long,
+//    val deleted: Boolean,
+//    val email: Any,
+//    val fcmId: String,
+//    val firstName: Any,
+//    val id: Int,
+//    val lastName: Any,
+//    val mobileNumber: String,
+//    val modified: Long,
+//    val otp: String,
+//    val otpExpireTime: Long,
+//    val password: Any,
+//    val profilePicture: Any,
+//    val walletInfoDetails: WalletInfoDetails
+//){
+//    data class WalletInfoDetails(
+//        val balance: Long,
+//        val currency: String,
+//        val id: Int,
+//        val lastUpdated: OrderDate,
+//        val lastUpdatedBy: String
+//    )
+//}
 data class OrderDate(
     val epochSecond: Int,
     val nano: Int
