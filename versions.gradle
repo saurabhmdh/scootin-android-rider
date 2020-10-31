@@ -50,10 +50,6 @@ versions.paging = "2.1.0"
 
 versions.retrofit_url_manager = '1.4.0'
 
-//IdSdk
-//versions.idSdk = '0.4.1'
-versions.idSdk = '1.0.0-beta'
-
 
 //Kotlin Coroutines and Retrofit
 versions.flex_box = "1.1.0"
@@ -90,6 +86,7 @@ versions.adjust_android = '4.21.1'
 versions.adjust_installreferrer = '1.1.2'
 versions.adjust_ads= '17.0.0'
 versions.lottieVersion = '3.4.1'
+versions.firebase = '20.2.4'
 
 def deps = [:]
 
@@ -170,18 +167,10 @@ def play = [:]
 play.map = "com.google.android.gms:play-services-maps:$versions.play"
 play.location = "com.google.android.gms:play-services-location:$versions.play"
 play.core = "com.google.android.play:core:$versions.core"
-
+play.firebase = "com.google.firebase:firebase-messaging:$versions.firebase"
 deps.play = play
 
 deps.map_utils = "com.google.maps.android:android-maps-utils:$versions.map_utils"
-
-def idSdk = [:]
-idSdk.core = "r10.one.auth:core:$versions.idSdk"
-idSdk.claims = "r10.one.auth:claims:$versions.idSdk"
-idSdk.scope = "r10.one.auth:scope:$versions.idSdk"
-idSdk.safetynet = "r10.one.auth:safetynet-assertions:$versions.idSdk"
-
-deps.idSdk = idSdk
 
 def hilt = [:]
 
