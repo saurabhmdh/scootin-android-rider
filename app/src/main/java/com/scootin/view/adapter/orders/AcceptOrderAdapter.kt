@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.scootin.databinding.AdapterCompletedOrdersBinding
 import com.scootin.network.AppExecutors
+import com.scootin.network.response.OrderListResponse
 import com.scootin.network.response.PendingOrdersList
 import com.scootin.view.adapter.DataBoundListAdapter
 import timber.log.Timber
@@ -14,20 +15,19 @@ import timber.log.Timber
 class AcceptOrderAdapter (
     val appExecutors: AppExecutors,
     val itemAdapterClickListener: ItemAdapterClickLister
-) : DataBoundListAdapter<PendingOrdersList, AdapterCompletedOrdersBinding>(
+) : DataBoundListAdapter<OrderListResponse, AdapterCompletedOrdersBinding>(
     appExecutors,
-    diffCallback = object : DiffUtil.ItemCallback<PendingOrdersList>() {
+    diffCallback = object : DiffUtil.ItemCallback<OrderListResponse>() {
         override fun areItemsTheSame(
-            oldItem: PendingOrdersList,
-            newItem: PendingOrdersList
+            oldItem: OrderListResponse,
+            newItem: OrderListResponse
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(
-            oldItem: PendingOrdersList,
-            newItem: PendingOrdersList
+            oldItem: OrderListResponse,
+            newItem: OrderListResponse
         ): Boolean {
             return oldItem == newItem
         }
@@ -40,14 +40,14 @@ class AcceptOrderAdapter (
 
     override fun bind(
         binding: AdapterCompletedOrdersBinding,
-        item: PendingOrdersList,
+        item: OrderListResponse,
         position: Int,
         isLast: Boolean
     ) {
         Timber.i("item = $item")
         item.apply {
-            binding.orderId.setText(order_id)
-            binding.orderDate.setText(order_date)
+            binding.orderId.setText(item.id.toString())
+            binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
             itemAdapterClickListener.onItemSelected(it)

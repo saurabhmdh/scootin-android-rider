@@ -2,6 +2,7 @@ package com.scootin.network.api
 
 import com.scootin.network.RequestFCM
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.response.OrderListResponse
 import com.scootin.network.response.ResponseUser
 import com.scootin.network.response.TempleInfo
 import com.scootin.network.response.UnAssignedOrderResponse
@@ -25,5 +26,12 @@ interface APIService {
 
     @POST("/order-history/riders/unassigned")
     suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>
+
+
+    @POST("/order-history/riders/accepted/{riderId}")
+    suspend fun getAcceptedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
+
+    @POST("/order-history/riders/completed/{riderId}")
+    suspend fun getCompletedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
 
 }
