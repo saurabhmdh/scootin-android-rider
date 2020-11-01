@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="data"
+            type="com.scootin.network.response.RiderInfo"/>
+
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
@@ -18,11 +25,11 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="88dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            app:setImage="@{data.profilePictureReference.url}" />
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test Delivery Boy"
+            android:text="@{data.first_name}"
             android:textColor="#fff"
             android:textSize="14sp"
             android:layout_marginLeft="16dp"
@@ -41,7 +48,7 @@
             android:id="@+id/mob_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="00000000"
+            android:text="@{data.mobile_number}"
             android:padding="12dp"
             android:textColor="#000"
             android:textSize="18sp"
@@ -51,7 +58,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="test@test.com"
+            android:text="@{data.email}"
             android:padding="12dp"
             android:textColor="#000"
             android:textSize="18sp"
@@ -67,3 +74,4 @@
         android:background="@drawable/ic_online_button"
         android:orientation="vertical"/>
 </RelativeLayout>
+</layout>

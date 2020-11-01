@@ -5,7 +5,10 @@ import com.scootin.network.RequestFCM
 import com.scootin.network.api.APIService
 import com.scootin.network.api.NetworkBoundResource
 import com.scootin.network.api.Resource
+import com.scootin.network.response.DirectOrderResponse
 import com.scootin.network.response.ResponseUser
+import com.scootin.network.response.RiderInfo
+import com.scootin.network.response.UserInfo
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,4 +27,9 @@ class UserRepository @Inject constructor(
     }.asLiveData()
 
     suspend fun updateFCMId(id: String, request: RequestFCM) = services.updateFCMID(id, request)
+
+    fun getRiderInfo(riderId:String, context: CoroutineContext):
+            LiveData<Resource<RiderInfo>> = object : NetworkBoundResource<RiderInfo>(context) {
+        override suspend fun createCall() = services.getRiderInfo(riderId)
+    }.asLiveData()
 }

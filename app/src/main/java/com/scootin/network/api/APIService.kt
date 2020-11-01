@@ -35,9 +35,15 @@ interface APIService {
     @POST("/order-history/riders/completed/{riderId}")
     suspend fun getCompletedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
 
+
     @GET("order/orders/get-order/{orderId}")
     suspend fun getOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<NormalOrderResponse>
 
+
     @GET("order/orders/get-direct-order/{orderId}")
     suspend fun getDirectOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<DirectOrderResponse>
+
+
+    @GET("register/rider/get-info/{id}")
+    suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
 }
