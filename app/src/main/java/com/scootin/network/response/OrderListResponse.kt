@@ -4,7 +4,7 @@ data class OrderListResponse(
     val addressDetails: AddressDetails,
     val directOrder: Boolean,
     val expressDelivery: Boolean,
-    val id: Int,
+    val id: Long,
     val orderDate: OrderDate,
     val orderStatus: String,
     val rejectReason: Any,

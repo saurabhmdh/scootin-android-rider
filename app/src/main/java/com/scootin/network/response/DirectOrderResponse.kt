@@ -11,7 +11,8 @@ data class DirectOrderResponse(
     val reviewDoneIndicator: Boolean,
     val shopManagement: ShopManagement,
     val userInfo: UserInfo,
-    val orderDetails: OrderDetails
+    val orderDetails: OrderDetails,
+    val amount: Int
 ) {
     data class OrderDate(
         val nanos: Int,
@@ -23,7 +24,8 @@ data class DirectOrderResponse(
         val orderReference: String,
         val payment_mode: String,
         val payment_referer: String,
-        val payment_status: String
+        val payment_status: String,
+        val deliveryFreeAmount: Int
     )
 
     data class ShopManagement(

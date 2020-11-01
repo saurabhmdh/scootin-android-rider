@@ -12,9 +12,12 @@ import com.scootin.databinding.FragmentAcceptOrdersBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.response.OrderListResponse
+import com.scootin.network.response.UnAssignedOrderResponse
 
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.AcceptOrderAdapter
+import com.scootin.view.adapter.orders.PendingOrdersAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,8 +46,12 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
             AcceptOrderAdapter(
                 appExecutors,
                 object : AcceptOrderAdapter.ItemAdapterClickLister {
-                    override fun onItemSelected(view: View) {
-                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptOrdersFragmentToAcceptOrderDetailsFragment())
+                    override fun onItemSelected(item: OrderListResponse) {
+                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToPendingOrderDetailsFragment(item.id))
+                    }
+
+                    override fun onHandwrittenListOrderSelected(item: OrderListResponse) {
+                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToDirectOrderDetailsFragment(item.id))
                     }
 
                 })

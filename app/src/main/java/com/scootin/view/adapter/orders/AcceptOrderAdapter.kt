@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.scootin.databinding.AdapterAcceptOrdersBinding
 import com.scootin.databinding.AdapterCompletedOrdersBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.response.OrderListResponse
 import com.scootin.network.response.PendingOrdersList
+import com.scootin.network.response.UnAssignedOrderResponse
 import com.scootin.view.adapter.DataBoundListAdapter
 import timber.log.Timber
 
 class AcceptOrderAdapter (
     val appExecutors: AppExecutors,
     val itemAdapterClickListener: ItemAdapterClickLister
-) : DataBoundListAdapter<OrderListResponse, AdapterCompletedOrdersBinding>(
+) : DataBoundListAdapter<OrderListResponse, AdapterAcceptOrdersBinding>(
     appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<OrderListResponse>() {
         override fun areItemsTheSame(
@@ -33,13 +35,13 @@ class AcceptOrderAdapter (
         }
     }
 ) {
-    override fun createBinding(parent: ViewGroup): AdapterCompletedOrdersBinding =
-        AdapterCompletedOrdersBinding.inflate(
+    override fun createBinding(parent: ViewGroup): AdapterAcceptOrdersBinding =
+        AdapterAcceptOrdersBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
 
     override fun bind(
-        binding: AdapterCompletedOrdersBinding,
+        binding: AdapterAcceptOrdersBinding,
         item: OrderListResponse,
         position: Int,
         isLast: Boolean
@@ -50,10 +52,18 @@ class AcceptOrderAdapter (
             binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
-            itemAdapterClickListener.onItemSelected(it)
+            if (item.directOrder) {
+                itemAdapterClickListener.onHandwrittenListOrderSelected(item)
+            } else {
+                itemAdapterClickListener.onItemSelected(item)
+            }
         }
+
+
     }
+
     interface ItemAdapterClickLister {
-        fun onItemSelected(view: View)
+        fun onItemSelected(view: OrderListResponse)
+        fun onHandwrittenListOrderSelected(view: OrderListResponse)
     }
 }

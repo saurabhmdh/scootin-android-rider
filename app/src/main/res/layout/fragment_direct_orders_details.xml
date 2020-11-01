@@ -48,7 +48,7 @@
                     android:id="@+id/amt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setPrice="@{data.orderDetails.totalAmount}"
+                    app:setPrice="@{data.shopManagement.amount}"
                     android:textSize="18sp"
                     android:layout_toRightOf="@id/txt_order_id"
                     android:layout_marginTop="16dp"
@@ -65,7 +65,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.orderDetails.orderStatus}"
+                    android:text="@{data.order_status}"
                     android:layout_below="@id/txt_order_id"
                     android:layout_toRightOf="@id/txt_status"
                     android:layout_marginLeft="8dp"/>
@@ -114,31 +114,21 @@
                 android:textColor="#000"
                 android:textSize="16sp"
                 android:layout_below="@id/recycler_view"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_customer_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data.orderDetails.userInfo.firstName}"
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:padding="4dp"
-                android:layout_below="@id/txt_Customer_details"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_delivery_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Address"
                 android:textSize="15sp"
-                android:layout_below="@id/txt_customer_name"
+                android:layout_below="@id/txt_Customer_details"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="8dp"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/delivery_address_line1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setOneLineAddress="@{data.orderDetails.addressDetails}"
+                app:setOneLineAddress="@{data.addressDetails}"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:layout_below="@id/txt_delivery_address"
@@ -160,7 +150,7 @@
                 android:id="@+id/telephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.orderDetails.userInfo.mobileNumber}"
+                android:text="@{data.userInfo.mobile_number}"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:drawableLeft="@drawable/ic_call"
@@ -199,7 +189,7 @@
                 android:id="@+id/subtotal_amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setPrice="@{data.orderDetails.paymentDetails.totalAmount}"
+                app:setPrice="@{data.shopManagement.amount}"
                 android:textSize="15sp"
                 android:layout_alignParentRight="true"
                 android:textColor="#000"
@@ -208,52 +198,52 @@
                 android:padding="4dp"
                 android:layout_marginTop="2dp"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/subtotal"
-                android:layout_marginTop="2dp"
-                android:text="Tax"
-                android:padding="4dp"
-                android:layout_marginLeft="16dp"
-                android:textColor="#000"
-                android:textSize="15sp" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tax_amt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:setPrice="@{data.orderDetails.paymentDetails.deliveryFreeAmount}"
-                android:textSize="15sp"
-                android:layout_alignParentRight="true"
-                android:textColor="#000"
-                android:layout_below="@id/subtotal_amt"
-                android:layout_marginRight="16dp"
-                android:padding="4dp"
-                android:layout_marginTop="2dp"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/grand_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="GrandTotal"
-                android:textColor="#000"
-                android:textSize="15sp"
-                android:layout_below="@id/tax"
-                android:padding="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/grangtotal_amt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:setPrice="@{data.orderDetails.totalAmount}"
-                android:textSize="15sp"
-                android:layout_alignParentRight="true"
-                android:textColor="#000"
-                android:layout_below="@id/tax_amt"
-                android:layout_marginRight="16dp"
-                android:padding="4dp"
-                android:layout_marginTop="2dp"/>
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tax"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/txt_order_details"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:text="Tax"-->
+<!--                android:padding="4dp"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:textColor="#000"-->
+<!--                android:textSize="15sp" />-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tax_amt"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:setPrice="@{data.paymentDetails.deliveryFreeAmount}"-->
+<!--                android:textSize="15sp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:textColor="#000"-->
+<!--                android:layout_below="@id/txt_order_details"-->
+<!--                android:layout_marginRight="16dp"-->
+<!--                android:padding="4dp"-->
+<!--                android:layout_marginTop="2dp"/>-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/grand_total"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="GrandTotal"-->
+<!--                android:textColor="#000"-->
+<!--                android:textSize="15sp"-->
+<!--                android:layout_below="@id/tax"-->
+<!--                android:padding="4dp"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:layout_marginTop="2dp"/>-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/grangtotal_amt"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:setPrice="@{data.shopManagement.amount}"-->
+<!--                android:textSize="15sp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:textColor="#000"-->
+<!--                android:layout_below="@id/tax_amt"-->
+<!--                android:layout_marginRight="16dp"-->
+<!--                android:padding="4dp"-->
+<!--                android:layout_marginTop="2dp"/>-->
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

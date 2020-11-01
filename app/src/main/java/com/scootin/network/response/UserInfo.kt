@@ -15,5 +15,6 @@ data class UserInfo(
     val otpExpireTime: Long,
     val password: Any,
     val profilePicture: Any,
-    val walletInfoDetails: Any
+    val walletInfoDetails: Any,
+    val mobile_number: String
 )
