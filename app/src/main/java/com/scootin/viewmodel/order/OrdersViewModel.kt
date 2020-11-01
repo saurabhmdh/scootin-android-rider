@@ -12,10 +12,6 @@ internal constructor(
     private val orderRepository: OrderRepository
 ) : ObservableViewModel() {
 
-    fun getCategory() = liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-        emit(listOf("pending", "accepted", "completed"))
-    }
-
     fun getAllUnAssigned() = orderRepository.getAllUnAssigned(viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun getNormalOrder(orderId: Long) = orderRepository.getOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)

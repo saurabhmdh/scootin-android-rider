@@ -37,7 +37,6 @@ class OrdersFragment:Fragment(R.layout.fragment_orders) {
                     object : AllOrdersAdapter.ItemAdapterClickLister {
                         override fun onCompletedOrderSelected(view: View) {
 
-                            findNavController().navigate(OrdersFragmentDirections.actionAllOrdersFragmentToCompletedOrderFragment())
                         }
 
                         override fun onPendingOrderSelected(view: View) {

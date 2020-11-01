@@ -59,6 +59,14 @@
             android:name="order_id"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_completed_direct_orders_details"
+        android:name="com.scootin.view.fragment.home.orders.CompletedDirectOrdersFragment"
+        android:label="Order Details">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_completed_orders"
@@ -72,7 +80,7 @@
 
         <action
             android:id="@+id/action_completedOrdersFragment_to_directOrderDetailsFragment"
-            app:destination="@id/direct_order_details"
+            app:destination="@id/nav_completed_direct_orders_details"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -89,7 +97,15 @@
     <fragment
         android:id="@+id/nav_accept_orders_details"
         android:name="com.scootin.view.fragment.home.orders.AcceptOrderDetailsFragment"
-        android:label="Accept Orders">
+        android:label="Accepted Orders">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_accepted_direct_orders_details"
+        android:name="com.scootin.view.fragment.home.orders.AcceptedDirectOrdersFragment"
+        android:label="Orders Details">
         <argument
             android:name="order_id"
             app:argType="long" />
@@ -107,7 +123,7 @@
 
         <action
             android:id="@+id/action_acceptedOrdersFragment_to_directOrderDetailsFragment"
-            app:destination="@id/direct_order_details"
+            app:destination="@id/nav_accepted_direct_orders_details"
             app:popUpToInclusive="true" />
 
     </fragment>
