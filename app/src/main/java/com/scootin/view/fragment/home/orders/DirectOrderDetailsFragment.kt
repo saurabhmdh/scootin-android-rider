@@ -32,6 +32,7 @@ class DirectOrderDetailsFragment:Fragment(R.layout.fragment_direct_orders_detail
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
+        binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
 
        // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 

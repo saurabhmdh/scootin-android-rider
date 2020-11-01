@@ -36,6 +36,7 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_det
         binding = FragmentPendingOrderDetailsBinding.bind(view)
         binding.lifecycleOwner = this
         binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+        binding.pendingIcon.setImageResource(R.drawable.ic_completed_icon)
         setAdaper()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
         viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {

@@ -16,7 +16,6 @@ import javax.inject.Inject
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
-import com.scootin.util.constants.IntentConstants
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -34,6 +33,7 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrderDetailsBinding.bind(view)
+        binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
         binding.lifecycleOwner = this
 
         setAdaper()

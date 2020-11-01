@@ -32,6 +32,7 @@ class AcceptedDirectOrdersFragment: Fragment(R.layout.fragment_direct_orders_det
         binding = FragmentDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
         binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+        binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
         viewModel.getDirectOrder(args.orderId).observe(viewLifecycleOwner) {

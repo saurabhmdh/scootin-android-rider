@@ -10,8 +10,6 @@ import com.scootin.R
 import com.scootin.databinding.FragmentPendingOrderDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
-import com.scootin.network.response.PendingOrderItemList
-import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
@@ -35,6 +33,7 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detail
         binding = FragmentPendingOrderDetailsBinding.bind(view)
         binding.lifecycleOwner = this
         binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+        binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         setAdaper()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
         viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {
