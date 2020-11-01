@@ -11,6 +11,7 @@ import com.scootin.databinding.FragmentPendingOrdersBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.response.UnAssignedOrderResponse
+import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrdersAdapter
 import com.scootin.viewmodel.order.OrdersViewModel

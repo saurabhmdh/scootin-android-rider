@@ -54,15 +54,25 @@
     <fragment
         android:id="@+id/nav_completed_orders_details"
         android:name="com.scootin.view.fragment.home.orders.CompletedOrderDetailsFragment"
-        android:label="Completed Orders"/>
+        android:label="Completed Orders">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_completed_orders"
         android:name="com.scootin.view.fragment.home.orders.CompletedOrdersFragment"
         android:label="Completed Orders">
+
         <action
-            android:id="@+id/action_completedOrdersFragment_to_completedOrderDetailsFragment"
+            android:id="@+id/action_completedOrdersFragment_to_pendingOrderDetailsFragment"
             app:destination="@id/nav_completed_orders_details"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_completedOrdersFragment_to_directOrderDetailsFragment"
+            app:destination="@id/direct_order_details"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -79,7 +89,11 @@
     <fragment
         android:id="@+id/nav_accept_orders_details"
         android:name="com.scootin.view.fragment.home.orders.AcceptOrderDetailsFragment"
-        android:label="Accept Orders"/>
+        android:label="Accept Orders">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_accept_orders"
@@ -88,7 +102,7 @@
 
         <action
             android:id="@+id/action_acceptedOrdersFragment_to_pendingOrderDetailsFragment"
-            app:destination="@id/normal_order_details"
+            app:destination="@id/nav_accept_orders_details"
             app:popUpToInclusive="true" />
 
         <action

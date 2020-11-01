@@ -12,6 +12,7 @@ import com.scootin.databinding.FragmentPendingOrdersBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.response.OrderListResponse
 import com.scootin.network.response.PendingOrdersList
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.CompletedOrdersAdapter
@@ -41,8 +42,12 @@ class CompletedOrdersFragment:Fragment(R.layout.fragment_completed_orders) {
             CompletedOrdersAdapter(
                 appExecutors,
                 object : CompletedOrdersAdapter.ItemAdapterClickLister {
-                    override fun onItemSelected(view: View) {
-                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToCompletedOrderDetailsFragment())
+                    override fun onItemSelected(view: OrderListResponse) {
+
+                    findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToPendingOrderDetailsFragment(view.id))
+                }
+                    override fun onHandwrittenListOrderSelected(view: OrderListResponse) {
+                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToDirectOrderDetailsFragment(view.id))
                     }
 
                 })

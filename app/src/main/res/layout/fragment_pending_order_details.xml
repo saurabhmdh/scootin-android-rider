@@ -244,6 +244,16 @@
 <!--            android:layout_marginRight="16dp"-->
 <!--            android:padding="4dp"-->
 <!--            android:layout_marginTop="2dp"/>-->
+        <androidx.appcompat.widget.AppCompatImageView
+
+            android:id="@+id/btn_accept_order"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/ic_accepted_button"
+            android:layout_below="@id/subtotal"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"/>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
 </layout>

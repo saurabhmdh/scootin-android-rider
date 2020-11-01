@@ -40,7 +40,7 @@
                 android:id="@+id/order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setToIntText="@{data.id}"
+                android:text="abc"
                 android:textSize="18sp"
                 android:layout_toRightOf="@id/txt_order_id"
                 android:layout_marginTop="16dp"
@@ -57,7 +57,7 @@
                 android:id="@+id/orderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                setToIntText="@{data.orderDate.epochSecond}"
+                android:text="abc"
                 android:layout_below="@id/txt_order_id"
                 android:layout_toRightOf="@id/txt_orderdate"/>
             <androidx.appcompat.widget.AppCompatImageView

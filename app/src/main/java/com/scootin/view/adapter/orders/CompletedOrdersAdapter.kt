@@ -51,10 +51,17 @@ class CompletedOrdersAdapter (
             binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
-            itemAdapterClickListener.onItemSelected(it)
+            if(item.directOrder){
+                itemAdapterClickListener.onHandwrittenListOrderSelected(item)
+            }
+            else{
+                itemAdapterClickListener.onItemSelected(item)
+            }
+
         }
     }
     interface ItemAdapterClickLister {
-        fun onItemSelected(view: View)
+        fun onItemSelected(view: OrderListResponse)
+        fun onHandwrittenListOrderSelected(view: OrderListResponse)
     }
 }

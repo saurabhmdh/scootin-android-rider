@@ -1,6 +1,7 @@
 package com.scootin.viewmodel.order
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.scootin.repository.OrderRepository
 import com.scootin.viewmodel.base.ObservableViewModel
@@ -10,6 +11,10 @@ class OrdersViewModel  @ViewModelInject
 internal constructor(
     private val orderRepository: OrderRepository
 ) : ObservableViewModel() {
+
+    fun getCategory() = liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+        emit(listOf("pending", "accepted", "completed"))
+    }
 
     fun getAllUnAssigned() = orderRepository.getAllUnAssigned(viewModelScope.coroutineContext + Dispatchers.IO)
 

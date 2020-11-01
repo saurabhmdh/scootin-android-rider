@@ -16,6 +16,7 @@ import javax.inject.Inject
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
+import com.scootin.util.constants.IntentConstants
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -34,6 +35,7 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrderDetailsBinding.bind(view)
         binding.lifecycleOwner = this
+
         setAdaper()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
         viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {
@@ -42,6 +44,7 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
                     Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
+
                 }
                 Status.ERROR -> {
 

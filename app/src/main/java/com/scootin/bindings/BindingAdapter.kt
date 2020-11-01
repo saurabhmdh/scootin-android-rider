@@ -31,10 +31,6 @@ fun ImageView.setImage(url: String?) {
 fun TextView.setToIntText(value: Long) {
     text = value.toString()
 }
-@BindingAdapter("setToInt")
-fun TextView.setToInt(value: Int) {
-    text = value.toString()
-}
 @BindingAdapter("setPrice")
 fun TextView.setPrice(value: Double) {
     val format: Format = NumberFormat.getCurrencyInstance(Locale("en", "in"))
