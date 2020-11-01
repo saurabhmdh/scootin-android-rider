@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/nav_completed_orders_details"
         android:name="com.scootin.view.fragment.home.orders.CompletedOrderDetailsFragment"
-        android:label="Completed Orders">
+        android:label="Order Details">
         <argument
             android:name="order_id"
             app:argType="long" />
