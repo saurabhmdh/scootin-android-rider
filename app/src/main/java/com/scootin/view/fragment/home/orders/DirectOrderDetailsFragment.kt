@@ -8,15 +8,15 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
 import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
-import com.scootin.databinding.FragmentPendingOrderDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.util.fragment.autoCleared
-import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DirectOrderDetailsFragment:Fragment(R.layout.fragment_direct_orders_details) {
     private var binding by autoCleared<FragmentDirectOrdersDetailsBinding>()
 
