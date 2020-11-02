@@ -46,4 +46,5 @@ interface APIService {
 
     @GET("register/rider/get-info/{riderId}")
     suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
+
 }
