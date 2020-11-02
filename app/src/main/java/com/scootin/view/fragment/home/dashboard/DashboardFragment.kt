@@ -40,6 +40,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
             findNavController().navigate(DashboardFragmentDirections.actionHomeFragmentToAcceptOrdersFragment())
         }
 
+
+
         updateFirebaseInformation()
     }
 
