@@ -20,7 +20,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.MainActivity" >
+            <nav-graph android:value="@navigation/navigation_home" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="rider.scootin.com" android:scheme="https" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"

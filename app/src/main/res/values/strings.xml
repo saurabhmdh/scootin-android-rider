@@ -2,4 +2,7 @@
     <string name="app_name">Rider</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="new_order_message">New Order Received</string>
 </resources>

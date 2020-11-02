@@ -92,6 +92,8 @@
         <argument
             android:name="order_id"
             app:argType="long" />
+        <!--        adb shell am start -a android.intent.action.VIEW -d "https://rider.scootin.com/order-detail/18613"-->
+        <deepLink app:uri="rider.scootin.com/order-detail/{order_id}" />
     </fragment>
 
     <fragment
@@ -164,6 +166,8 @@
         <argument
             android:name="order_id"
             app:argType="long" />
+        <!--        adb shell am start -a android.intent.action.VIEW -d "https://rider.scootin.com/order-detail-direct/18613"-->
+        <deepLink app:uri="rider.scootin.com/order-detail-direct/{order_id}" />
     </fragment>
 
 </navigation>
