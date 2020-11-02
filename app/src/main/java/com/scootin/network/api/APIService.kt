@@ -44,6 +44,6 @@ interface APIService {
     suspend fun getDirectOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<DirectOrderResponse>
 
 
-    @GET("register/rider/get-info/{id}")
+    @GET("register/rider/get-info/{riderId}")
     suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
 }
