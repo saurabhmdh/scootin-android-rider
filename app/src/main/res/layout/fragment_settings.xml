@@ -25,7 +25,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="88dp"
             android:scaleType="centerCrop"
-            app:setImage="@{data.profilePictureReference.url}"/>
+            app:setCircleImage="@{data.profilePictureReference.url}"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -8,4 +8,6 @@ object AppConstants {
 
     const val AUTHORIZATION = "Authorization"
     const val FCM_ID = "fcm-id"
+
+    const val RIDER_INFO = "rider-info"
 }

@@ -52,3 +52,11 @@ fun getDefaultImage() = RequestOptions().apply {
     placeholder(R.drawable.ic_placeholder)
     error(R.drawable.ic_placeholder)
 }
+
+@BindingAdapter("setCircleImage")
+fun ImageView.setCircleImage(url: String?) {
+    GlideApp.with(this.context).setDefaultRequestOptions(getDefaultImage())
+        .load(url)
+        .circleCrop()
+        .into(this)
+}
