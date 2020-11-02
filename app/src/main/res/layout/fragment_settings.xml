@@ -67,11 +67,12 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/online_btn"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
         android:layout_marginTop="400dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_online_button"
+        android:background="@drawable/online_status_selector"
         android:orientation="vertical"/>
 </RelativeLayout>
 </layout>

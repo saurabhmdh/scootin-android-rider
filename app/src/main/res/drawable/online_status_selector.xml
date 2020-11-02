@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/ic_online_button"
+        android:drawable="@drawable/onlinerider"
         android:state_selected="false"/>
     <item
-        android:drawable="@drawable/ic_offline_button"
+        android:drawable="@drawable/offlinerider"
         android:state_selected="true"/>
 </selector>

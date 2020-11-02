@@ -32,6 +32,9 @@ class SettingsFragment:Fragment(R.layout.fragment_settings) {
         binding = FragmentSettingsBinding.bind(view)
         binding.lifecycleOwner = this
         setupListeners()
+        binding.onlineBtn.setOnClickListener {
+            binding.onlineBtn.setSelected(!binding.onlineBtn.isSelected)
+        }
     }
 
     private fun setupListeners() {
