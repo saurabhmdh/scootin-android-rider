@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+ <data>
+
+  <variable
+      name="data"
+      type="com.scootin.network.response.RiderInfo"/>
+
+ </data>
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="225dp"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/colorPrimaryDark">
 
  <de.hdodenhof.circleimageview.CircleImageView
      android:id="@+id/imgpendingorders"
@@ -13,11 +21,11 @@
      android:layout_gravity="center_horizontal"
      android:layout_marginTop="78dp"
      android:scaleType="centerCrop"
-     android:src="@drawable/ic_launcher_background" />
+     app:setImage="@{data.profilePictureReference.url}" />
  <androidx.appcompat.widget.AppCompatTextView
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:text="Test Delivery Boy"
+     android:text="@{data.first_name}"
      android:layout_gravity="center_horizontal"
      android:textColor="#fff"
   android:textSize="14sp"
@@ -25,7 +33,7 @@
  <androidx.appcompat.widget.AppCompatTextView
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:text="test@test.com"
+     android:text="@{data.email}"
      android:textColor="#fff"
      android:layout_gravity="center_horizontal"
      android:textSize="14sp"
@@ -33,3 +41,4 @@
 
 
 </LinearLayout>
+</layout>
