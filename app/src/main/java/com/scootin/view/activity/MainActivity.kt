@@ -3,10 +3,14 @@ package com.scootin.view.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,6 +19,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.scootin.R
 import com.scootin.databinding.ActivityMainBinding
+import com.scootin.network.manager.AppHeaders
+import com.scootin.viewmodel.home.HomeViewModel
+import androidx.lifecycle.observe
+import com.scootin.bindings.setCircleImage
+import com.scootin.network.api.Status
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -26,6 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private val topLevelDestinations = setOf(R.id.nav_dashboard)
 
+    private val viewModel: HomeViewModel by viewModels()
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -48,6 +58,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.navView.setNavigationItemSelectedListener(this)
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+        setupListener()
+    }
+
+    private fun setupListener() {
+        viewModel.getRiderInfo(AppHeaders.userID).observe(this) {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let {riderInfo->
+                        // binding.navView.removeHeaderView(it)
+                        val imageV = binding.navView.findViewById<ImageView>(R.id.imgpendingorders)
+                        imageV.setCircleImage(riderInfo.profilePictureReference.url)
+
+                        val nameView = binding.navView.findViewById<TextView>(R.id.name)
+                        nameView.setText(riderInfo.first_name)
+
+                        val email = binding.navView.findViewById<TextView>(R.id.email)
+                        email.setText(riderInfo.email)
+                    }
+                }
+                Status.ERROR -> {}
+                Status.LOADING -> {}
+            }
+
+        }
     }
 
     private fun setUpToolbar() {

@@ -223,11 +223,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/completed_orders_tab">
-
-
-
-
-
     </androidx.appcompat.widget.AppCompatImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

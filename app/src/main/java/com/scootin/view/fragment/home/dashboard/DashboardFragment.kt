@@ -40,7 +40,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
             findNavController().navigate(DashboardFragmentDirections.actionHomeFragmentToAcceptOrdersFragment())
         }
 
-
+        binding.onlineBtn.setOnClickListener {
+            binding.onlineBtn.setSelected(!binding.onlineBtn.isSelected)
+        }
 
         updateFirebaseInformation()
     }

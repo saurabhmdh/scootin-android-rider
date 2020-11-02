@@ -40,7 +40,7 @@ class SettingsFragment:Fragment(R.layout.fragment_settings) {
         userViewModel.getRiderInfo(AppHeaders.userID).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    binding.data= it.data
+                    binding.data = it.data
                 }
                 Status.ERROR -> {
 
