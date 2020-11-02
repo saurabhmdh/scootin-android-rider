@@ -2,6 +2,7 @@ package com.scootin.view.fragment.home.orders
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.scootin.R
@@ -16,6 +17,8 @@ import javax.inject.Inject
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
+import com.scootin.network.manager.AppHeaders
+import com.scootin.viewmodel.home.LoginViewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -27,6 +30,7 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
     @Inject
     lateinit var appExecutors: AppExecutors
     private var pendingOrdersAdapter by autoCleared<PendingOrderDetailsItemAdapter>()
+    private val viewModel2: LoginViewModel by viewModels()
     private val args: PendingOrderDetailsFragmentArgs by navArgs()
 
 
@@ -54,7 +58,27 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
                 }
             }
         }
-
+        viewModel2.loginComplete.observe(viewLifecycleOwner) {networkResponse ->
+            when (networkResponse?.status) {
+                Status.LOADING -> {
+                    //TODO: Showing loading..
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), "User name or password is wrong", Toast.LENGTH_LONG).show()
+                }
+                Status.SUCCESS -> {
+                    networkResponse.data?.let {
+                        viewModel2.saveUserInfo(it)
+                        AppHeaders.updateUserData(it)
+                    }
+                }
+            }
+        }
+        binding.btnAcceptOrder.setOnClickListener {
+            //viewModel2.doLogin(binding.txtOrderId.text.toString(), binding.txtItemList.text.toString())
+            binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+            Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
+        }
 
 
 

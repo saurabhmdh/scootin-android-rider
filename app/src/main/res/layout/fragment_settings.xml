@@ -18,14 +18,14 @@
         android:orientation="vertical"
         android:background="@color/colorPrimaryDark">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgpendingorders"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="88dp"
             android:scaleType="centerCrop"
-            app:setImage="@{data.profilePictureReference.url}" />
+            app:setImage="@{data.profilePictureReference.url}"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
