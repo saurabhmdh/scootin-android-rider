@@ -3,7 +3,8 @@ package com.scootin.network.response
 data class DirectOrderResponse(
     val addressDetails: AddressDetails,
     val expressDelivery: Boolean,
-    val id: Int,
+    val id: Long,
+    val deliveryDetails: DeliveryDetail?,
     val media: Media,
     val orderDate: OrderDate,
     val order_status: String,

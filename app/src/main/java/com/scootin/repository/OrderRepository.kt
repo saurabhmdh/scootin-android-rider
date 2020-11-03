@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.scootin.network.api.APIService
 import com.scootin.network.api.NetworkBoundResource
 import com.scootin.network.api.Resource
+import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.DirectOrderResponse
 import com.scootin.network.response.NormalOrderResponse
 import com.scootin.network.response.OrderListResponse
@@ -46,5 +47,11 @@ class OrderRepository @Inject constructor(
     fun getDirectOrder(id: Long, context: CoroutineContext):
             LiveData<Resource<DirectOrderResponse>> = object : NetworkBoundResource<DirectOrderResponse>(context) {
         override suspend fun createCall() = services.getDirectOrderDetail(id)
+    }.asLiveData()
+
+
+    fun acceptOrder(riderId: String, orderId: String, requestOrderAcceptedByRider: RequestOrderAcceptedByRider, context: CoroutineContext):
+            LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {
+        override suspend fun createCall() = services.acceptOrder(riderId, orderId, requestOrderAcceptedByRider)
     }.asLiveData()
 }

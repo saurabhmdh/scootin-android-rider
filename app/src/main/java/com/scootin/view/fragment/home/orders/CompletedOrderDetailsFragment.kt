@@ -35,7 +35,7 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_det
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrderDetailsBinding.bind(view)
         binding.lifecycleOwner = this
-        binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+        enableOrDisableVisibility(true)
         binding.pendingIcon.setImageResource(R.drawable.ic_completed_icon)
         setAdaper()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
@@ -55,15 +55,8 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_det
                 }
             }
         }
-
-
-
-
     }
 
-//    private fun setupListeners() {
-//
-//    }
 
 
     private fun setAdaper() {
@@ -73,5 +66,9 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_det
             adapter = pendingOrdersAdapter
         }
     }
-
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
+        }
+    }
 }

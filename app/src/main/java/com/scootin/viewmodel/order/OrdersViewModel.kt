@@ -3,6 +3,7 @@ package com.scootin.viewmodel.order
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.repository.OrderRepository
 import com.scootin.viewmodel.base.ObservableViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,4 +22,6 @@ internal constructor(
     fun getCompletedOrders(riderId: String) = orderRepository.getCompletedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun getAcceptedOrders(riderId: String) = orderRepository.getAcceptedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    fun acceptOrder(riderId: String, orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.acceptOrder(riderId, orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
 }
