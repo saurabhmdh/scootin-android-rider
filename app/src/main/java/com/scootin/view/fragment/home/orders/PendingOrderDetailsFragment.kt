@@ -18,11 +18,14 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.util.OrderType
+import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.home.LoginViewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
-class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_details) {
+class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_details) {
     private var binding by autoCleared<FragmentPendingOrderDetailsBinding>()
 
     private val viewModel: OrdersViewModel by viewModels()
@@ -64,9 +67,25 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
         }
 
         binding.acceptButton.setOnClickListener {
-            //viewModel2.doLogin(binding.txtOrderId.text.toString(), binding.txtItemList.text.toString())
-//            binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
-//            Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
+            showLoading()
+            viewModel.acceptOrder(AppHeaders.userID, orderId.toString(), RequestOrderAcceptedByRider(OrderType.NORMAL.name, true)).observe(viewLifecycleOwner) {
+                when(it.status) {
+                    Status.SUCCESS -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
+                        enableOrDisableVisibility(true)
+                    }
+                    Status.ERROR -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "This Order has been Accepted by other rider", Toast.LENGTH_LONG).show()
+                        enableOrDisableVisibility(true)
+                    }
+                    Status.LOADING -> {
+
+                    }
+                }
+
+            }
         }
     }
 

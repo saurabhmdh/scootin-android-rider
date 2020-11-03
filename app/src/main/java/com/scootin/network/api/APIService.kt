@@ -3,6 +3,7 @@ package com.scootin.network.api
 import com.scootin.network.RequestFCM
 import com.scootin.network.RequestHistory
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.*
 
 
@@ -47,4 +48,12 @@ interface APIService {
     @GET("register/rider/get-info/{riderId}")
     suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
 
+
+    @POST("/order/orders/accept-order-by-rider/{riderId}/{orderId}")
+    suspend fun acceptOrder(
+        @Path("riderId") riderId: String,
+        @Path("orderId") orderId: String,
+        @Body requestOrderAcceptedByRider: RequestOrderAcceptedByRider,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<String>
 }
