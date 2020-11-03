@@ -13,6 +13,8 @@ import com.scootin.databinding.FragmentPendingOrderDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.util.OrderType
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
 import com.scootin.view.fragment.home.BaseFragment
@@ -50,13 +52,31 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                     Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
-
                 }
                 Status.ERROR -> {
 
                 }
                 Status.LOADING -> {
 
+                }
+            }
+        }
+        binding.acceptButton.setOnClickListener {
+            showLoading()
+            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.NORMAL.name, true)).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
+                        binding.acceptButton.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> {
+
+                    }
                 }
             }
         }

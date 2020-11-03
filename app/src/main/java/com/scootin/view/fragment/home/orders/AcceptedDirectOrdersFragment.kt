@@ -2,6 +2,7 @@ package com.scootin.view.fragment.home.orders
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
@@ -10,6 +11,8 @@ import com.scootin.databinding.FragmentAcceptedDirectOrdersDetailsBinding
 import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
+import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.util.OrderType
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
@@ -58,6 +61,25 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
             }
         }
 
+        binding.acceptButton.setOnClickListener {
+            showLoading()
+            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.DIRECT.name, true)).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
+                        binding.acceptButton.visibility = View.GONE
+                    }
+                    Status.ERROR -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> {
+
+                    }
+                }
+            }
+        }
     }
 
 
