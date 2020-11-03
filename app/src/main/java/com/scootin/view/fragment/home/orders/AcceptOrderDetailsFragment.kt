@@ -25,31 +25,30 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detail
 
     private val viewModel: OrdersViewModel by viewModels()
 
-
-
-
-
     @Inject
     lateinit var appExecutors: AppExecutors
     private var pendingOrdersAdapter by autoCleared<PendingOrderDetailsItemAdapter>()
     private val args: PendingOrderDetailsFragmentArgs by navArgs()
 
+    private val orderId by lazy {
+        args.orderId
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrderDetailsBinding.bind(view)
         binding.lifecycleOwner = this
-        binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         setAdaper()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
-        viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {
+        viewModel.getNormalOrder(orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
-
+                    enableOrDisableVisibility(it.data?.orderDetails?.deliveryDetails != null)
                 }
                 Status.ERROR -> {
 
@@ -59,18 +58,13 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detail
                 }
             }
         }
-
-
-
-
-
-
     }
 
-//    private fun setupListeners() {
-//
-//    }
-
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
+        }
+    }
 
     private fun setAdaper() {
         pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors)

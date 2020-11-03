@@ -198,7 +198,7 @@
                 android:layout_marginTop="2dp"/>
             <androidx.appcompat.widget.AppCompatImageView
 
-                android:id="@+id/btn_accept_order"
+                android:id="@+id/accept_button"
                 android:layout_width="240dp"
                 android:layout_height="60dp"
                 app:srcCompat="@drawable/ic_accepted_button"

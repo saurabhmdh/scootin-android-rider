@@ -2,7 +2,7 @@ package com.scootin.network.response
 
 data class OrderDetails(
     val addressDetails: AddressDetails,
-    val deliveryDetails: Any, //TODO: correct with rider infomation..
+    val deliveryDetails: DeliveryDetail?,
     val expressDelivery: Boolean,
     val id: Long,
     val orderDate: OrderDate,

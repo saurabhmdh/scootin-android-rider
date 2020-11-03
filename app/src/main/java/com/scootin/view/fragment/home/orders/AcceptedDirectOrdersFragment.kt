@@ -31,7 +31,7 @@ class AcceptedDirectOrdersFragment: Fragment(R.layout.fragment_direct_orders_det
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
-        binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
@@ -40,7 +40,7 @@ class AcceptedDirectOrdersFragment: Fragment(R.layout.fragment_direct_orders_det
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
-
+                    enableOrDisableVisibility(it.data?.deliveryDetails != null)
                 }
                 Status.ERROR -> {
 
@@ -51,9 +51,12 @@ class AcceptedDirectOrdersFragment: Fragment(R.layout.fragment_direct_orders_det
             }
         }
 
+    }
 
-
-
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
+        }
     }
 
 }

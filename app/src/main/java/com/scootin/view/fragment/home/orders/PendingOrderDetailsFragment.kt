@@ -30,9 +30,12 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
     @Inject
     lateinit var appExecutors: AppExecutors
     private var pendingOrdersAdapter by autoCleared<PendingOrderDetailsItemAdapter>()
-    private val viewModel2: LoginViewModel by viewModels()
+
     private val args: PendingOrderDetailsFragmentArgs by navArgs()
 
+    private val orderId by lazy {
+        args.orderId
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,13 +45,14 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
 
         setAdaper()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
-        viewModel.getNormalOrder(args.orderId).observe(viewLifecycleOwner) {
+        viewModel.getNormalOrder(orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
-
+                    //Enable and disable accept button
+                    enableOrDisableVisibility(it.data?.orderDetails?.deliveryDetails != null)
                 }
                 Status.ERROR -> {
 
@@ -58,35 +62,14 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
                 }
             }
         }
-        viewModel2.loginComplete.observe(viewLifecycleOwner) {networkResponse ->
-            when (networkResponse?.status) {
-                Status.LOADING -> {
-                    //TODO: Showing loading..
-                }
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(), "User name or password is wrong", Toast.LENGTH_LONG).show()
-                }
-                Status.SUCCESS -> {
-                    networkResponse.data?.let {
-                        viewModel2.saveUserInfo(it)
-                        AppHeaders.updateUserData(it)
-                    }
-                }
-            }
-        }
-        binding.btnAcceptOrder.setOnClickListener {
+
+        binding.acceptButton.setOnClickListener {
             //viewModel2.doLogin(binding.txtOrderId.text.toString(), binding.txtItemList.text.toString())
-            binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
-            Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
+//            binding.btnAcceptOrder.setVisibility(View.INVISIBLE)
+//            Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
         }
-
-
-
     }
 
-//    private fun setupListeners() {
-//
-//    }
 
 
     private fun setAdaper() {
@@ -94,6 +77,12 @@ class PendingOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detai
 
         binding.recyclerView.apply {
             adapter = pendingOrdersAdapter
+        }
+    }
+
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
         }
     }
 
