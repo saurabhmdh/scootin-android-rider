@@ -15,6 +15,7 @@ import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
@@ -74,6 +75,7 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
                         dismissLoading()
                         Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
                         enableOrDisableVisibility(true)
+                        findNavController().popBackStack()
                     }
                     Status.ERROR -> {
                         dismissLoading()

@@ -5,7 +5,7 @@ data class OrderListResponse(
     val directOrder: Boolean,
     val expressDelivery: Boolean,
     val id: Long,
-    val orderDate: Long,
+    val orderDate: String,
     val orderStatus: String,
     val rejectReason: String,
     val totalAmount: Double,

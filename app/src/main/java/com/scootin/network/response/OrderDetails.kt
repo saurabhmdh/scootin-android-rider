@@ -5,7 +5,7 @@ data class OrderDetails(
     val deliveryDetails: DeliveryDetail?,
     val expressDelivery: Boolean,
     val id: Long,
-    val orderDate: Long,
+    val orderDate: String,
     val orderStatus: String,
     val paymentDetails: PaymentDetails,
     val rejectReason: String,
