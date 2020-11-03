@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptedOrderDetailsBinding
@@ -69,6 +70,7 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                         dismissLoading()
                         Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
                         binding.acceptButton.visibility = View.GONE
+                        findNavController().popBackStack()
                     }
                     Status.ERROR -> {
                         dismissLoading()

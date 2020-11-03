@@ -63,10 +63,15 @@ fun ImageView.setCircleImage(url: String?) {
 }
 
 @BindingAdapter("setDateFromOrderDate")
-fun TextView.setDateFromOrderDate(orderDate: Long?) {
+fun TextView.setDateFromOrderDate(orderDate: String?) {
     orderDate?.let {
-        val data = Date(orderDate)
-        val simpleDateFormat = SimpleDateFormat("dd-MMM-yyyy")
-        text = simpleDateFormat.format(data)
+        val k = orderDate.toLongOrNull()
+        if (k != null) {
+            val data = Date(k)
+            val simpleDateFormat = SimpleDateFormat("dd-MMM-yyyy")
+            text = simpleDateFormat.format(data)
+        } else {
+            text = orderDate.substring(0, 12)
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
 import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
@@ -71,6 +72,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
                         dismissLoading()
                         Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
                         enableOrDisableVisibility(true)
+                        findNavController().popBackStack()
                     }
                     Status.ERROR -> {
                         dismissLoading()
