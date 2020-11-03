@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
-import com.scootin.databinding.FragmentCompletedOrderDetailsBinding
+//import com.scootin.databinding.FragmentCompletedOrderDetailsBinding
 import com.scootin.databinding.FragmentCompletedOrdersBinding
 import com.scootin.databinding.FragmentPendingOrderDetailsBinding
 import com.scootin.network.AppExecutors
