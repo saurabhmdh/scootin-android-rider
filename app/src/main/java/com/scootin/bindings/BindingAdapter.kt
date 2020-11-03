@@ -13,6 +13,7 @@ import java.lang.StringBuilder
 import java.math.BigDecimal
 import java.text.Format
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter("visibleGone")
@@ -59,4 +60,13 @@ fun ImageView.setCircleImage(url: String?) {
         .load(url)
         .circleCrop()
         .into(this)
+}
+
+@BindingAdapter("setDateFromOrderDate")
+fun TextView.setDateFromOrderDate(orderDate: Long?) {
+    orderDate?.let {
+        val data = Date(orderDate)
+        val simpleDateFormat = SimpleDateFormat("dd-MMM-yyyy")
+        text = simpleDateFormat.format(data)
+    }
 }

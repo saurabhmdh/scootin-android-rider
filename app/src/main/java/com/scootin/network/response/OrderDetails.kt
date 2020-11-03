@@ -5,7 +5,7 @@ data class OrderDetails(
     val deliveryDetails: DeliveryDetail?,
     val expressDelivery: Boolean,
     val id: Long,
-    val orderDate: OrderDate,
+    val orderDate: Long,
     val orderStatus: String,
     val paymentDetails: PaymentDetails,
     val rejectReason: String,
@@ -13,11 +13,6 @@ data class OrderDetails(
     val userInfo: UserInfo,
     val totalAmount: Double
 ) {
-    data class OrderDate(
-        val epochSecond: Int,
-        val nano: Int
-    )
-
     data class PaymentDetails(
         val amount: Double,
         val deliveryFreeAmount: Double,
