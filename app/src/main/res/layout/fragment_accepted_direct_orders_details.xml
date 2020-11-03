@@ -72,7 +72,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2019-06-24"
+                    app:setDateFromOrderDate="@{data.orderDetails.orderDate}"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"/>

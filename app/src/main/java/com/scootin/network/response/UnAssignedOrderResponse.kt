@@ -6,16 +6,9 @@ data class UnAssignedOrderResponse(
         val directOrder: Boolean,
         val expressDelivery: Boolean,
         val id: Long,
-        val orderDate: OrderDate,
+        val orderDate: Long,
         val orderStatus: String,
         val rejectReason: String?,
         val totalAmount: Double,
         val userInfo: UserInfo
-) {
-    data class OrderDate(
-        val epochSecond: Int,
-        val nano: Int
-    )
-    
-
-}
+)
