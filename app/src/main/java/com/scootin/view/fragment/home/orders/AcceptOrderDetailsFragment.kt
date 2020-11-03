@@ -8,20 +8,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
+import com.scootin.databinding.FragmentAcceptedOrderDetailsBinding
 import com.scootin.databinding.FragmentPendingOrderDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
+import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.home.LoginViewModel
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 @AndroidEntryPoint
-class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_details) {
-    private var binding by autoCleared<FragmentPendingOrderDetailsBinding>()
+class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_details) {
+    private var binding by autoCleared<FragmentAcceptedOrderDetailsBinding>()
 
     private val viewModel: OrdersViewModel by viewModels()
 
@@ -36,7 +38,7 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detail
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPendingOrderDetailsBinding.bind(view)
+        binding = FragmentAcceptedOrderDetailsBinding.bind(view)
         binding.lifecycleOwner = this
 
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
@@ -48,7 +50,7 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detail
                     Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
-                    enableOrDisableVisibility(it.data?.orderDetails?.deliveryDetails != null)
+
                 }
                 Status.ERROR -> {
 
@@ -60,11 +62,6 @@ class AcceptOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_detail
         }
     }
 
-    private fun enableOrDisableVisibility(completed: Boolean) {
-        if (completed) {
-            binding.acceptButton.visibility = View.GONE
-        }
-    }
 
     private fun setAdaper() {
         pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors)

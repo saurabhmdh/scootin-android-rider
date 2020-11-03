@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
+import com.scootin.databinding.FragmentAcceptedDirectOrdersDetailsBinding
 import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
@@ -18,8 +19,8 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_direct_orders_details) {
-    private var binding by autoCleared<FragmentDirectOrdersDetailsBinding>()
+class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_direct_orders_details) {
+    private var binding by autoCleared<FragmentAcceptedDirectOrdersDetailsBinding>()
 
     private val viewModel: OrdersViewModel by viewModels()
 
@@ -34,9 +35,9 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_direct_order
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentDirectOrdersDetailsBinding.bind(view)
+        binding = FragmentAcceptedDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
-        enableOrDisableVisibility(true)
+
 
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
@@ -46,7 +47,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_direct_order
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
-                    enableOrDisableVisibility(it.data?.deliveryDetails != null)
+
                 }
                 Status.ERROR -> {
 
@@ -59,10 +60,5 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_direct_order
 
     }
 
-    private fun enableOrDisableVisibility(completed: Boolean) {
-        if (completed) {
-            binding.acceptButton.visibility = View.GONE
-        }
-    }
 
 }
