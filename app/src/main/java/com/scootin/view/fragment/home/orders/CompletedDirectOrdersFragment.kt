@@ -31,6 +31,7 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
+        enableOrDisableVisibility(true)
 
         binding.pendingIcon.setImageResource(R.drawable.ic_completed_icon)
          Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
@@ -50,10 +51,11 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                 }
             }
         }
-
-
-
-
     }
 
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
+        }
+    }
 }
