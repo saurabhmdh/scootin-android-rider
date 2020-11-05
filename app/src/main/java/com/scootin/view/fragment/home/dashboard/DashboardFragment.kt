@@ -69,6 +69,14 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 }
             }
         }
+
+        viewModel.countReceivedOrders(AppHeaders.userID).observe(viewLifecycleOwner) {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    binding.ordersReceived.text = it.data.toString()
+                }
+            }
+        }
     }
 
 

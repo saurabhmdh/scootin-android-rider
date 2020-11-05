@@ -64,4 +64,9 @@ class OrderRepository @Inject constructor(
             LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {
         override suspend fun createCall() = services.countDeliverOrders(orderId)
     }.asLiveData()
+
+    fun countReceivedOrders(orderId: String, context: CoroutineContext):
+            LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {
+        override suspend fun createCall() = services.countReceivedOrders(orderId)
+    }.asLiveData()
 }

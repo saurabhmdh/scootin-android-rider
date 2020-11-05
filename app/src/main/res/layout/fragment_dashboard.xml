@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_order_delivered" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/earnings_received"
+        android:id="@+id/orders_received"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -80,7 +80,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/earnings_received" />
+        app:layout_constraintTop_toBottomOf="@+id/orders_received" />
 
     <RelativeLayout
         android:id="@+id/pending_orders_tab"

@@ -76,5 +76,11 @@ interface APIService {
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<String>
 
+    @POST("/order-history/rider/count/accepted/{riderId}")
+    suspend fun countReceivedOrders(
+        @Path("riderId") riderId: String,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<String>
+
 
 }

@@ -54,6 +54,8 @@ internal constructor(
 
     fun countDeliverOrders(riderId: String) = orderRepository.countDeliverOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
+    fun countReceivedOrders(riderId: String) = orderRepository.countReceivedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
+
     override val coroutineContext: CoroutineContext
         get() = viewModelScope.coroutineContext + Dispatchers.IO
 
