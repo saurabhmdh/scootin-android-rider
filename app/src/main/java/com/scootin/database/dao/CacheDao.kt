@@ -13,7 +13,7 @@ interface CacheDao {
     fun insert(cache: Cache)
 
     @Query("SELECT * FROM cache WHERE `index` = :keyIndex")
-    fun getData(keyIndex: String): LiveData<Cache>
+    fun getData(keyIndex: String): LiveData<Cache?>
 
     @Query("DELETE FROM cache WHERE `index` = :keyIndex")
     fun delete(keyIndex: String)
