@@ -7,6 +7,7 @@ import com.scootin.database.dao.CacheDao
 import com.scootin.database.table.Cache
 import com.scootin.network.RequestFCM
 import com.scootin.network.api.*
+import com.scootin.network.request.RequestActive
 import com.scootin.network.response.DirectOrderResponse
 import com.scootin.network.response.ResponseUser
 import com.scootin.network.response.RiderInfo
@@ -66,4 +67,6 @@ class UserRepository @Inject constructor(
         val listType = object : TypeToken<RiderInfo>() {}.type
         return  Gson().fromJson<RiderInfo>(data, listType)
     }
+
+    suspend fun updateStatus(riderId: String, requestActive: RequestActive) = services.updateStatus(riderId, requestActive)
 }

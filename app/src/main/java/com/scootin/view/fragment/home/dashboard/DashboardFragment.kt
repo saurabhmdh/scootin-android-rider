@@ -44,7 +44,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
 
         binding.onlineBtn.setOnClickListener {
-            viewModel.updateStatus(!binding.onlineBtn.isSelected)
+            Timber.i("Status = ${binding.onlineBtn.isSelected}")
+            viewModel.updateStatus(AppHeaders.userID, binding.onlineBtn.isSelected)
         }
 
         updateFirebaseInformation()
@@ -54,23 +55,17 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     private fun updateListeners() {
         viewModel.onlineStatus().observe(viewLifecycleOwner) {cache->
             if (cache == null) {
-                binding.onlineBtn.setSelected(false)
+                binding.onlineBtn.isSelected = false
             } else {
-                when(cache.value) {
-                    "true" -> {
-                        binding.onlineBtn.setSelected(true)
-                    }
-                    "false" -> {
-                        binding.onlineBtn.setSelected(false)
-                    }
-                }
+                Timber.i("Cache Status = ${cache.value.toBoolean()}")
+                binding.onlineBtn.isSelected = cache.value.toBoolean().not()
             }
         }
 
         viewModel.countDeliverOrders(AppHeaders.userID).observe(viewLifecycleOwner) {
             when(it.status) {
                 Status.SUCCESS -> {
-                    binding.orderDelivered.text = it.data
+                    binding.orderDelivered.text = it.data.toString()
                 }
             }
         }
