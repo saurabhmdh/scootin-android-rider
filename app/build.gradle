@@ -23,7 +23,14 @@ android {
         testInstrumentationRunner "com.rakuten.travel.consumer.util.TestRunner"
         buildConfigField "int", "DB_VERSION", project.DATABASE_VERSION
     }
-
+    signingConfigs {
+        config {
+            keyAlias 'saurabh'
+            keyPassword '100rabh*'
+            storeFile file('extra/keys')
+            storePassword '100rabh*'
+        }
+    }
     buildTypes {
         debug {
             debuggable true
@@ -32,6 +39,7 @@ android {
 
         release {
             minifyEnabled false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

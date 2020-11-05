@@ -1,5 +1,6 @@
 package com.scootin.view.fragment.home.dashboard
 
+
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,16 +11,18 @@ import com.scootin.R
 import com.scootin.databinding.FragmentDashboardBinding
 import com.scootin.network.AppExecutors
 import com.scootin.util.fragment.autoCleared
-import com.scootin.view.adapter.orders.PendingOrdersAdapter
 import com.scootin.viewmodel.home.DashBoardFragmentViewModel
-import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import androidx.lifecycle.observe
+import com.scootin.network.api.Status
+import com.scootin.network.manager.AppHeaders
+
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DashboardFragment : Fragment(R.layout.fragment_dashboard){
+class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     private var binding by autoCleared<FragmentDashboardBinding>()
     private val viewModel: DashBoardFragmentViewModel by viewModels()
 
@@ -41,11 +44,38 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         }
 
         binding.onlineBtn.setOnClickListener {
-            binding.onlineBtn.setSelected(!binding.onlineBtn.isSelected)
+            viewModel.updateStatus(!binding.onlineBtn.isSelected)
         }
 
         updateFirebaseInformation()
+        updateListeners()
     }
+
+    private fun updateListeners() {
+        viewModel.onlineStatus().observe(viewLifecycleOwner) {cache->
+            if (cache == null) {
+                binding.onlineBtn.setSelected(false)
+            } else {
+                when(cache.value) {
+                    "true" -> {
+                        binding.onlineBtn.setSelected(true)
+                    }
+                    "false" -> {
+                        binding.onlineBtn.setSelected(false)
+                    }
+                }
+            }
+        }
+
+        viewModel.countDeliverOrders(AppHeaders.userID).observe(viewLifecycleOwner) {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    binding.orderDelivered.text = it.data
+                }
+            }
+        }
+    }
+
 
     private fun updateFirebaseInformation() {
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {

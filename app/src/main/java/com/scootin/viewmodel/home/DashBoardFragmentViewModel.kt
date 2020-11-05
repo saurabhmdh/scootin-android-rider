@@ -10,6 +10,7 @@ import com.scootin.network.RequestFCM
 import com.scootin.network.api.CacheNetworkBoundResource
 import com.scootin.network.api.Resource
 import com.scootin.network.manager.AppHeaders
+import com.scootin.repository.OrderRepository
 import com.scootin.repository.TempleRepo
 import com.scootin.repository.UserRepository
 import com.scootin.util.constants.AppConstants
@@ -26,7 +27,9 @@ import kotlin.coroutines.CoroutineContext
 class DashBoardFragmentViewModel @ViewModelInject
 internal constructor(
     private val userRepository: UserRepository,
-    private val cacheDao: CacheDao
+    private val cacheDao: CacheDao,
+    private val orderRepository: OrderRepository
+
 ) : ObservableViewModel(), CoroutineScope {
 
     fun updateFCMID(token: String?) {
@@ -43,6 +46,20 @@ internal constructor(
             }
         }
     }
+
+    private val ONLINE = "online"
+
+    fun onlineStatus() = cacheDao.getData(ONLINE)
+
+    fun updateStatus(status: Boolean) {
+        launch{
+            //TODO: we need send this information to server
+            val cache = Cache(ONLINE, status.toString())
+            cacheDao.insert(cache)
+        }
+    }
+
+    fun countDeliverOrders(riderId: String) = orderRepository.countDeliverOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
     override val coroutineContext: CoroutineContext
         get() = viewModelScope.coroutineContext + Dispatchers.IO

@@ -22,27 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_amt_due"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Amount Due :"
-        android:textColor="#000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_my_stats" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/amt_due"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="$0"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_amt_due"
-        app:layout_constraintStart_toEndOf="@+id/txt_amt_due"
-        app:layout_constraintTop_toTopOf="@+id/txt_amt_due" />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_order_delivered"
         android:layout_width="wrap_content"
@@ -52,14 +32,13 @@
         android:text="Total Orders Delivered :"
         android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_amt_due" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_my_stats" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/order_delivered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="20"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/txt_order_delivered"
         app:layout_constraintStart_toEndOf="@+id/txt_order_delivered"
@@ -70,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Total Earnings Received :"
+        android:text="Total Order Received :"
         android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_order_delivered" />
@@ -80,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="$0"
+        android:text="30"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/txt_earnings_received"
         app:layout_constraintStart_toEndOf="@+id/txt_earnings_received"

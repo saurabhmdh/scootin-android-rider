@@ -14,7 +14,7 @@ class StartupDataBaseWorker (
     params: WorkerParameters
 ): CoroutineWorker(context, params) {
     override suspend fun doWork(): Result = coroutineScope {
-        Timber.i("Running Successfully..")
+        Timber.i("Running  ..")
         Result.success()
     }
 
