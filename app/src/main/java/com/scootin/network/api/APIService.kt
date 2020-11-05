@@ -3,6 +3,7 @@ package com.scootin.network.api
 import com.scootin.network.RequestFCM
 import com.scootin.network.RequestHistory
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestActive
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.*
 
@@ -11,9 +12,6 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface APIService {
-
-    @GET("get-all")
-    suspend fun getAllTemples(): Response<List<TempleInfo>>
 
     @POST("auth/login/rider")
     suspend fun doLogin(@Body options: Map<String, String>, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
@@ -24,6 +22,12 @@ interface APIService {
     @POST("/notification/rider/{id}/update-fcm")
     suspend fun updateFCMID(@Path("id") userMobileNumber: String, @Body requestFCM: RequestFCM, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
 
+    @POST("/register/rider/active-for-order/{riderId}")
+    suspend fun updateStatus(
+        @Path("riderId") riderId: String,
+        @Body requestActive: RequestActive,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<ResponseUser>
 
     @POST("/order-history/riders/unassigned")
     suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>
@@ -71,4 +75,6 @@ interface APIService {
         @Path("riderId") riderId: String,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<String>
+
+
 }

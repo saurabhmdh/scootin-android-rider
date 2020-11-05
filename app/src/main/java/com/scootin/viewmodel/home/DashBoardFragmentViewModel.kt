@@ -1,27 +1,20 @@
 package com.scootin.viewmodel.home
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.scootin.database.dao.CacheDao
 import com.scootin.database.table.Cache
 import com.scootin.network.RequestFCM
-import com.scootin.network.api.CacheNetworkBoundResource
-import com.scootin.network.api.Resource
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestActive
 import com.scootin.repository.OrderRepository
-import com.scootin.repository.TempleRepo
 import com.scootin.repository.UserRepository
 import com.scootin.util.constants.AppConstants
 import com.scootin.viewmodel.base.ObservableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class DashBoardFragmentViewModel @ViewModelInject
@@ -51,11 +44,11 @@ internal constructor(
 
     fun onlineStatus() = cacheDao.getData(ONLINE)
 
-    fun updateStatus(status: Boolean) {
+    fun updateStatus(riderId: String, status: Boolean) {
         launch{
-            //TODO: we need send this information to server
             val cache = Cache(ONLINE, status.toString())
             cacheDao.insert(cache)
+            userRepository.updateStatus(riderId, RequestActive(status))
         }
     }
 
