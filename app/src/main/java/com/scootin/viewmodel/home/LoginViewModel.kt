@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import com.scootin.database.dao.CacheDao
 import com.scootin.database.table.Cache
 import com.scootin.extension.AbsentLiveData
+import com.scootin.extension.MakeLiveData
 import com.scootin.network.AppExecutors
 import com.scootin.network.response.ResponseUser
 import com.scootin.repository.UserRepository
@@ -46,6 +47,7 @@ class LoginViewModel @ViewModelInject internal constructor(
             }
         }
     }
+
 
     data class RequestLogin(val userName: String, val password: String)
 }

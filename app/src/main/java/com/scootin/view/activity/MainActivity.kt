@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
@@ -26,10 +27,11 @@ import com.scootin.databinding.ActivityMainBinding
 import com.scootin.network.manager.AppHeaders
 import com.scootin.viewmodel.home.HomeViewModel
 import androidx.lifecycle.observe
-import com.birjuvachhani.locus.Locus
+//import com.birjuvachhani.locus.Locus
 import com.scootin.bindings.setCircleImage
 import com.scootin.location.LocationService
 import com.scootin.network.api.Status
+import com.scootin.viewmodel.home.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -89,6 +91,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
         }
+        handleLogOut()
     }
 
     private fun setUpToolbar() {
@@ -104,12 +107,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.settings_menu -> {
                 navController.navigate(R.id.settings_menu)
+                binding.drawerLayout.closeDrawers()
             }
-            R.id.logout_menu-> {
-                //TODO: write code to logout..
-            }
+           R.id.logout_menu->{
+               viewModel.doLogout()
+               binding.drawerLayout.closeDrawers()
+           }
         }
-        binding.drawerLayout.closeDrawers()
+
         return true
     }
 
@@ -123,4 +128,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onSupportNavigateUp() = NavigationUI.navigateUp(navController, appBarConfiguration)
+
+    private fun handleLogOut() {
+        viewModel.logoutComplete.observe(this) {
+            gotoStart()
+        }
+    }
+    private fun gotoStart() {
+        startActivity(Intent(this, SplashActivity::class.java))
+        this.overridePendingTransition(R.anim.enter, R.anim.exit)
+        this.finish()
+    }
 }
