@@ -14,6 +14,8 @@ import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.util.Conversions
 import com.scootin.util.fragment.autoCleared
+import com.scootin.view.adapter.orders.ExtraDataAdapter
+import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -26,7 +28,7 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
 
     @Inject
     lateinit var appExecutors: AppExecutors
-
+    private var extraDataAdapter by autoCleared<ExtraDataAdapter>()
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
 
@@ -35,7 +37,7 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
         binding = FragmentDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
         enableOrDisableVisibility(true)
-
+        setAdaper()
         binding.pendingIcon.setImageResource(R.drawable.ic_completed_icon)
          Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
@@ -47,6 +49,7 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                     if (it.data?.extraData.isNullOrEmpty().not()) {
                         val extra = Conversions.convertExtraData(it.data?.extraData)
                         Timber.i("Extra $extra")
+                        extraDataAdapter.submitList(extra)
                     }
                 }
                 Status.ERROR -> {
@@ -62,6 +65,13 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
     private fun enableOrDisableVisibility(completed: Boolean) {
         if (completed) {
             binding.acceptButton.visibility = View.GONE
+        }
+    }
+    private fun setAdaper() {
+        extraDataAdapter = ExtraDataAdapter(appExecutors)
+
+        binding.recycler.apply {
+            adapter = extraDataAdapter
         }
     }
 }

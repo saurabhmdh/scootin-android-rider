@@ -92,11 +92,20 @@
                 android:textSize="16sp"
                 android:layout_below="@id/cardview"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/txt_item_list"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_item_list"
+                android:layout_below="@id/recycler"
                 app:setImage="@{data.media.url}"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"

@@ -13,8 +13,10 @@ import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.util.Conversions
 import com.scootin.util.OrderType
 import com.scootin.util.fragment.autoCleared
+import com.scootin.view.adapter.orders.ExtraDataAdapter
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +32,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
 
     @Inject
     lateinit var appExecutors: AppExecutors
-
+    private var extraDataAdapter by autoCleared<ExtraDataAdapter>()
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
     private val orderId by lazy {
@@ -41,7 +43,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAcceptedDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
-
+        setAdaper()
 
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
@@ -51,7 +53,11 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
-
+                    if (it.data?.extraData.isNullOrEmpty().not()) {
+                        val extra = Conversions.convertExtraData(it.data?.extraData)
+                        Timber.i("Extra $extra")
+                        extraDataAdapter.submitList(extra)
+                    }
                 }
                 Status.ERROR -> {
 
@@ -83,6 +89,12 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
             }
         }
     }
+    private fun setAdaper() {
+        extraDataAdapter = ExtraDataAdapter(appExecutors)
 
+        binding.recycler.apply {
+            adapter = extraDataAdapter
+        }
+    }
 
 }

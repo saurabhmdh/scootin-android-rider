@@ -14,8 +14,11 @@ import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.util.Conversions
 import com.scootin.util.OrderType
 import com.scootin.util.fragment.autoCleared
+import com.scootin.view.adapter.orders.ExtraDataAdapter
+import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +34,8 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
     @Inject
     lateinit var appExecutors: AppExecutors
 
+    private var extraDataAdapter by autoCleared<ExtraDataAdapter>()
+
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
     private val orderId by lazy {
@@ -42,6 +47,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
         binding = FragmentDirectOrdersDetailsBinding.bind(view)
         binding.lifecycleOwner = this
         binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
+        setAdaper()
 
        // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
@@ -51,9 +57,13 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
                     Timber.i("Samridhi direct ${it.data?.extraData} ")
                     if (it.data?.extraData.isNullOrEmpty().not()) {
                         Timber.i("we have data ${it.data?.extraData}")
+                        val extra = Conversions.convertExtraData(it.data?.extraData)
+                        Timber.i("Extra $extra")
+                        extraDataAdapter.submitList(extra)
 
                     }
                     binding.data = it.data
+
 
                 }
                 Status.ERROR -> {
@@ -92,6 +102,13 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
         }
 
 
+    }
+    private fun setAdaper() {
+        extraDataAdapter = ExtraDataAdapter(appExecutors)
+
+        binding.recycler.apply {
+            adapter = extraDataAdapter
+        }
     }
 
     private fun enableOrDisableVisibility(completed: Boolean) {
