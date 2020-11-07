@@ -10,4 +10,6 @@ object AppConstants {
     const val FCM_ID = "fcm-id"
 
     const val RIDER_INFO = "rider-info"
+
+    const val LOCATION_DEBOUNCE_TIME = 3000L
 }

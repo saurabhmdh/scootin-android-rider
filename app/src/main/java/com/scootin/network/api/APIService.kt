@@ -5,6 +5,7 @@ import com.scootin.network.RequestHistory
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestActive
 import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.network.request.RiderLocationDTO
 import com.scootin.network.response.*
 
 
@@ -26,6 +27,13 @@ interface APIService {
     suspend fun updateStatus(
         @Path("riderId") riderId: String,
         @Body requestActive: RequestActive,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<ResponseUser>
+
+    @POST("/register/rider/update-location/{riderId}")
+    suspend fun updateLocation(
+        @Path("riderId") riderId: String,
+        @Body requestActive: RiderLocationDTO,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<ResponseUser>
 

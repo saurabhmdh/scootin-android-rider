@@ -19,6 +19,7 @@ import com.scootin.location.LocationService
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RiderLocationDTO
 import com.scootin.util.fragment.autoCleared
 import com.scootin.viewmodel.home.DashBoardFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,6 +97,10 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 }
             }
         }
+
+        viewModel.searchResult.observe(viewLifecycleOwner) {
+            //Do nothing..
+        }
     }
 
 
@@ -112,8 +117,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
     private fun onLocationUpdate(location: Location) {
-        //addViewmodel to send this information to server.
         Timber.i("Latitude: ${location.latitude}\tLongitude: ${location.longitude}")
+        viewModel._locationData.postValue(RiderLocationDTO(location.latitude, location.longitude))
     }
 
     private fun onError(error: Throwable?) {
@@ -121,14 +126,14 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     }
 
 
-    fun startUpdates() {
+    private fun startUpdates() {
         Locus.startLocationUpdates(this) { result ->
             result.location?.let(::onLocationUpdate)
             result.error?.let(::onError)
         }
     }
 
-    fun stopUpdates() {
+    private fun stopUpdates() {
         Locus.stopLocationUpdates()
         context?.stopService(Intent(context, LocationService::class.java))
         val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
