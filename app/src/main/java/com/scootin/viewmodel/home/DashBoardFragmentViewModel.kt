@@ -1,10 +1,7 @@
 package com.scootin.viewmodel.home
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.scootin.database.dao.CacheDao
 import com.scootin.database.table.Cache
 import com.scootin.network.RequestFCM
@@ -17,6 +14,10 @@ import com.scootin.repository.UserRepository
 import com.scootin.util.constants.AppConstants
 import com.scootin.viewmodel.base.ObservableViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.mapLatest
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -34,7 +35,6 @@ internal constructor(
         launch {
             token?.let {
                 val cache = cacheDao.getCacheData(AppConstants.FCM_ID)
-
                 if ((cache == null || cache.value != it) && AppHeaders.userID.isEmpty().not()) {
                     Timber.i("Data which need to update to server user ${AppHeaders.userID} value $it")
                     userRepository.updateFCMId(AppHeaders.userID, RequestFCM(it))
@@ -62,18 +62,14 @@ internal constructor(
 
 
     val _locationData = MutableLiveData<RiderLocationDTO>()
-    private var job: Deferred<Unit>? = null
-    val searchResult = _locationData.switchMap { locationdata ->
-        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO + handler) {
-            job?.cancel()
-            job = CoroutineScope(Dispatchers.IO).async {
-                delay(AppConstants.LOCATION_DEBOUNCE_TIME)
-                val data = apiService.updateLocation(AppHeaders.userID, locationdata)
-            }
-            job?.await()
-            emit(true)
-        }
-    }
+
+
+    val searchResult = _locationData.asFlow().debounce(AppConstants.LOCATION_DEBOUNCE_TIME).mapLatest {
+        Timber.i("Running code ${it}")
+        apiService.updateLocation(AppHeaders.userID, it)
+    }.catch {
+        Timber.i("Some error code")
+    }.asLiveData()
 
     private val handler = CoroutineExceptionHandler { _, exception ->
         Timber.i("Caught  $exception")
