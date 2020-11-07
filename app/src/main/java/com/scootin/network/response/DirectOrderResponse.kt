@@ -7,6 +7,7 @@ data class DirectOrderResponse(
     val deliveryDetails: DeliveryDetail?,
     val media: Media,
     val orderDate: String,
+    val extraData: String,
     val order_status: String,
     val paymentDetails: PaymentDetails,
     val reviewDoneIndicator: Boolean,

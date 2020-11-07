@@ -48,7 +48,8 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
         viewModel.getDirectOrder(args.orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Timber.i("Samridhi direct ${it.data}")
+                    Timber.i("Samridhi direct ${it.data?.extraData} ")
+
                     binding.data = it.data
 
                 }
