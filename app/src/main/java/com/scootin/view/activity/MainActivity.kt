@@ -1,8 +1,12 @@
 package com.scootin.view.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -22,10 +26,13 @@ import com.scootin.databinding.ActivityMainBinding
 import com.scootin.network.manager.AppHeaders
 import com.scootin.viewmodel.home.HomeViewModel
 import androidx.lifecycle.observe
+import com.birjuvachhani.locus.Locus
 import com.scootin.bindings.setCircleImage
+import com.scootin.location.LocationService
 import com.scootin.network.api.Status
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 
 
 @AndroidEntryPoint

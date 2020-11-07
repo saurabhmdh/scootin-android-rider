@@ -1,7 +1,10 @@
 package com.scootin.view.fragment.home.dashboard
 
 
+import android.content.Intent
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,8 +18,11 @@ import com.scootin.viewmodel.home.DashBoardFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import androidx.lifecycle.observe
+import com.birjuvachhani.locus.Locus
+import com.scootin.location.LocationService
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import java.util.*
 
 import javax.inject.Inject
 
@@ -59,6 +65,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             } else {
                 Timber.i("Cache Status = ${cache.value.toBoolean()}")
                 binding.onlineBtn.isSelected = cache.value.toBoolean().not()
+                if (cache.value.toBoolean()){
+                    startLocationService()
+                    startUpdates()
+                }else {
+                    stopUpdates()
+                }
             }
         }
 
@@ -89,6 +101,37 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             Timber.i("Saurabh : Device token $token ")
             viewModel.updateFCMID(token)
         }
+    }
+
+
+    private fun onLocationUpdate(location: Location) {
+        Log.e("TAG", "Latitude: ${location.latitude}\tLongitude: ${location.longitude}")
+    }
+
+    private fun onError(error: Throwable?) {
+        Log.e("TAG", "Error: ${error?.message}")
+    }
+
+
+    fun startUpdates() {
+        Locus.configure {
+            enableBackgroundUpdates = true
+            forceBackgroundUpdates = true
+            shouldResolveRequest = true
+        }
+        Locus.startLocationUpdates(this) { result ->
+            result.location?.let(::onLocationUpdate)
+            result.error?.let(::onError)
+        }
+    }
+
+    fun stopUpdates() {
+        Locus.stopLocationUpdates()
+    }
+
+    fun startLocationService() {
+        requireContext().startService(Intent(requireContext(), LocationService::class.java))
+//        requireActivity().finish()
     }
 
 
