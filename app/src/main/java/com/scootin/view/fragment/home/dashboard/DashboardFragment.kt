@@ -1,29 +1,28 @@
 package com.scootin.view.fragment.home.dashboard
 
 
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.birjuvachhani.locus.Locus
 import com.google.firebase.iid.FirebaseInstanceId
 import com.scootin.R
 import com.scootin.databinding.FragmentDashboardBinding
+import com.scootin.location.LocationService
 import com.scootin.network.AppExecutors
+import com.scootin.network.api.Status
+import com.scootin.network.manager.AppHeaders
 import com.scootin.util.fragment.autoCleared
 import com.scootin.viewmodel.home.DashBoardFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import androidx.lifecycle.observe
-import com.birjuvachhani.locus.Locus
-import com.scootin.location.LocationService
-import com.scootin.network.api.Status
-import com.scootin.network.manager.AppHeaders
-import java.util.*
-
 import javax.inject.Inject
 
 
@@ -53,13 +52,21 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             Timber.i("Status = ${binding.onlineBtn.isSelected}")
             viewModel.updateStatus(AppHeaders.userID, binding.onlineBtn.isSelected)
         }
-
+        configureLocus()
         updateFirebaseInformation()
         updateListeners()
     }
 
+    private fun configureLocus() {
+        Locus.configure {
+            enableBackgroundUpdates = true
+            forceBackgroundUpdates = true
+            shouldResolveRequest = true
+        }
+    }
+
     private fun updateListeners() {
-        viewModel.onlineStatus().observe(viewLifecycleOwner) {cache->
+        viewModel.onlineStatus().observe(viewLifecycleOwner) { cache->
             if (cache == null) {
                 binding.onlineBtn.isSelected = false
             } else {
@@ -105,20 +112,16 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
     private fun onLocationUpdate(location: Location) {
-        Log.e("TAG", "Latitude: ${location.latitude}\tLongitude: ${location.longitude}")
+        //addViewmodel to send this information to server.
+        Timber.i("Latitude: ${location.latitude}\tLongitude: ${location.longitude}")
     }
 
     private fun onError(error: Throwable?) {
-        Log.e("TAG", "Error: ${error?.message}")
+        Timber.e("Error: ${error?.message}")
     }
 
 
     fun startUpdates() {
-        Locus.configure {
-            enableBackgroundUpdates = true
-            forceBackgroundUpdates = true
-            shouldResolveRequest = true
-        }
         Locus.startLocationUpdates(this) { result ->
             result.location?.let(::onLocationUpdate)
             result.error?.let(::onError)
@@ -127,11 +130,13 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     fun stopUpdates() {
         Locus.stopLocationUpdates()
+        context?.stopService(Intent(context, LocationService::class.java))
+        val manager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+        manager?.cancel(LocationService.NOTIFICATION_ID)
     }
 
     fun startLocationService() {
         requireContext().startService(Intent(requireContext(), LocationService::class.java))
-//        requireActivity().finish()
     }
 
 

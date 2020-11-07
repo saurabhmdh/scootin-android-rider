@@ -88,6 +88,9 @@ versions.adjust_ads= '17.0.0'
 versions.lottieVersion = '3.4.1'
 versions.firebase = '20.2.4'
 
+versions.google_services = '4.3.4'
+
+
 def deps = [:]
 
 def apptest = [:]
@@ -168,6 +171,8 @@ play.map = "com.google.android.gms:play-services-maps:$versions.play"
 play.location = "com.google.android.gms:play-services-location:$versions.play"
 play.core = "com.google.android.play:core:$versions.core"
 play.firebase = "com.google.firebase:firebase-messaging:$versions.firebase"
+play.service = "com.google.gms:google-services:$versions.google_services"
+play.service_location = "com.google.android.gms:play-services-location:17.1.0"
 deps.play = play
 
 deps.map_utils = "com.google.maps.android:android-maps-utils:$versions.map_utils"
@@ -241,7 +246,7 @@ deps.adjust = "com.adjust.sdk:adjust-android:$versions.adjust_android"
 deps.adjust_installreferrer = "com.android.installreferrer:installreferrer:$versions.adjust_installreferrer"
 deps.adjust_google_play_services_ads_identifier = "com.google.android.gms:play-services-ads-identifier:$versions.adjust_ads"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottieVersion"
-
+deps.location_extension_android = "com.github.birjuvachhani:location-extension-android:3.1.0"
 
 def mockito = [:]
 mockito.core = "org.mockito:mockito-core:$versions.mockito"
