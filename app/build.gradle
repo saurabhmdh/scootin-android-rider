@@ -123,7 +123,8 @@ dependencies {
 
     implementation deps.play.firebase
 
-    implementation "com.github.birjuvachhani:location-extension-android:3.1.0"
+    implementation deps.location_extension_android
+    implementation deps.play.service_location
 }
 kapt {
     javacOptions {

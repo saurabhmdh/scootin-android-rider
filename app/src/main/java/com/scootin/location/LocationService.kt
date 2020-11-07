@@ -24,13 +24,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.observe
 import com.birjuvachhani.locus.Locus
 import com.birjuvachhani.locus.LocusResult
 import com.scootin.R
+import timber.log.Timber
 
 class LocationService : LifecycleService() {
 
@@ -52,7 +52,6 @@ class LocationService : LifecycleService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        Log.e("BIRJU", "Temp Service started")
         Handler().postDelayed({
             start()
         }, 2000)
@@ -83,28 +82,27 @@ class LocationService : LifecycleService() {
             )
         }
         return with(NotificationCompat.Builder(this, "location")) {
-            setContentTitle("Location Service")
+            setContentTitle("You are online")
             result?.apply {
                 location?.let {
-                    Log.e("TAG", "Latitude: ${it.latitude}\tLongitude: ${it.longitude}")
-                    setContentText("${it.latitude}, ${it.longitude}")
-                } ?: setContentText("Error: ${error?.message}")
-            } ?: setContentText("Trying to get location updates")
+                    Timber.i("Latitude: ${it.latitude}\tLongitude: ${it.longitude}")
+                }
+            }
             setSmallIcon(R.drawable.ic_location)
             setAutoCancel(false)
             setOnlyAlertOnce(true)
-            addAction(
-                0,
-                "Stop Updates",
-                PendingIntent.getBroadcast(
-                    this@LocationService,
-                    0,
-                    Intent(this@LocationService, ServiceStopBroadcastReceiver::class.java).apply {
-                        action = STOP_SERVICE_BROADCAST_ACTON
-                    },
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            )
+//            addAction(
+//                0,
+//                "Stop Updates",
+//                PendingIntent.getBroadcast(
+//                    this@LocationService,
+//                    0,
+//                    Intent(this@LocationService, ServiceStopBroadcastReceiver::class.java).apply {
+//                        action = STOP_SERVICE_BROADCAST_ACTON
+//                    },
+//                    PendingIntent.FLAG_UPDATE_CURRENT
+//                )
+//            )
             build()
         }
     }

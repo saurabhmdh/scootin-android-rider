@@ -105,11 +105,11 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
 
     private fun onLocationUpdate(location: Location) {
-        Log.e("TAG", "Latitude: ${location.latitude}\tLongitude: ${location.longitude}")
+        Timber.i("Latitude: ${location.latitude}\tLongitude: ${location.longitude}")
     }
 
     private fun onError(error: Throwable?) {
-        Log.e("TAG", "Error: ${error?.message}")
+        Timber.e("Error: ${error?.message}")
     }
 
 
@@ -131,7 +131,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     fun startLocationService() {
         requireContext().startService(Intent(requireContext(), LocationService::class.java))
-//        requireActivity().finish()
     }
 
 
