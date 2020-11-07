@@ -36,8 +36,6 @@ class LocationService : LifecycleService() {
 
     companion object {
         const val NOTIFICATION_ID = 787
-        const val STOP_SERVICE_BROADCAST_ACTON =
-            "com.birjuvachhani.locationextensionsample.ServiceStopBroadcastReceiver"
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -83,11 +81,6 @@ class LocationService : LifecycleService() {
         }
         return with(NotificationCompat.Builder(this, "location")) {
             setContentTitle("You are online")
-            result?.apply {
-                location?.let {
-                    Timber.i("Latitude: ${it.latitude}\tLongitude: ${it.longitude}")
-                }
-            }
             setSmallIcon(R.drawable.ic_location)
             setAutoCancel(false)
             setOnlyAlertOnce(true)
