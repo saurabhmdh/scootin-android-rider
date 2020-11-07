@@ -19,6 +19,7 @@ data class DirectOrderResponse(
 
     data class PaymentDetails(
         val id: Int,
+        val totalAmount: Double,
         val orderReference: String,
         val payment_mode: String,
         val payment_referer: String,
