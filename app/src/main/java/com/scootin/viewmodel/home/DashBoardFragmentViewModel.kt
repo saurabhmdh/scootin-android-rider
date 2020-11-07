@@ -1,19 +1,22 @@
 package com.scootin.viewmodel.home
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.scootin.database.dao.CacheDao
 import com.scootin.database.table.Cache
 import com.scootin.network.RequestFCM
+import com.scootin.network.api.APIService
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestActive
+import com.scootin.network.request.RiderLocationDTO
 import com.scootin.repository.OrderRepository
 import com.scootin.repository.UserRepository
 import com.scootin.util.constants.AppConstants
 import com.scootin.viewmodel.base.ObservableViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
@@ -21,7 +24,8 @@ class DashBoardFragmentViewModel @ViewModelInject
 internal constructor(
     private val userRepository: UserRepository,
     private val cacheDao: CacheDao,
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val apiService: APIService
 
 ) : ObservableViewModel(), CoroutineScope {
 
@@ -55,6 +59,25 @@ internal constructor(
     fun countDeliverOrders(riderId: String) = orderRepository.countDeliverOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun countReceivedOrders(riderId: String) = orderRepository.countReceivedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
+
+
+    val _locationData = MutableLiveData<RiderLocationDTO>()
+    private var job: Deferred<Unit>? = null
+    val searchResult = _locationData.switchMap { locationdata ->
+        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO + handler) {
+            job?.cancel()
+            job = CoroutineScope(Dispatchers.IO).async {
+                delay(AppConstants.LOCATION_DEBOUNCE_TIME)
+                val data = apiService.updateLocation(AppHeaders.userID, locationdata)
+            }
+            job?.await()
+            emit(true)
+        }
+    }
+
+    private val handler = CoroutineExceptionHandler { _, exception ->
+        Timber.i("Caught  $exception")
+    }
 
     override val coroutineContext: CoroutineContext
         get() = viewModelScope.coroutineContext + Dispatchers.IO
