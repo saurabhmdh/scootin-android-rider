@@ -13,6 +13,8 @@ buildscript {
         classpath deps.kotlin.allopen
         classpath deps.hilt.hilt_android_gradle_plugin
         classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' // For jit-pack
+
     }
 }
 

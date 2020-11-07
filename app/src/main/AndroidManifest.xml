@@ -4,6 +4,7 @@
     package="com.scootin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="com.scootin.RiderApplication"
@@ -45,6 +46,19 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".location.LocationService"
+            android:foregroundServiceType="location" />
+
+        <receiver
+            android:name=".location.ServiceStopBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.birjuvachhani.locationextensionsample.ServiceStopBroadcastReceiver" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
