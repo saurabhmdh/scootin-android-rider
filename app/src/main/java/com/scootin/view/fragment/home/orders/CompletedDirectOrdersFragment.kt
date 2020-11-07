@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.scootin.R
 import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
+import com.scootin.util.Conversions
 import com.scootin.util.fragment.autoCleared
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +44,10 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
-
+                    if (it.data?.extraData.isNullOrEmpty().not()) {
+                        val extra = Conversions.convertExtraData(it.data?.extraData)
+                        Timber.i("Extra $extra")
+                    }
                 }
                 Status.ERROR -> {
 

@@ -105,6 +105,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.settings_menu -> {
                 navController.navigate(R.id.settings_menu)
             }
+            R.id.logout_menu-> {
+                //TODO: write code to logout..
+            }
         }
         binding.drawerLayout.closeDrawers()
         return true

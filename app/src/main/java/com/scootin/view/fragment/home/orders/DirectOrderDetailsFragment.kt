@@ -49,7 +49,10 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
             when (it.status) {
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data?.extraData} ")
+                    if (it.data?.extraData.isNullOrEmpty().not()) {
+                        Timber.i("we have data ${it.data?.extraData}")
 
+                    }
                     binding.data = it.data
 
                 }
