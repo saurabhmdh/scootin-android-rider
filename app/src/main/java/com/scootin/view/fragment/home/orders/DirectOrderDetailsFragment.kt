@@ -16,6 +16,7 @@ import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.util.Conversions
 import com.scootin.util.OrderType
+import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.ExtraDataAdapter
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
@@ -48,7 +49,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
         binding.lifecycleOwner = this
         binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
         setAdaper()
-
+        setUpListener()
        // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
         viewModel.getDirectOrder(args.orderId).observe(viewLifecycleOwner) {
@@ -102,6 +103,20 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
         }
 
 
+    }
+    private fun setUpListener() {
+        binding.deliveryAddressLine1.setOnClickListener {
+            val address = binding.deliveryAddressLine1.text?.toString()
+            if (address.isNullOrEmpty().not()) {
+                IntentConstants.moveToMapWithDirection(requireContext(), address!!)
+            }
+        }
+        binding.telephone.setOnClickListener {
+            val mobileNumber = binding.telephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
     }
     private fun setAdaper() {
         extraDataAdapter = ExtraDataAdapter(appExecutors)

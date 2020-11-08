@@ -21,6 +21,7 @@ import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.util.OrderType
+import com.scootin.util.constants.IntentConstants
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.home.LoginViewModel
 import timber.log.Timber
@@ -48,6 +49,8 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
         binding.lifecycleOwner = this
 
         setAdaper()
+        setUpListener()
+
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
         viewModel.getNormalOrder(orderId).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -90,7 +93,20 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
             }
         }
     }
-
+    private fun setUpListener() {
+        binding.deliveryAddressLine1.setOnClickListener {
+            val address = binding.deliveryAddressLine1.text?.toString()
+            if (address.isNullOrEmpty().not()) {
+                IntentConstants.moveToMapWithDirection(requireContext(), address!!)
+            }
+        }
+        binding.telephone.setOnClickListener {
+            val mobileNumber = binding.telephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
+    }
 
 
     private fun setAdaper() {
