@@ -1,7 +1,11 @@
 package com.scootin.view.fragment.home.orders
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -13,11 +17,13 @@ import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.util.Conversions
+import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.ExtraDataAdapter
 import com.scootin.view.adapter.orders.PendingOrderDetailsItemAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.adapter_temple_item.view.*
 import timber.log.Timber
 import javax.inject.Inject
 @AndroidEntryPoint
@@ -60,7 +66,26 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                 }
             }
         }
+
+        setUpListener()
     }
+
+    private fun setUpListener() {
+        binding.deliveryAddressLine1.setOnClickListener {
+            val address = binding.deliveryAddressLine1.text?.toString()
+            if (address.isNullOrEmpty().not()) {
+                IntentConstants.moveToMapWithDirection(requireContext(), address!!)
+            }
+        }
+        binding.telephone.setOnClickListener {
+            val mobileNumber = binding.telephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
+    }
+
+
 
     private fun enableOrDisableVisibility(completed: Boolean) {
         if (completed) {

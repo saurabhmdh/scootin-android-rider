@@ -64,9 +64,10 @@ internal constructor(
     val _locationData = MutableLiveData<RiderLocationDTO>()
 
 
+    //TODO: After confirmation we can enable this
     val searchResult = _locationData.asFlow().debounce(AppConstants.LOCATION_DEBOUNCE_TIME).mapLatest {
         Timber.i("Running code ${it}")
-        apiService.updateLocation(AppHeaders.userID, it)
+//        apiService.updateLocation(AppHeaders.userID, it)
     }.catch {
         Timber.i("Some error code")
     }.asLiveData()
