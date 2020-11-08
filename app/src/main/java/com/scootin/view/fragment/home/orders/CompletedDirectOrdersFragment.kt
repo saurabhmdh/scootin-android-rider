@@ -77,6 +77,12 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                 IntentConstants.moveToMapWithDirection(requireContext(), address!!)
             }
         }
+        binding.telephone.setOnClickListener {
+            val mobileNumber = binding.telephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
     }
 
 

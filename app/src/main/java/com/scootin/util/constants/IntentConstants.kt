@@ -37,4 +37,11 @@ object IntentConstants {
         mapIntent.setPackage("com.google.android.apps.maps")
         ContextCompat.startActivity(context, mapIntent, null)
     }
+
+    fun makeCall(context: Context, mobileNumber: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_DIAL // Action for what intent called for
+        intent.data = Uri.parse("tel: $mobileNumber") // Data with intent respective action on intent
+        ContextCompat.startActivity(context, intent, null)
+    }
 }
