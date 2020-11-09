@@ -4,5 +4,7 @@ data class Media(
     val id: Long,
     val thumb: Any,
     val type: String,
-    val url: String
+    val url: String,
+    var colorTint: Int,
+    var isWhite: Boolean
 )

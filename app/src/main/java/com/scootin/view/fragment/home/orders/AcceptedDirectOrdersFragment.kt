@@ -13,6 +13,7 @@ import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.network.response.Media
 import com.scootin.util.Conversions
 import com.scootin.util.OrderType
 import com.scootin.util.constants.IntentConstants
@@ -89,6 +90,12 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                     }
                 }
             }
+        }
+    }
+    private fun launchGallery(media: Media?) {
+        Timber.i("launchGallery with media $media")
+        media?.let {
+            findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
         }
     }
     private fun setUpListener() {

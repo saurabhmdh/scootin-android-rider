@@ -68,6 +68,7 @@ versions.test_kotlin_test = "3.4.2"
 versions.test_mockk = "1.9.3"
 
 versions.shimmer = '0.3.0'
+versions.photo_view = "2.0.0"
 versions.play = "17.0.0"
 versions.core = "1.7.2"
 versions.photo_view = "2.0.0"

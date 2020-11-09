@@ -3,6 +3,8 @@
     <dimen name="dimen_144">144dp</dimen>
 
     <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
 
 
 </resources>

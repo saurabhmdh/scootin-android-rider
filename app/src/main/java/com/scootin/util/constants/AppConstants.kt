@@ -12,4 +12,6 @@ object AppConstants {
     const val RIDER_INFO = "rider-info"
 
     const val LOCATION_DEBOUNCE_TIME = 3000L
+
+    const val COLOR_WHITE = "ffffff"
 }
