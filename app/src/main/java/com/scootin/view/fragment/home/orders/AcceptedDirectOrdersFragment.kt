@@ -91,6 +91,9 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                 }
             }
         }
+        binding.imageMedia.setOnClickListener {
+            launchGallery(it.tag as Media?)
+        }
     }
     private fun launchGallery(media: Media?) {
         Timber.i("launchGallery with media $media")

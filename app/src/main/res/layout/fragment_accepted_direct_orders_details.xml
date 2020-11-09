@@ -101,7 +101,7 @@
                 android:layout_below="@id/txt_item_list"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/recycler_view"
+                android:id="@+id/image_media"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recycler"
@@ -121,7 +121,7 @@
                 android:text="Customer Details"
                 android:textColor="#000"
                 android:textSize="16sp"
-                android:layout_below="@id/recycler_view"/>
+                android:layout_below="@id/image_media"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_delivery_address"
