@@ -29,6 +29,7 @@ import com.scootin.viewmodel.home.HomeViewModel
 import androidx.lifecycle.observe
 //import com.birjuvachhani.locus.Locus
 import com.scootin.bindings.setCircleImage
+import com.scootin.interfaces.IFullScreenListener
 import com.scootin.location.LocationService
 import com.scootin.network.api.Status
 import com.scootin.viewmodel.home.LoginViewModel
@@ -38,7 +39,8 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    IFullScreenListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -138,5 +140,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(Intent(this, SplashActivity::class.java))
         this.overridePendingTransition(R.anim.enter, R.anim.exit)
         this.finish()
+    }
+
+    override fun showHideActionBar(visible: Boolean) {
+        if (visible) {
+            binding.toolbar.visibility = View.VISIBLE
+        } else {
+            binding.toolbar.visibility = View.GONE
+        }
     }
 }
