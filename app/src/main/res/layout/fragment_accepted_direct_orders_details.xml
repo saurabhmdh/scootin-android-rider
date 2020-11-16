@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Amount :"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:layout_toRightOf="@id/pending_icon"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="8dp"
@@ -48,11 +48,11 @@
                     android:id="@+id/amt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setPrice="@{data.shopManagement.amount}"
-                    android:textSize="18sp"
+                    app:setPrice="@{data.paymentDetails.totalAmount}"
+                    android:textSize="16sp"
                     android:layout_toRightOf="@id/txt_order_id"
                     android:layout_marginTop="16dp"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:textColor="#000"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_status"
@@ -65,14 +65,14 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.order_status}"
+                    android:text="@{data.orderStatus}"
                     android:layout_below="@id/txt_order_id"
                     android:layout_toRightOf="@id/txt_status"
                     android:layout_marginLeft="8dp"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setDateFromOrderDate="@{data.orderDetails.orderDate}"
+                    app:setDateFromOrderDate="@{data.orderDate}"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"/>
@@ -158,7 +158,7 @@
                 android:id="@+id/telephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.userInfo.mobile_number}"
+                android:text="@{data.userInfo.mobileNumber}"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:drawableLeft="@drawable/ic_call"
@@ -196,7 +196,7 @@
                 android:id="@+id/subtotal_amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setPrice="@{data.shopManagement.amount}"
+                app:setPrice="@{data.paymentDetails.totalAmount}"
                 android:textSize="15sp"
                 android:layout_alignParentRight="true"
                 android:textColor="#000"

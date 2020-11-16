@@ -45,7 +45,7 @@
                 android:id="@+id/txt_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(Qty : "
+                android:text="Qty : "
                 android:layout_marginLeft="4dp"
                 android:layout_toLeftOf="@id/qty"
                 android:layout_centerVertical="true"/>
