@@ -53,7 +53,9 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
         // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
-        viewModel.getDirectOrder(orderId).observe(viewLifecycleOwner) {
+        viewModel.doDirectOrder(orderId)
+
+        viewModel.loadDirectOrder.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
@@ -64,6 +66,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                         Timber.i("Extra $extra")
                         extraDataAdapter.submitList(extra)
                     }
+                    updateButtonVisibility(it.data?.orderStatus)
                 }
                 Status.ERROR -> {
 
@@ -74,30 +77,26 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
             }
         }
 
-        binding.acceptButton.setOnClickListener {
-            showLoading()
-            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.DIRECT.name, true)).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        dismissLoading()
-                        Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
-                        binding.acceptButton.visibility = View.GONE
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR -> {
-                        dismissLoading()
-                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
-                    }
-                    Status.LOADING -> {
-
-                    }
-                }
-            }
-        }
+        setupDeliveryListener()
+        setupPickupListener()
         binding.imageMedia.setOnClickListener {
             launchGallery()
         }
     }
+
+    private fun updateButtonVisibility(orderStatus: String?) {
+        when (orderStatus) {
+            "DISPATCHED" -> {
+                binding.pickupButton.visibility = View.GONE
+                binding.deliveredButton.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.pickupButton.visibility = View.VISIBLE
+                binding.deliveredButton.visibility = View.GONE
+            }
+        }
+    }
+
     private fun launchGallery() {
         Timber.i("launchGallery with media $media")
         media?.let {
@@ -126,4 +125,45 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
         }
     }
 
+    private fun setupDeliveryListener() {
+        binding.deliveredButton.setOnClickListener {
+            showLoading()
+            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.DIRECT.name, true)).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
+                        binding.deliveredButton.visibility = View.GONE
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> { }
+                }
+            }
+        }
+    }
+
+    private fun setupPickupListener() {
+        binding.pickupButton.setOnClickListener {
+            showLoading()
+            viewModel.pickupOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.DIRECT.name, true)).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Order has been pickup", Toast.LENGTH_SHORT).show()
+                        binding.pickupButton.visibility = View.GONE
+                        viewModel.doDirectOrder(orderId)
+                    }
+                    Status.ERROR -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> { }
+                }
+            }
+        }
+    }
 }

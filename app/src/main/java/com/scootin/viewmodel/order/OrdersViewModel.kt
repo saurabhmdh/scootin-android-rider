@@ -26,6 +26,16 @@ internal constructor(
         orderRepository.getOrder(it, viewModelScope.coroutineContext + Dispatchers.IO)
     }
 
+    private val _direct_order = MutableLiveData<Long>()
+
+    fun doDirectOrder(orderId: Long) {
+        _direct_order.postValue(orderId)
+    }
+
+    val loadDirectOrder = Transformations.switchMap(_direct_order) {
+        orderRepository.getDirectOrder(it, viewModelScope.coroutineContext + Dispatchers.IO)
+    }
+
     fun getAllUnAssigned() = orderRepository.getAllUnAssigned(viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun getNormalOrder(orderId: Long) = orderRepository.getOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
