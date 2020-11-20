@@ -1,17 +1,30 @@
 package com.scootin.viewmodel.order
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.repository.OrderRepository
 import com.scootin.viewmodel.base.ObservableViewModel
+import com.scootin.viewmodel.home.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 
 class OrdersViewModel  @ViewModelInject
 internal constructor(
     private val orderRepository: OrderRepository
 ) : ObservableViewModel() {
+
+    private val _order = MutableLiveData<Long>()
+
+    fun doNormalOrder(orderId: Long) {
+        _order.postValue(orderId)
+    }
+
+    val loadOrder = Transformations.switchMap(_order) {
+        orderRepository.getOrder(it, viewModelScope.coroutineContext + Dispatchers.IO)
+    }
 
     fun getAllUnAssigned() = orderRepository.getAllUnAssigned(viewModelScope.coroutineContext + Dispatchers.IO)
 

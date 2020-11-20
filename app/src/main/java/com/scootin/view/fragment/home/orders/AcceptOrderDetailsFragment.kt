@@ -45,8 +45,6 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
         setAdaper()
         setUpListener()
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
-
-
     }
 
     private fun setUpListener() {
@@ -62,11 +60,13 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                 IntentConstants.makeCall(requireContext(), mobileNumber!!)
             }
         }
+        viewModel.doNormalOrder(orderId)
 
-        viewModel.getNormalOrder(orderId).observe(viewLifecycleOwner) {
+        viewModel.loadOrder.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Timber.i("Samridhi ${it.data}")
+                    updateButtonVisibility(it.data?.orderDetails?.orderStatus)
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
                 }
@@ -76,30 +76,67 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
         }
 
         setupPickupListener()
+        setupDeliveryListener()
     }
 
+    private fun updateButtonVisibility(orderStatus: String?) {
+        when (orderStatus) {
+            "DISPATCHED" -> {
+                binding.pickupButton.visibility = View.GONE
+                binding.deliveredButton.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.pickupButton.visibility = View.VISIBLE
+                binding.deliveredButton.visibility = View.GONE
+            }
+        }
+
+    }
+
+    //It should be pickup
     private fun setupPickupListener() {
-        binding.acceptButton.setOnClickListener {
+        binding.pickupButton.setOnClickListener {
+            showLoading()
+            viewModel.pickupOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.NORMAL.name, true)).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Order has been pickup", Toast.LENGTH_SHORT).show()
+                        binding.pickupButton.visibility = View.GONE
+                        viewModel.doNormalOrder(orderId)
+                    }
+                    Status.ERROR -> {
+                        dismissLoading()
+                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> { }
+                }
+            }
+        }
+    }
+
+
+    //It should be pickup
+    private fun setupDeliveryListener() {
+        binding.deliveredButton.setOnClickListener {
             showLoading()
             viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.NORMAL.name, true)).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.SUCCESS -> {
                         dismissLoading()
                         Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
-                        binding.acceptButton.visibility = View.GONE
                         findNavController().popBackStack()
                     }
                     Status.ERROR -> {
                         dismissLoading()
                         Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
                     }
-                    Status.LOADING -> {
-
-                    }
+                    Status.LOADING -> { }
                 }
             }
         }
     }
+
 
     private fun setAdaper() {
         pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors)
