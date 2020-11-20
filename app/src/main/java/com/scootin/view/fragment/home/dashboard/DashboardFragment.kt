@@ -97,10 +97,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
                 }
             }
         }
-
-        viewModel.searchResult.observe(viewLifecycleOwner) {
-            //Do nothing..
-        }
+//        viewModel.searchResult.observe(viewLifecycleOwner) {
+//            //Do nothing..
+//        }
     }
 
 

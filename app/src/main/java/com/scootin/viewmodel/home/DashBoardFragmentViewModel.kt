@@ -65,12 +65,12 @@ internal constructor(
 
 
     //TODO: After confirmation we can enable this
-    val searchResult = _locationData.asFlow().debounce(AppConstants.LOCATION_DEBOUNCE_TIME).mapLatest {
-        Timber.i("Running code ${it}")
-//        apiService.updateLocation(AppHeaders.userID, it)
-    }.catch {
-        Timber.i("Some error code")
-    }.asLiveData()
+//    val searchResult = _locationData.asFlow().debounce(AppConstants.LOCATION_DEBOUNCE_TIME).mapLatest {
+//        Timber.i("Running code ${it}")
+////        apiService.updateLocation(AppHeaders.userID, it)
+//    }.catch {
+//        Timber.i("Some error code")
+//    }.asLiveData()
 
     private val handler = CoroutineExceptionHandler { _, exception ->
         Timber.i("Caught  $exception")
