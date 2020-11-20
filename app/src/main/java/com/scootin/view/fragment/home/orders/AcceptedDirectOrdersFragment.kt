@@ -37,6 +37,8 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
     private var extraDataAdapter by autoCleared<ExtraDataAdapter>()
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
+    private var media: Media? = null
+
     private val orderId by lazy {
         args.orderId
     }
@@ -56,6 +58,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
+                    media = it.data?.media
                     if (it.data?.extraData.isNullOrEmpty().not()) {
                         val extra = Conversions.convertExtraData(it.data?.extraData)
                         Timber.i("Extra $extra")
@@ -92,10 +95,10 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
             }
         }
         binding.imageMedia.setOnClickListener {
-            launchGallery(it.tag as Media?)
+            launchGallery()
         }
     }
-    private fun launchGallery(media: Media?) {
+    private fun launchGallery() {
         Timber.i("launchGallery with media $media")
         media?.let {
             findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
