@@ -14,6 +14,7 @@ import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.network.response.Media
 import com.scootin.util.Conversions
 import com.scootin.util.OrderType
 import com.scootin.util.constants.IntentConstants
@@ -39,6 +40,8 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
 
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
+    private var media: Media? = null
+
     private val orderId by lazy {
         args.orderId
     }
@@ -56,6 +59,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
             when (it.status) {
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data?.extraData} ")
+                    media = it.data?.media
                     if (it.data?.extraData.isNullOrEmpty().not()) {
                         Timber.i("we have data ${it.data?.extraData}")
                         val extra = Conversions.convertExtraData(it.data?.extraData)
@@ -117,7 +121,18 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
                 IntentConstants.makeCall(requireContext(), mobileNumber!!)
             }
         }
+        binding.imageMedia.setOnClickListener {
+            launchGallery()
+        }
     }
+
+    private fun launchGallery() {
+        Timber.i("launchGallery with media $media")
+        media?.let {
+            findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
+        }
+    }
+
     private fun setAdaper() {
         extraDataAdapter = ExtraDataAdapter(appExecutors)
 

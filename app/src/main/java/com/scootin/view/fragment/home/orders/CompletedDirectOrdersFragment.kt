@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -16,6 +17,7 @@ import com.scootin.R
 import com.scootin.databinding.FragmentDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
+import com.scootin.network.response.Media
 import com.scootin.util.Conversions
 import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
@@ -37,6 +39,7 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
     private var extraDataAdapter by autoCleared<ExtraDataAdapter>()
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
+    private var media: Media? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,6 +55,7 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                 Status.SUCCESS -> {
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
+                    media = it.data?.media
                     if (it.data?.extraData.isNullOrEmpty().not()) {
                         val extra = Conversions.convertExtraData(it.data?.extraData)
                         Timber.i("Extra $extra")
@@ -83,9 +87,18 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                 IntentConstants.makeCall(requireContext(), mobileNumber!!)
             }
         }
+
+        binding.imageMedia.setOnClickListener {
+            launchGallery()
+        }
     }
 
-
+    private fun launchGallery() {
+        Timber.i("launchGallery with media $media")
+        media?.let {
+            findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
+        }
+    }
 
     private fun enableOrDisableVisibility(completed: Boolean) {
         if (completed) {
