@@ -52,16 +52,19 @@ class PendingOrdersAdapter (
             binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
-            if(item.directOrder) {
-                itemAdapterClickListener.onHandwrittenListOrderSelected(item)
-            }
-            else{
-                itemAdapterClickListener.onItemSelected(item)
+            when(item.orderType) {
+               "DIRECT"->itemAdapterClickListener.onHandwrittenListOrderSelected(item)
+
+                "NORMAL"->itemAdapterClickListener.onItemSelected(item)
+
+                "CITYWIDE"->itemAdapterClickListener.onCitywideOrderSelected(item)
             }
         }
     }
     interface ItemAdapterClickLister {
         fun onItemSelected(view: UnAssignedOrderResponse)
         fun onHandwrittenListOrderSelected(view: UnAssignedOrderResponse)
+        fun onCitywideOrderSelected(view: UnAssignedOrderResponse)
+
     }
 }

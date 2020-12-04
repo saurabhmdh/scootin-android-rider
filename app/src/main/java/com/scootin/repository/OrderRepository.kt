@@ -5,10 +5,8 @@ import com.scootin.network.api.APIService
 import com.scootin.network.api.NetworkBoundResource
 import com.scootin.network.api.Resource
 import com.scootin.network.request.RequestOrderAcceptedByRider
-import com.scootin.network.response.DirectOrderResponse
-import com.scootin.network.response.NormalOrderResponse
-import com.scootin.network.response.OrderListResponse
-import com.scootin.network.response.UnAssignedOrderResponse
+import com.scootin.network.response.*
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
@@ -47,6 +45,14 @@ class OrderRepository @Inject constructor(
     fun getDirectOrder(id: Long, context: CoroutineContext):
             LiveData<Resource<DirectOrderResponse>> = object : NetworkBoundResource<DirectOrderResponse>(context) {
         override suspend fun createCall() = services.getDirectOrderDetail(id)
+    }.asLiveData()
+
+    fun getCityWideOrder(
+        orderId: Long,
+        context: CoroutineContext
+    ): LiveData<Resource<CityWideOrderResponse>> = object : NetworkBoundResource<CityWideOrderResponse>(context) {
+        override suspend fun createCall(): Response<CityWideOrderResponse> =
+            services.getCityWideOrder(orderId)
     }.asLiveData()
 
 
