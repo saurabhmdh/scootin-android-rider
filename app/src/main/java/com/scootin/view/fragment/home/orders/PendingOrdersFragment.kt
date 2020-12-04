@@ -29,7 +29,6 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrdersBinding.bind(view)
 
-
         setAdaper()
 
         setupListeners()
