@@ -5,7 +5,7 @@
 
         <variable
             name="data"
-            type="com.scootin.network.response.DirectOrderResponse"/>
+            type="com.scootin.network.response.CityWideOrderResponse"/>
 
     </data>
     <androidx.core.widget.NestedScrollView
@@ -116,19 +116,40 @@
                 android:layout_below="@id/image_media"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_pickup_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pickup Address"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_Customer_details"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pickup_address_line1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:setOneLineAddress="@{data.pickupAddressDetails}"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_pickup_address"
+                android:layout_marginLeft="16dp"
+                android:drawableLeft="@drawable/ic_location_icon"
+                android:drawablePadding="4dp"
+                android:layout_marginTop="2dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_delivery_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Address"
                 android:textSize="15sp"
-                android:layout_below="@id/txt_Customer_details"
+                android:layout_below="@id/pickup_address_line1"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/delivery_address_line1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setOneLineAddress="@{data.addressDetails}"
+                app:setOneLineAddress="@{data.deliveryAddressDetails}"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:layout_below="@id/txt_delivery_address"

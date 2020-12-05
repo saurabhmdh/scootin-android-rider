@@ -49,6 +49,11 @@
             app:destination="@id/direct_order_details"
             app:popUpToInclusive="true" />
 
+        <action
+            android:id="@+id/action_pendingOrdersFragment_to_citywideOrderDetailsFragment"
+            app:destination="@id/citywide_order_details"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <fragment
@@ -184,6 +189,22 @@
         <deepLink app:uri="rider.scootin.com/order-detail-direct/{order_id}" />
         <action
             android:id="@+id/direct_order_fragment_to_image_gallery"
+            app:destination="@id/image_gallery"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/citywide_order_details"
+        android:name="com.scootin.view.fragment.home.orders.CityWideOrderDetailsFragment"
+        android:label="Order Details">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+        <!--        adb shell am start -a android.intent.action.VIEW -d "https://rider.scootin.com/order-detail-direct/18613"-->
+        <action
+            android:id="@+id/citywide_order_fragment_to_image_gallery"
             app:destination="@id/image_gallery"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

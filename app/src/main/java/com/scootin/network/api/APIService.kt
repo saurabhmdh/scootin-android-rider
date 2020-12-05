@@ -60,6 +60,8 @@ interface APIService {
     @GET("register/rider/get-info/{riderId}")
     suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
 
+    @GET("/order/orders/get-city-wide-order/{id}")
+    suspend fun getCityWideOrder(@Path("id") id: Long): Response<CityWideOrderResponse>
 
     @POST("/order/orders/accept-order-by-rider/{riderId}/{orderId}")
     suspend fun acceptOrder(

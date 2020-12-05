@@ -42,6 +42,8 @@ internal constructor(
 
     fun getDirectOrder(orderId: Long) = orderRepository.getDirectOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
+    fun getCitywideOrder(orderId: Long) = orderRepository.getCityWideOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
+
     fun getCompletedOrders(riderId: String) = orderRepository.getCompletedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun getAcceptedOrders(riderId: String) = orderRepository.getAcceptedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)

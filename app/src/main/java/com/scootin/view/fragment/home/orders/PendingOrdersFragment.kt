@@ -63,6 +63,10 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
                         findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToDirectOrderDetailsFragment(item.id))
                     }
 
+                    override fun onCitywideOrderSelected(item: UnAssignedOrderResponse) {
+                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToCitywideOrderDetailsFragment(item.id))
+                    }
+
                 })
 
         binding.recyclerView.apply {
