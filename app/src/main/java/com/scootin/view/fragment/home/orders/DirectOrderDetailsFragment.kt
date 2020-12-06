@@ -68,7 +68,9 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
 
                     }
                     binding.data = it.data
-
+                    if(media==null){
+                        binding.imageMedia.setVisibility(View.GONE)
+                    }
 
                 }
                 Status.ERROR -> {
