@@ -1,5 +1,6 @@
 package com.scootin.view.fragment.home.orders
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -69,6 +70,11 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                     updateButtonVisibility(it.data?.orderDetails?.orderStatus)
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
+                    it.data?.orderDetails?.paymentDetails?.paymentStatus?.let { it1 ->
+                        setupDeliveryListener(
+                            it1
+                        )
+                    }
                 }
                 Status.ERROR -> { }
                 Status.LOADING -> { }
@@ -76,7 +82,7 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
         }
 
         setupPickupListener()
-        setupDeliveryListener()
+
     }
 
     private fun updateButtonVisibility(orderStatus: String?) {
@@ -117,9 +123,38 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
 
 
     //It should be pickup
-    private fun setupDeliveryListener() {
+    private fun setupDeliveryListener(paymentStatus:String) {
         binding.deliveredButton.setOnClickListener {
-            showLoading()
+            if(paymentStatus!="COMPLETED"){
+                val builder = AlertDialog.Builder(context)
+
+                builder.setMessage(R.string.dialogMessage)
+                builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+
+                builder.setPositiveButton("Yes") { dialogInterface, which ->
+                  setDelivered()
+                }
+
+                builder.setNeutralButton("No") { dialogInterface, which ->
+              Toast.makeText(context,"Cannot mark as delivered! take cash from customer",Toast.LENGTH_LONG).show()
+                }
+
+                val alertDialog: AlertDialog = builder.create()
+
+                alertDialog.setCancelable(false)
+                alertDialog.show()
+            }
+            else {
+                setDelivered()
+            }
+
+        }
+
+
+    }
+    private fun setDelivered(){
+        showLoading()
             viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.NORMAL.name, true)).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.SUCCESS -> {
@@ -134,7 +169,6 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                     Status.LOADING -> { }
                 }
             }
-        }
     }
 
 

@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.scootin.R
 import com.scootin.network.glide.GlideApp
 import com.scootin.network.response.AddressDetails
+import com.scootin.network.response.PaymentDetails
 import java.lang.StringBuilder
 import java.math.BigDecimal
 import java.text.Format
@@ -47,6 +48,24 @@ fun TextView.setOneLineAddress(address: AddressDetails?) {
         .append(address.pincode)
 
     text = sb.toString()
+}
+
+@BindingAdapter("updatePaymentStatus")
+fun TextView.updatePaymentStatus(paymentDetail: PaymentDetails?) {
+    if (paymentDetail == null) return
+
+    if (paymentDetail.paymentMode == null) {
+        text = "PENDING"
+        return
+    }
+
+    val paymentStatus = if (paymentDetail.paymentStatus == "COMPLETED") {
+        "COMPLETED"
+    } else {
+        "PENDING"
+    }
+
+    text = paymentStatus + " { ${paymentDetail.paymentMode} }"
 }
 
 fun getDefaultImage() = RequestOptions().apply {

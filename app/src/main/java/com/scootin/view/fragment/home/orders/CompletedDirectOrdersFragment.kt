@@ -61,6 +61,9 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                         Timber.i("Extra $extra")
                         extraDataAdapter.submitList(extra)
                     }
+                    if(media==null){
+                        binding.imageMedia.setVisibility(View.GONE)
+                    }
                 }
                 Status.ERROR -> {
 

@@ -5,4 +5,5 @@
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="new_order_message">New Order Received</string>
+    <string name="dialogMessage">Have you collected the cash?</string>
 </resources>

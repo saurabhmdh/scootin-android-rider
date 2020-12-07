@@ -67,6 +67,10 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                         extraDataAdapter.submitList(extra)
                     }
                     updateButtonVisibility(it.data?.orderStatus)
+
+                    if(media==null){
+                        binding.imageMedia.setVisibility(View.GONE)
+                    }
                 }
                 Status.ERROR -> {
 

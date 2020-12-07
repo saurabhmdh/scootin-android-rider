@@ -177,8 +177,7 @@
             android:id="@+id/subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subtotal"
-
+            android:text="Payment Details"
             android:textColor="#000"
             android:textSize="15sp"
             android:layout_below="@id/txt_order_details"
@@ -189,7 +188,7 @@
             android:id="@+id/subtotal_amt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:setPrice="@{data.orderDetails.paymentDetails.totalAmount}"
+            app:updatePaymentStatus="@{data.orderDetails.paymentDetails}"
             android:textSize="15sp"
             android:layout_alignParentRight="true"
             android:textColor="#000"
