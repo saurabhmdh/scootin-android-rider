@@ -35,6 +35,18 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
                         addNewOrderNotification(it, false)
                     }
                 }
+                "CANCEL_ORDER_NORMAL" -> {
+                    remoteMessage.data["order_id"]?.let {
+                        Timber.i("Cancel order order ID = $it")
+                        cancelOrderNotification(it, true)
+                    }
+                }
+                "CANCEL_ORDER_DIRECT" -> {
+                    remoteMessage.data["order_id"]?.let {
+                        Timber.i("Cancel order order ID = $it")
+                        cancelOrderNotification(it, false)
+                    }
+                }
             }
         }
     }
@@ -68,6 +80,47 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.ic_icon)
             .setContentTitle(getString(R.string.new_order_message))
+            .setAutoCancel(true)
+            .setSound(defaultSoundUri)
+            .setContentIntent(pendingIntent)
+
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                "Channel human readable title",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+    }
+
+
+
+    private fun cancelOrderNotification(orderId: String, isNormal: Boolean) {
+        val intent = Intent(this, MainActivity::class.java)
+
+        if (isNormal) {
+            intent.data = openOrderDetail(orderId)
+        } else {
+            intent.data = openDirectOrderDetail(orderId)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0 /* Request code */, intent,
+            PendingIntent.FLAG_ONE_SHOT
+        )
+
+        val channelId = getString(R.string.default_notification_channel_id)
+        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(R.drawable.ic_icon)
+            .setContentTitle(getString(R.string.cancel_order_message))
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)

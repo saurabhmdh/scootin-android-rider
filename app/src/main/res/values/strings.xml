@@ -9,4 +9,6 @@
 
     <string name="login_user_name">User name</string>
     <string name="login_password">Password</string>
+
+    <string name="cancel_order_message">Order has been cancel</string>
 </resources>
