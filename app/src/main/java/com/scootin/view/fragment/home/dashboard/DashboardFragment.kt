@@ -53,18 +53,18 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             Timber.i("Status = ${binding.onlineBtn.isSelected}")
             viewModel.updateStatus(AppHeaders.userID, binding.onlineBtn.isSelected)
         }
-        configureLocus()
+//        configureLocus()
         updateFirebaseInformation()
         updateListeners()
     }
 
-    private fun configureLocus() {
-        Locus.configure {
-            enableBackgroundUpdates = true
-            forceBackgroundUpdates = true
-            shouldResolveRequest = true
-        }
-    }
+//    private fun configureLocus() {
+//        Locus.configure {
+//            enableBackgroundUpdates = true
+//            forceBackgroundUpdates = true
+//            shouldResolveRequest = true
+//        }
+//    }
 
     private fun updateListeners() {
         viewModel.onlineStatus().observe(viewLifecycleOwner) { cache->
@@ -73,12 +73,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             } else {
                 Timber.i("Cache Status = ${cache.value.toBoolean()}")
                 binding.onlineBtn.isSelected = cache.value.toBoolean().not()
-                if (cache.value.toBoolean()){
-                    startLocationService()
-                    startUpdates()
-                }else {
-                    stopUpdates()
-                }
+//                if (cache.value.toBoolean()){
+//                    startLocationService()
+//                    startUpdates()
+//                }else {
+//                    stopUpdates()
+//                }
             }
         }
 
