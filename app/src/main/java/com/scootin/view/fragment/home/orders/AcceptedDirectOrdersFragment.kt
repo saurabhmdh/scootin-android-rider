@@ -68,7 +68,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                     }
                     updateButtonVisibility(it.data?.orderStatus)
 
-                    if(media==null){
+                    if (media == null) {
                         binding.imageMedia.setVisibility(View.GONE)
                     }
                 }

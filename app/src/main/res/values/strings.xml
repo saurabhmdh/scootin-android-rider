@@ -6,4 +6,9 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="new_order_message">New Order Received</string>
     <string name="dialogMessage">Have you collected the cash?</string>
+
+    <string name="login_user_name">User name</string>
+    <string name="login_password">Password</string>
+
+    <string name="cancel_order_message">Order has been cancel</string>
 </resources>

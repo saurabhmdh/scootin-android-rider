@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptedOrderDetailsBinding
 import com.scootin.network.AppExecutors
@@ -70,11 +71,8 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                     updateButtonVisibility(it.data?.orderDetails?.orderStatus)
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
-                    it.data?.orderDetails?.paymentDetails?.paymentStatus?.let { it1 ->
-                        setupDeliveryListener(
-                            it1
-                        )
-                    }
+
+                    setupDeliveryListener(it.data?.orderDetails?.paymentDetails?.paymentStatus)
                 }
                 Status.ERROR -> { }
                 Status.LOADING -> { }
@@ -123,29 +121,26 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
 
 
     //It should be pickup
-    private fun setupDeliveryListener(paymentStatus:String) {
+    private fun setupDeliveryListener(paymentStatus: String? ) {
         binding.deliveredButton.setOnClickListener {
-            if(paymentStatus!="COMPLETED"){
-                val builder = AlertDialog.Builder(context)
+            if (paymentStatus != "COMPLETED") {
+                val alertDialog = MaterialAlertDialogBuilder(context)
 
-                builder.setMessage(R.string.dialogMessage)
-                builder.setIcon(android.R.drawable.ic_dialog_alert)
+                alertDialog.setMessage(R.string.dialogMessage)
+                alertDialog.setIcon(android.R.drawable.ic_dialog_alert)
 
 
-                builder.setPositiveButton("Yes") { dialogInterface, which ->
+                alertDialog.setPositiveButton("Yes") { dialogInterface, which ->
                   setDelivered()
                 }
 
-                builder.setNeutralButton("No") { dialogInterface, which ->
-              Toast.makeText(context,"Cannot mark as delivered! take cash from customer",Toast.LENGTH_LONG).show()
+                alertDialog.setNegativeButton("No") { dialogInterface, which ->
+                    Toast.makeText(context,"Please collect cash from customer", Toast.LENGTH_LONG).show()
                 }
-
-                val alertDialog: AlertDialog = builder.create()
-
                 alertDialog.setCancelable(false)
+
                 alertDialog.show()
-            }
-            else {
+            } else {
                 setDelivered()
             }
 

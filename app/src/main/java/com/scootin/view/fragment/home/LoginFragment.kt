@@ -49,8 +49,14 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
                 }
             }
         }
+
         binding.btnSignIn.setOnClickListener {
-            viewModel.doLogin(binding.username.text.toString(), binding.password.text.toString())
+            if (binding.userNumber.text.isNullOrEmpty() ||  binding.passwordText.text.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Please enter valid input", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            viewModel.doLogin(binding.userNumber.text.toString(), binding.passwordText.text.toString())
         }
 
     }
