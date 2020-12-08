@@ -73,6 +73,11 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
 
                     setupDeliveryListener(it.data?.orderDetails?.paymentDetails?.paymentStatus)
+
+                    if(it.data?.orderDetails?.orderStatus=="CANCEL"){
+                        binding.cancelTxt.visibility=View.VISIBLE
+                        binding.pickupButton.visibility=View.GONE
+                    }
                 }
                 Status.ERROR -> { }
                 Status.LOADING -> { }
