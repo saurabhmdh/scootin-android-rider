@@ -43,6 +43,7 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPendingOrderDetailsBinding.bind(view)
         binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
@@ -60,6 +61,7 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
                     //Enable and disable accept button
                     enableOrDisableVisibility(it.data?.orderDetails?.deliveryDetails != null)
+
                     if(it.data?.orderDetails?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.acceptButton.visibility=View.GONE

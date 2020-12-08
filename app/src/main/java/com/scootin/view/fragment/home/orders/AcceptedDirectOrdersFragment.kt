@@ -71,7 +71,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                     if (media == null) {
                         binding.imageMedia.setVisibility(View.GONE)
                     }
-                    if(it.data?.orderDetails?.orderStatus=="CANCEL"){
+                    if(it.data?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.pickupButton.visibility=View.GONE
                     }

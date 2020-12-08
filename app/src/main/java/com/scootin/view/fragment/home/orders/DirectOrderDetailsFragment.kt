@@ -73,7 +73,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
                         binding.imageMedia.setVisibility(View.GONE)
                     }
 
-                    if(it.data?.orderDetails?.orderStatus=="CANCEL"){
+                    if(it.data?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.acceptButton.visibility=View.GONE
                     }
