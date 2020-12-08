@@ -1,12 +1,17 @@
 package com.scootin.network.response
 
 data class PaymentDetails(
-    val id: Int,
-    val totalAmount: Double,
-    val orderReference: String,
-    val paymentMode: String?,
-    val paymentReferer: String,
+    val deliveryFreeAmount: Double?,
+    val amount: Double?,
+    val totalGSTAmount: Double?,
+    val totalAmount: Double?,
+    val id: Long,
     val paymentStatus: String,
-    val deliveryFreeAmount: Int,
-    val totalGSTAmount: Double
+    val paymentMode: String?,
+    val promoDiscount: Double?,
+    val orderReference: String?,
+    val promoCodeApplied: Boolean?,
+    val totalSaving: Double?,
+    val promoCodeID: Long?,
+    val mrp: Double?
 )
