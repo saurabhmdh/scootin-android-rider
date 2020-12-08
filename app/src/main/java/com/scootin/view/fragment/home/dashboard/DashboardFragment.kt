@@ -69,7 +69,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
     private fun updateListeners() {
         viewModel.onlineStatus().observe(viewLifecycleOwner) { cache->
             if (cache == null) {
-                binding.onlineBtn.isSelected = false
+                binding.onlineBtn.isSelected = true
             } else {
                 Timber.i("Cache Status = ${cache.value.toBoolean()}")
                 binding.onlineBtn.isSelected = cache.value.toBoolean().not()
