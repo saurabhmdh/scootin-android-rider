@@ -51,7 +51,7 @@ class CompletedOrdersFragment:Fragment(R.layout.fragment_completed_orders) {
                     }
 
                     override fun onCitywideOrderSelected(view: OrderListResponse) {
-                        TODO("Not yet implemented")
+                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToCityWideOrderDetailsFragment(view.id))
                     }
 
                 })

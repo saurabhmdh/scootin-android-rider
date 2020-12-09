@@ -6,6 +6,7 @@ data class CityWideOrderResponse(
     val deliveryAddressDetails: AddressDetails,
     val id: Int,
     val media: Media,
+    val totalAmount:Double,
     val orderDate: String,
     val orderStatus: String,
     val pickupAddressDetails: AddressDetails,

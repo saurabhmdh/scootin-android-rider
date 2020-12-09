@@ -21,6 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order_details) {
+
     private var binding by autoCleared<FragmentCitywideOrderDetailsBinding>()
 
     private val viewModel: OrdersViewModel by viewModels()

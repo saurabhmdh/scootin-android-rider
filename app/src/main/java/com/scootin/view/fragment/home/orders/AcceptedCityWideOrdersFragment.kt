@@ -1,5 +1,6 @@
 package com.scootin.view.fragment.home.orders
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -60,11 +61,11 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
                     if (media == null) {
                         binding.imageMedia.setVisibility(View.GONE)
                     }
-//                    if(it.data?.orderStatus=="CANCEL"){
-//                        binding.cancelTxt.visibility= View.VISIBLE
-//                        binding.pickupButton.visibility= View.GONE
-//                        binding.status.setTextColor(Color.parseColor("#fe0000"))
-//                    }
+                    if(it.data?.orderStatus=="CANCEL"){
+                        binding.cancelTxt.visibility= View.VISIBLE
+                        binding.deliveredButton.visibility= View.GONE
+                        binding.status.setTextColor(Color.parseColor("#fe0000"))
+                    }
                 }
                 Status.ERROR -> {
 
@@ -106,7 +107,7 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
     private fun setupDeliveryListener() {
         binding.deliveredButton.setOnClickListener {
             showLoading()
-            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.DIRECT.name, true)).observe(viewLifecycleOwner) {
+            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.CITYWIDE.name, true)).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.SUCCESS -> {
                         dismissLoading()

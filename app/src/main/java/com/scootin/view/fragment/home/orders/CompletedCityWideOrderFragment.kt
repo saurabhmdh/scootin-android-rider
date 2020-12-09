@@ -15,9 +15,10 @@ import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_order_details) {
     private var binding by autoCleared<FragmentCitywideOrderDetailsBinding>()
 
@@ -56,11 +57,6 @@ class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_o
 
                 }
             }
-        }
-
-        binding.acceptButton.setOnClickListener {
-            findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToAcceptOrder(orderId))
-
         }
 
 

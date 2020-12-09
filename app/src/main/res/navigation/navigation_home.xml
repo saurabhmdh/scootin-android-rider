@@ -81,6 +81,21 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_completed_citywide_orders_details"
+        android:name="com.scootin.view.fragment.home.orders.CompletedCityWideOrderFragment"
+        android:label="Order Details">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/direct_order_fragment_to_image_gallery"
+            app:destination="@id/image_gallery"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_completed_orders"
@@ -95,6 +110,11 @@
         <action
             android:id="@+id/action_completedOrdersFragment_to_directOrderDetailsFragment"
             app:destination="@id/nav_completed_direct_orders_details"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_completedOrdersFragment_to_cityWideOrderDetailsFragment"
+            app:destination="@id/nav_completed_citywide_orders_details"
             app:popUpToInclusive="true" />
     </fragment>
 
