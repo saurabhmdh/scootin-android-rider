@@ -49,6 +49,10 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
                         findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToDirectOrderDetailsFragment(item.id))
                     }
 
+                    override fun onCitywideOrderSelected(view: OrderListResponse) {
+                        TODO("Not yet implemented")
+                    }
+
                 })
 
         binding.recyclerView.apply {
