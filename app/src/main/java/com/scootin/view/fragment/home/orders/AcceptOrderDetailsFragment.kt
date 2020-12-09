@@ -26,6 +26,8 @@ import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+
+
 @AndroidEntryPoint
 class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_details) {
     private var binding by autoCleared<FragmentAcceptedOrderDetailsBinding>()
