@@ -5,7 +5,7 @@
 
         <variable
             name="data"
-            type="com.scootin.network.response.DirectOrderResponse"/>
+            type="com.scootin.network.response.CityWideOrderResponse"/>
 
     </data>
     <androidx.core.widget.NestedScrollView
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Amount :"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:layout_toRightOf="@id/pending_icon"
                     android:layout_marginTop="16dp"
                     android:layout_marginLeft="8dp"
@@ -49,12 +49,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:setPrice="@{data.paymentDetails.totalAmount}"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:layout_toRightOf="@id/txt_order_id"
                     android:layout_marginTop="16dp"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginLeft="8dp"
                     android:textColor="#000"/>
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_status"
                     android:layout_width="wrap_content"
@@ -63,16 +62,13 @@
                     android:layout_below="@id/txt_order_id"
                     android:layout_toRightOf="@id/pending_icon"
                     android:layout_marginLeft="8dp"/>
-
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{data.orderStatus}"
                     android:layout_below="@id/txt_order_id"
                     android:layout_toRightOf="@id/txt_status"
                     android:layout_marginLeft="8dp"/>
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,20 +91,12 @@
                 android:textColor="#000"
                 android:textSize="16sp"
                 android:layout_below="@id/cardview"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_below="@id/txt_item_list"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image_media"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/recycler"
+                android:layout_below="@id/txt_item_list"
                 app:setImage="@{data.media.url}"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
@@ -128,19 +116,40 @@
                 android:layout_below="@id/image_media"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_pickup_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pickup Address"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_Customer_details"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pickup_address_line1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:setOneLineAddress="@{data.pickupAddressDetails}"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_pickup_address"
+                android:layout_marginLeft="16dp"
+                android:drawableLeft="@drawable/ic_location_icon"
+                android:drawablePadding="4dp"
+                android:layout_marginTop="2dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_delivery_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Address"
                 android:textSize="15sp"
-                android:layout_below="@id/txt_Customer_details"
+                android:layout_below="@id/pickup_address_line1"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/delivery_address_line1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setOneLineAddress="@{data.addressDetails}"
+                app:setOneLineAddress="@{data.deliveryAddressDetails}"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:layout_below="@id/txt_delivery_address"
@@ -189,7 +198,7 @@
                 android:id="@+id/subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Payment Details"
+                android:text="Subtotal"
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:layout_below="@id/txt_order_details"
@@ -200,7 +209,7 @@
                 android:id="@+id/subtotal_amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:updatePaymentStatus="@{data.paymentDetails}"
+                app:setPrice="@{data.paymentDetails.totalAmount}"
                 android:textSize="15sp"
                 android:layout_alignParentRight="true"
                 android:textColor="#000"
@@ -208,19 +217,6 @@
                 android:layout_marginRight="16dp"
                 android:padding="4dp"
                 android:layout_marginTop="2dp"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/pickup_button"
-                android:layout_width="240dp"
-                android:layout_height="60dp"
-                android:layout_below="@id/subtotal"
-                android:layout_marginTop="16dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:textColor="@android:color/white"
-                android:text="PICK UP"
-                android:background="#3D6DFF" />
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/delivered_button"
                 android:layout_width="240dp"
@@ -230,19 +226,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/cancel_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="This order has been cancelled"
-                android:textSize="16sp"
-                android:padding="5dp"
-                android:textColor="#fe0000"
-                android:gravity="center_horizontal"
-                android:layout_below="@id/subtotal"
-                android:textStyle="bold"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

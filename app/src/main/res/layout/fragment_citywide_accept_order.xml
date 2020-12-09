@@ -99,6 +99,7 @@
                 android:layout_height="200dp"
                 android:layout_below="@id/txt_item_list"
                 android:layout_marginLeft="16dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"/>
 
@@ -124,6 +125,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"/>
+
         </RelativeLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </layout>

@@ -29,7 +29,7 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    private val args: DirectOrderDetailsFragmentArgs by navArgs()
+    private val args: CityWideOrderDetailsFragmentArgs by navArgs()
 
     private var media: Media? = null
 
@@ -49,10 +49,7 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
             when (it.status) {
                 Status.SUCCESS -> {
                     media = it.data?.media
-
                     binding.data = it.data
-
-
                 }
                 Status.ERROR -> {
 
@@ -64,7 +61,8 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
         }
 
         binding.acceptButton.setOnClickListener {
-            findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToAcceptOrder(args.orderId))
+            findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToAcceptOrder(orderId))
+
         }
 
 

@@ -60,9 +60,11 @@
         android:id="@+id/nav_completed_orders_details"
         android:name="com.scootin.view.fragment.home.orders.CompletedOrderDetailsFragment"
         android:label="Order Details">
+
         <argument
             android:name="order_id"
             app:argType="long" />
+
     </fragment>
     <fragment
         android:id="@+id/nav_completed_direct_orders_details"
@@ -147,23 +149,14 @@
             app:destination="@id/nav_accepted_direct_orders_details"
             app:popUpToInclusive="true" />
 
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/orders_menu"
-        android:name="com.scootin.view.fragment.home.orders.OrdersFragment"
-        android:label="All Orders">
         <action
-            android:id="@+id/action_allOrdersFragment_to_completedOrderFragment"
-            app:destination="@id/nav_completed_orders_details"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_allOrdersFramentg_to_pendingOrdersFragment"
-            app:destination="@id/normal_order_details"
+            android:id="@+id/action_acceptedOrdersFragment_to_cityWideOrderDetailsFragment"
+            app:destination="@id/accepted_citywide_order"
             app:popUpToInclusive="true" />
 
     </fragment>
+
+
 
     <fragment
         android:id="@+id/settings_menu"
@@ -234,6 +227,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accepted_citywide_order"
+        android:name="com.scootin.view.fragment.home.orders.AcceptedCityWideOrdersFragment"
+        android:label="Accepted Orders">
+    <argument
+        android:name="order_id"
+        app:argType="long" />
     </fragment>
 
     <fragment
