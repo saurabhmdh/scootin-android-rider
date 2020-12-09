@@ -250,6 +250,8 @@ deps.adjust_google_play_services_ads_identifier = "com.google.android.gms:play-s
 deps.lottie = "com.airbnb.android:lottie:$versions.lottieVersion"
 deps.image_picker = "com.github.dhaval2404:imagepicker:$versions.image_picker"
 deps.location_extension_android = "com.github.birjuvachhani:location-extension-android:3.1.0"
+deps.inline_activity_result = 'com.github.florent37:inline-activity-result-kotlin:1.0.4'
+
 
 def mockito = [:]
 mockito.core = "org.mockito:mockito-core:$versions.mockito"

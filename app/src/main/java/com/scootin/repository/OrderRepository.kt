@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.scootin.network.api.APIService
 import com.scootin.network.api.NetworkBoundResource
 import com.scootin.network.api.Resource
+import com.scootin.network.request.RequestCitywideOrder
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.*
 import okhttp3.MultipartBody
@@ -82,5 +83,11 @@ class OrderRepository @Inject constructor(
     fun countReceivedOrders(orderId: String, context: CoroutineContext):
             LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {
         override suspend fun createCall() = services.countReceivedOrders(orderId)
+    }.asLiveData()
+
+
+    fun acceptCityWideOrder(riderId: String, orderId: String, request: RequestCitywideOrder, context: CoroutineContext):
+            LiveData<Resource<CityWideOrderResponse>> = object : NetworkBoundResource<CityWideOrderResponse>(context) {
+        override suspend fun createCall() = services.acceptCityWideOrder(riderId, orderId, request)
     }.asLiveData()
 }
