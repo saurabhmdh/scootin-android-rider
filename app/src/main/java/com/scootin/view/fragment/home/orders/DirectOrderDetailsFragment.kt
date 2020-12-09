@@ -1,5 +1,6 @@
 package com.scootin.view.fragment.home.orders
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -76,6 +77,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
                     if(it.data?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.acceptButton.visibility=View.GONE
+                        binding.status.setTextColor(Color.parseColor("#fe0000"))
                     }
 
                 }

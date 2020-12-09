@@ -1,5 +1,6 @@
 package com.scootin.view.fragment.home.orders
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -65,6 +66,7 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
                     if(it.data?.orderDetails?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.acceptButton.visibility=View.GONE
+                        binding.status.setTextColor(Color.parseColor("#fe0000"))
                     }
 
                 }

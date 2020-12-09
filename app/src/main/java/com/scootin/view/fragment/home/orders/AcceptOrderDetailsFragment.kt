@@ -1,9 +1,12 @@
 package com.scootin.view.fragment.home.orders
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.graphics.toColor
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -49,6 +52,8 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
         Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
     }
 
+
+    @SuppressLint("ResourceAsColor")
     private fun setUpListener() {
         binding.deliveryAddressLine1.setOnClickListener {
             val address = binding.deliveryAddressLine1.text?.toString()
@@ -77,6 +82,7 @@ class AcceptOrderDetailsFragment: BaseFragment(R.layout.fragment_accepted_order_
                     if(it.data?.orderDetails?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.pickupButton.visibility=View.GONE
+                        binding.status.setTextColor(Color.parseColor("#fe0000"))
                     }
                 }
                 Status.ERROR -> { }

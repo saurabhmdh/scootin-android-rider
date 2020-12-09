@@ -1,5 +1,6 @@
 package com.scootin.view.fragment.home.orders
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -74,6 +75,7 @@ class AcceptedDirectOrdersFragment: BaseFragment (R.layout.fragment_accepted_dir
                     if(it.data?.orderStatus=="CANCEL"){
                         binding.cancelTxt.visibility=View.VISIBLE
                         binding.pickupButton.visibility=View.GONE
+                        binding.status.setTextColor(Color.parseColor("#fe0000"))
                     }
                 }
                 Status.ERROR -> {
