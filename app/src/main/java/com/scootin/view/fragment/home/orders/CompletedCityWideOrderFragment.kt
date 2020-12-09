@@ -15,19 +15,16 @@ import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order_details) {
+class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_order_details) {
     private var binding by autoCleared<FragmentCitywideOrderDetailsBinding>()
 
     private val viewModel: OrdersViewModel by viewModels()
 
     @Inject
     lateinit var appExecutors: AppExecutors
-
     private val args: CityWideOrderDetailsFragmentArgs by navArgs()
 
     private var media: Media? = null
@@ -42,6 +39,8 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
         binding.lifecycleOwner = this
         binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
         setUpListener()
+        enableOrDisableVisibility(true)
+
         // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
         viewModel.getCitywideOrder(args.orderId).observe(viewLifecycleOwner) {
@@ -88,6 +87,11 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
         Timber.i("launchGallery with media $media")
         media?.let {
             findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
+        }
+    }
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
         }
     }
 
