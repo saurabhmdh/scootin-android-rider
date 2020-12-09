@@ -1,6 +1,5 @@
 package com.scootin.view.fragment.home.orders
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,21 +9,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptedCitywideOrdersBinding
-import com.scootin.databinding.FragmentAcceptedDirectOrdersDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.Media
-import com.scootin.util.Conversions
 import com.scootin.util.OrderType
 import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
-import com.scootin.view.adapter.orders.ExtraDataAdapter
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_citywide_orders) {
     private var binding by autoCleared<FragmentAcceptedCitywideOrdersBinding>()
 
