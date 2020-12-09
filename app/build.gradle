@@ -75,8 +75,6 @@ dependencies {
     implementation deps.support.viewpager2
 
     implementation deps.room.runtime
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
     kapt deps.room.compiler
     implementation deps.room.ktx
 
@@ -127,6 +125,8 @@ dependencies {
 
     implementation deps.location_extension_android
     implementation deps.play.service_location
+
+    implementation deps.inline_activity_result
 }
 kapt {
     javacOptions {
