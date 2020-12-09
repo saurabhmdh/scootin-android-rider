@@ -8,18 +8,13 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptOrdersBinding
-
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.response.OrderListResponse
-import com.scootin.network.response.UnAssignedOrderResponse
-
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.AcceptOrderAdapter
-import com.scootin.view.adapter.orders.PendingOrdersAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
-
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -52,6 +47,10 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
 
                     override fun onHandwrittenListOrderSelected(item: OrderListResponse) {
                         findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToDirectOrderDetailsFragment(item.id))
+                    }
+
+                    override fun onCitywideOrderSelected(view: OrderListResponse) {
+                        TODO("Not yet implemented")
                     }
 
                 })

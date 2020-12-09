@@ -1,15 +1,11 @@
 package com.scootin.view.adapter.orders
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.scootin.databinding.AdapterCompletedOrdersBinding
-import com.scootin.databinding.AdapterPendingOrdersBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.response.OrderListResponse
-import com.scootin.network.response.PendingOrdersList
 import com.scootin.view.adapter.DataBoundListAdapter
 import timber.log.Timber
 
@@ -51,17 +47,18 @@ class CompletedOrdersAdapter (
             binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
-            if(item.directOrder){
-                itemAdapterClickListener.onHandwrittenListOrderSelected(item)
-            }
-            else{
-                itemAdapterClickListener.onItemSelected(item)
-            }
+            when(item.orderType) {
+                "DIRECT"->itemAdapterClickListener.onHandwrittenListOrderSelected(item)
 
+                "NORMAL"->itemAdapterClickListener.onItemSelected(item)
+
+                "CITYWIDE"->itemAdapterClickListener.onCitywideOrderSelected(item)
+            }
         }
     }
     interface ItemAdapterClickLister {
         fun onItemSelected(view: OrderListResponse)
         fun onHandwrittenListOrderSelected(view: OrderListResponse)
+        fun onCitywideOrderSelected(view: OrderListResponse)
     }
 }

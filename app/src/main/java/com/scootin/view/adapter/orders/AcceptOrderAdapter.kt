@@ -52,10 +52,12 @@ class AcceptOrderAdapter (
             binding.orderDate.setText(item.orderStatus)
         }
         binding.orderListTab.setOnClickListener {
-            if (item.directOrder) {
-                itemAdapterClickListener.onHandwrittenListOrderSelected(item)
-            } else {
-                itemAdapterClickListener.onItemSelected(item)
+            when(item.orderType) {
+                "DIRECT"->itemAdapterClickListener.onHandwrittenListOrderSelected(item)
+
+                "NORMAL"->itemAdapterClickListener.onItemSelected(item)
+
+                "CITYWIDE"->itemAdapterClickListener.onCitywideOrderSelected(item)
             }
         }
 
@@ -65,5 +67,6 @@ class AcceptOrderAdapter (
     interface ItemAdapterClickLister {
         fun onItemSelected(view: OrderListResponse)
         fun onHandwrittenListOrderSelected(view: OrderListResponse)
+        fun onCitywideOrderSelected(view: OrderListResponse)
     }
 }
