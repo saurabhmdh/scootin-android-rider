@@ -16,6 +16,7 @@ import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.glide.GlideApp
 import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestCitywideOrder
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.Media
 import com.scootin.util.OrderType
@@ -58,10 +59,7 @@ class CitywideAcceptFragment: BaseFragment(R.layout.fragment_citywide_accept_ord
         viewModel.getCitywideOrder(args.orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-
                     binding.data = it.data
-
-
                 }
                 Status.ERROR -> {
 
@@ -74,9 +72,21 @@ class CitywideAcceptFragment: BaseFragment(R.layout.fragment_citywide_accept_ord
 
         binding.acceptButton.setOnClickListener {
             showLoading()
-            viewModel.acceptOrder(
-                AppHeaders.userID, orderId.toString(), RequestOrderAcceptedByRider(
-                    OrderType.DIRECT.name, true)
+
+            if (media == null) {
+                Toast.makeText(context, "Invalid Media", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val weight = binding.weightOfItem.text?.toString()?.toIntOrNull()
+
+            if (weight == null) {
+                Toast.makeText(context, "Invalid Weight", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            viewModel.getCitywideOrder(
+                AppHeaders.userID, orderId.toString(), RequestCitywideOrder(
+                    media!!.id, weight)
             ).observe(viewLifecycleOwner) {
                 when(it.status) {
                     Status.SUCCESS -> {
@@ -103,12 +113,6 @@ class CitywideAcceptFragment: BaseFragment(R.layout.fragment_citywide_accept_ord
     }
 
 
-    private fun launchGallery() {
-        Timber.i("launchGallery with media $media")
-        media?.let {
-            findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
-        }
-    }
     private fun enableOrDisableVisibility(completed: Boolean) {
         if (completed) {
             binding.acceptButton.visibility = View.GONE

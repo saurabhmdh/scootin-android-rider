@@ -4,6 +4,7 @@ import com.scootin.network.RequestFCM
 import com.scootin.network.RequestHistory
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestActive
+import com.scootin.network.request.RequestCitywideOrder
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.request.RiderLocationDTO
 import com.scootin.network.response.*
@@ -66,7 +67,17 @@ interface APIService {
     suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
 
     @GET("/order/orders/get-city-wide-order/{id}")
-    suspend fun getCityWideOrder(@Path("id") id: Long): Response<CityWideOrderResponse>
+    suspend fun getCityWideOrder(@Path("id") id: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<CityWideOrderResponse>
+
+
+    @POST("/order/orders/accept-city-wide-order-by-rider/{userId}/{orderId}")
+    suspend fun acceptCityWideOrder(
+        @Path("userId") userId: String,
+        @Path("orderId") orderId: String,
+        @Body request: RequestCitywideOrder,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<CityWideOrderResponse>
+
 
     @POST("/order/orders/accept-order-by-rider/{riderId}/{orderId}")
     suspend fun acceptOrder(

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.scootin.network.request.RequestCitywideOrder
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.repository.OrderRepository
 import com.scootin.viewmodel.base.ObservableViewModel
@@ -71,4 +72,5 @@ internal constructor(
     }
 
 
+    fun getCitywideOrder(riderId: String, orderId: String, request: RequestCitywideOrder) = orderRepository.acceptCityWideOrder(riderId, orderId, request, viewModelScope.coroutineContext + Dispatchers.IO)
 }
