@@ -11,16 +11,12 @@ import androidx.navigation.fragment.navArgs
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.scootin.R
 import com.scootin.databinding.FragmentCitywideAcceptOrderBinding
-import com.scootin.databinding.FragmentCitywideOrderDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
 import com.scootin.network.glide.GlideApp
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestCitywideOrder
-import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.Media
-import com.scootin.util.OrderType
-import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.order.OrdersViewModel
@@ -28,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
+
+
 @AndroidEntryPoint
 class CitywideAcceptFragment: BaseFragment(R.layout.fragment_citywide_accept_order) {
     private var binding by autoCleared<FragmentCitywideAcceptOrderBinding>()
@@ -93,7 +91,7 @@ class CitywideAcceptFragment: BaseFragment(R.layout.fragment_citywide_accept_ord
                         dismissLoading()
                         Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
                         enableOrDisableVisibility(true)
-                        findNavController().popBackStack()
+                        findNavController().popBackStack(R.id.nav_pending_orders, false)
                     }
                     Status.ERROR -> {
                         dismissLoading()
