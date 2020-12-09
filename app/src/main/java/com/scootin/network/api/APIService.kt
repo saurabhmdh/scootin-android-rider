@@ -7,6 +7,7 @@ import com.scootin.network.request.RequestActive
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.request.RiderLocationDTO
 import com.scootin.network.response.*
+import okhttp3.MultipartBody
 
 
 import retrofit2.Response
@@ -36,6 +37,10 @@ interface APIService {
         @Body requestActive: RiderLocationDTO,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<ResponseUser>
+
+    @Multipart
+    @POST("/media/upload-image-android")
+    suspend fun uploadImage(@Part multipartFile: MultipartBody.Part): Response<Media>
 
     @POST("/order-history/riders/unassigned")
     suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>

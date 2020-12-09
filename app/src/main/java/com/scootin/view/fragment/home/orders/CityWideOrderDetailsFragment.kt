@@ -66,29 +66,7 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
         }
 
         binding.acceptButton.setOnClickListener {
-            showLoading()
-            viewModel.acceptOrder(
-                AppHeaders.userID, orderId.toString(), RequestOrderAcceptedByRider(
-                    OrderType.DIRECT.name, true)
-            ).observe(viewLifecycleOwner) {
-                when(it.status) {
-                    Status.SUCCESS -> {
-                        dismissLoading()
-                        Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
-                        enableOrDisableVisibility(true)
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR -> {
-                        dismissLoading()
-                        Toast.makeText(requireContext(), "This Order has been Accepted by other rider", Toast.LENGTH_LONG).show()
-                        enableOrDisableVisibility(true)
-                    }
-                    Status.LOADING -> {
-
-                    }
-                }
-
-            }
+            findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToAcceptOrder(args.orderId))
         }
 
 

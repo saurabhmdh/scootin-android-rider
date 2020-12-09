@@ -210,7 +210,32 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/citywide_order_fragment_to_accept_order"
+            app:destination="@id/citywide_accept_order"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/citywide_accept_order"
+        android:name="com.scootin.view.fragment.home.orders.CitywideAcceptFragment"
+        android:label="Order Details">
+        <argument
+            android:name="order_id"
+            app:argType="long" />
+        <!--        adb shell am start -a android.intent.action.VIEW -d "https://rider.scootin.com/order-detail-direct/18613"-->
+        <action
+            android:id="@+id/citywide_order_fragment_to_image_gallery"
+            app:destination="@id/image_gallery"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
     <fragment
         android:id="@+id/image_gallery"
         android:name="com.scootin.view.fragment.home.gallery.ImageGalleryFragment"

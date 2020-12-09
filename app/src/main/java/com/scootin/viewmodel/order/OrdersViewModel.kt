@@ -9,12 +9,22 @@ import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.repository.OrderRepository
 import com.scootin.viewmodel.base.ObservableViewModel
 import com.scootin.viewmodel.home.LoginViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import timber.log.Timber
+import java.io.File
 
 class OrdersViewModel  @ViewModelInject
 internal constructor(
     private val orderRepository: OrderRepository
 ) : ObservableViewModel() {
+
+    private val handler = CoroutineExceptionHandler { _, exception ->
+        Timber.i("Caught  $exception")
+    }
+
 
     private val _order = MutableLiveData<Long>()
 
@@ -53,4 +63,12 @@ internal constructor(
     fun deliverOrder(orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.deliverOrder(orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun pickupOrder(orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.pickupOrder(orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    fun uploadMedia(file: File) = liveData(context = viewModelScope.coroutineContext + Dispatchers.IO + handler) {
+        val filePart = MultipartBody.Part.createFormData("multipartFile", file.name, file.asRequestBody())
+        Timber.i("Media uploadMedia")
+        emit(orderRepository.uploadImage(filePart))
+    }
+
+
 }

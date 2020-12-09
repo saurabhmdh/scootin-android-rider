@@ -6,6 +6,7 @@ import com.scootin.network.api.NetworkBoundResource
 import com.scootin.network.api.Resource
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -55,6 +56,7 @@ class OrderRepository @Inject constructor(
             services.getCityWideOrder(orderId)
     }.asLiveData()
 
+    suspend fun uploadImage(filePart: MultipartBody.Part) = services.uploadImage(filePart)
 
     fun acceptOrder(riderId: String, orderId: String, requestOrderAcceptedByRider: RequestOrderAcceptedByRider, context: CoroutineContext):
             LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {

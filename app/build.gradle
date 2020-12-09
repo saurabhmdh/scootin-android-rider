@@ -122,7 +122,7 @@ dependencies {
     implementation deps.navigation.navigation_ui_ktx
     implementation deps.navigation.fragment_ktx
     implementation deps.lottie
-
+    implementation deps.image_picker
     implementation deps.play.firebase
 
     implementation deps.location_extension_android
