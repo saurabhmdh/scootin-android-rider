@@ -17,13 +17,23 @@ import retrofit2.http.*
 interface APIService {
 
     @POST("auth/login/rider")
-    suspend fun doLogin(@Body options: Map<String, String>, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
+    suspend fun doLogin(
+        @Body options: Map<String, String>,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<ResponseUser>
 
     @POST("/auth/refresh/rider")
-    suspend fun refreshToken(@Body options: Map<String, String>, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
+    suspend fun refreshToken(
+        @Body options: Map<String, String>,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<ResponseUser>
 
     @POST("/notification/rider/{id}/update-fcm")
-    suspend fun updateFCMID(@Path("id") userMobileNumber: String, @Body requestFCM: RequestFCM, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<ResponseUser>
+    suspend fun updateFCMID(
+        @Path("id") userMobileNumber: String,
+        @Body requestFCM: RequestFCM,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<ResponseUser>
 
     @POST("/register/rider/active-for-order/{riderId}")
     suspend fun updateStatus(
@@ -41,33 +51,38 @@ interface APIService {
 
     @Multipart
     @POST("/media/upload-image-android")
-    suspend fun uploadImage(@Part multipartFile: MultipartBody.Part): Response<Media>
-
-    @POST("/order-history/riders/unassigned")
-    suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>
-
-
-    @POST("/order-history/riders/accepted/{riderId}")
-    suspend fun getAcceptedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
-
-
-    @POST("/order-history/riders/completed/{riderId}")
-    suspend fun getCompletedOrders(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<OrderListResponse>>
+    suspend fun uploadImage(
+        @Part multipartFile: MultipartBody.Part,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<Media>
 
 
     @GET("order/orders/get-order/{orderId}")
-    suspend fun getOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<NormalOrderResponse>
+    suspend fun getOrderDetail(
+        @Path("orderId") orderId: Long,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ) : Response<NormalOrderResponse>
 
 
     @GET("order/orders/get-direct-order/{orderId}")
-    suspend fun getDirectOrderDetail(@Path("orderId") orderId: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<DirectOrderResponse>
+    suspend fun getDirectOrderDetail(
+        @Path("orderId") orderId: Long,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ) : Response<DirectOrderResponse>
 
 
     @GET("register/rider/get-info/{riderId}")
-    suspend fun getRiderInfo(@Path("riderId") riderId: String, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()) : Response<RiderInfo>
+    suspend fun getRiderInfo(
+        @Path("riderId") riderId: String,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ) : Response<RiderInfo>
+
 
     @GET("/order/orders/get-city-wide-order/{id}")
-    suspend fun getCityWideOrder(@Path("id") id: Long, @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<CityWideOrderResponse>
+    suspend fun getCityWideOrder(
+        @Path("id") id: Long,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<CityWideOrderResponse>
 
 
     @POST("/order/orders/accept-city-wide-order-by-rider/{userId}/{orderId}")
@@ -103,6 +118,7 @@ interface APIService {
     ): Response<String>
 
 
+    //History section -------------------- Start ----------------
     @POST("/order-history/rider/count/delivered/{riderId}")
     suspend fun countDeliverOrders(
         @Path("riderId") riderId: String,
@@ -115,5 +131,22 @@ interface APIService {
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<String>
 
+    @POST("/order-history/riders/unassigned")
+    suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>
 
+
+    @POST("/order-history/riders/accepted/{riderId}")
+    suspend fun getAcceptedOrders(
+        @Path("riderId") riderId: String,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<List<OrderListResponse>>
+
+
+    @POST("/order-history/riders/completed/{riderId}")
+    suspend fun getCompletedOrders(
+        @Path("riderId") riderId: String,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<List<OrderListResponse>>
+
+    //History section -------------------- End ----------------
 }
