@@ -27,6 +27,12 @@ import com.scootin.databinding.ActivityMainBinding
 import com.scootin.network.manager.AppHeaders
 import com.scootin.viewmodel.home.HomeViewModel
 import androidx.lifecycle.observe
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.tasks.Task
 //import com.birjuvachhani.locus.Locus
 import com.scootin.bindings.setCircleImage
 import com.scootin.interfaces.IFullScreenListener
@@ -50,8 +56,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    private val APP_UPDATE_TYPE_SUPPORTED = AppUpdateType.IMMEDIATE
+    private val REQUEST_UPDATE = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkForUpdates()
+
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
@@ -148,4 +159,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.toolbar.visibility = View.GONE
         }
     }
+
+
+    private fun checkForUpdates() {
+        //1
+        val appUpdateManager = AppUpdateManagerFactory.create(baseContext)
+        val appUpdateInfo = appUpdateManager.appUpdateInfo
+        appUpdateInfo.addOnSuccessListener {
+            //2
+            handleUpdate(appUpdateManager, appUpdateInfo)
+        }
+    }
+
+    private fun handleUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
+        if (APP_UPDATE_TYPE_SUPPORTED == AppUpdateType.IMMEDIATE) {
+            handleImmediateUpdate(manager, info)
+        } else if (APP_UPDATE_TYPE_SUPPORTED == AppUpdateType.FLEXIBLE) {
+//            handleFlexibleUpdate(manager, info)
+        }
+    }
+
+    private fun handleImmediateUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
+        if ((info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    || info.result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
+            && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+        ) {
+            manager.startUpdateFlowForResult(info.result, AppUpdateType.IMMEDIATE, this, REQUEST_UPDATE)
+        }
+    }
+
 }
