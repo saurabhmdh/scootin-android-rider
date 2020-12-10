@@ -1,15 +1,12 @@
 package com.scootin.viewmodel.order
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.cachedIn
 import com.scootin.network.request.RequestCitywideOrder
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.repository.OrderRepository
 import com.scootin.viewmodel.base.ObservableViewModel
-import com.scootin.viewmodel.home.LoginViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
@@ -46,8 +43,16 @@ internal constructor(
     val loadDirectOrder = Transformations.switchMap(_direct_order) {
         orderRepository.getDirectOrder(it, viewModelScope.coroutineContext + Dispatchers.IO)
     }
+    fun getAllUnAssigned() =
+        orderRepository.getAllUnAssigned().cachedIn(viewModelScope).asLiveData()
 
-    fun getAllUnAssigned() = orderRepository.getAllUnAssigned(viewModelScope.coroutineContext + Dispatchers.IO)
+    fun getAcceptedOrders(riderId: String) =
+        orderRepository.getAcceptedOrders(riderId).cachedIn(viewModelScope).asLiveData()
+
+    fun getCompletedOrders(riderId: String) =
+        orderRepository.getCompletedOrders(riderId).cachedIn(viewModelScope).asLiveData()
+
+   // fun getAllUnAssigned() = orderRepository.getAllUnAssigned(viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun getNormalOrder(orderId: Long) = orderRepository.getOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
@@ -55,9 +60,9 @@ internal constructor(
 
     fun getCitywideOrder(orderId: Long) = orderRepository.getCityWideOrder(orderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
-    fun getCompletedOrders(riderId: String) = orderRepository.getCompletedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
+   // fun getCompletedOrders(riderId: String) = orderRepository.getCompletedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
-    fun getAcceptedOrders(riderId: String) = orderRepository.getAcceptedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
+   // fun getAcceptedOrders(riderId: String) = orderRepository.getAcceptedOrders(riderId, viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun acceptOrder(riderId: String, orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.acceptOrder(riderId, orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
 

@@ -1,12 +1,19 @@
 package com.scootin.repository
 
 import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.scootin.network.api.APIService
 import com.scootin.network.api.NetworkBoundResource
 import com.scootin.network.api.Resource
 import com.scootin.network.request.RequestCitywideOrder
 import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.*
+import com.scootin.pages.AcceptedOrderDataSource
+import com.scootin.pages.CompletedOrderDataSource
+import com.scootin.pages.UnassignedOrderDataSource
+import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import retrofit2.Response
 import javax.inject.Inject
@@ -18,26 +25,23 @@ class OrderRepository @Inject constructor(
     private val services: APIService
 ) {
 
-    fun getAllUnAssigned(
-        context: CoroutineContext
-    ): LiveData<Resource<List<UnAssignedOrderResponse>>> = object : NetworkBoundResource<List<UnAssignedOrderResponse>>(context) {
-        override suspend fun createCall() = services.getAllUnAssigned()
-    }.asLiveData()
+    fun getAllUnAssigned(): Flow<PagingData<UnAssignedOrderResponse>> {
+        return Pager(config = PagingConfig(pageSize = 20, initialLoadSize = 20)) {
+            UnassignedOrderDataSource(services)
+        }.flow
+    }
 
+    fun getAcceptedOrders(riderId: String): Flow<PagingData<OrderListResponse>> {
+        return Pager(config = PagingConfig(pageSize = 20, initialLoadSize = 20)) {
+            AcceptedOrderDataSource(services,riderId)
+        }.flow
+    }
 
-    fun getAcceptedOrders(
-        riderId: String,
-        context: CoroutineContext
-    ): LiveData<Resource<List<OrderListResponse>>> = object : NetworkBoundResource<List<OrderListResponse>>(context) {
-        override suspend fun createCall() = services.getAcceptedOrders(riderId)
-    }.asLiveData()
-
-    fun getCompletedOrders(
-        riderId: String,
-        context: CoroutineContext
-    ): LiveData<Resource<List<OrderListResponse>>> = object : NetworkBoundResource<List<OrderListResponse>>(context) {
-        override suspend fun createCall() = services.getCompletedOrders(riderId)
-    }.asLiveData()
+    fun getCompletedOrders(riderId: String): Flow<PagingData<OrderListResponse>> {
+        return Pager(config = PagingConfig(pageSize = 20, initialLoadSize = 20)) {
+            CompletedOrderDataSource(services,riderId)
+        }.flow
+    }
 
     fun getOrder(id: Long, context: CoroutineContext):
             LiveData<Resource<NormalOrderResponse>> = object : NetworkBoundResource<NormalOrderResponse>(context) {

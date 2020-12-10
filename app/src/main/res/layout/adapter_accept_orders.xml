@@ -49,7 +49,7 @@
                 android:id="@+id/txt_orderdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order Status:"
+                android:text="Order Type: "
                 android:layout_below="@id/txt_order_id"
                 android:layout_toRightOf="@id/pending_icon"
                 android:layout_marginLeft="8dp"/>
@@ -57,7 +57,6 @@
                 android:id="@+id/orderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="abc"
                 android:layout_below="@id/txt_order_id"
                 android:layout_toRightOf="@id/txt_orderdate"/>
             <androidx.appcompat.widget.AppCompatImageView

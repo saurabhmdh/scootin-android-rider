@@ -132,12 +132,18 @@ interface APIService {
     ): Response<String>
 
     @POST("/order-history/riders/unassigned")
-    suspend fun getAllUnAssigned(@HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()): Response<List<UnAssignedOrderResponse>>
+    suspend fun getAllUnAssigned(
+        @Query("page") offset: Int = 0,
+        @Query("size") limit: Int = 10,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<List<UnAssignedOrderResponse>>
 
 
     @POST("/order-history/riders/accepted/{riderId}")
     suspend fun getAcceptedOrders(
         @Path("riderId") riderId: String,
+        @Query("page") offset: Int = 0,
+        @Query("size") limit: Int = 10,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<List<OrderListResponse>>
 
@@ -145,6 +151,8 @@ interface APIService {
     @POST("/order-history/riders/completed/{riderId}")
     suspend fun getCompletedOrders(
         @Path("riderId") riderId: String,
+        @Query("page") offset: Int = 0,
+        @Query("size") limit: Int = 10,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<List<OrderListResponse>>
 
