@@ -2,7 +2,7 @@ package com.scootin.network.response
 
 
 data class CityWideOrderResponse(
-    val PaymentDetails: PaymentDetails,
+    val paymentDetails: PaymentDetails,
     val deliveryAddressDetails: AddressDetails,
     val id: Int,
     val media: Media,

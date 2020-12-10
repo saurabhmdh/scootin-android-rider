@@ -125,7 +125,7 @@ dependencies {
 
     implementation deps.location_extension_android
     implementation deps.play.service_location
-
+    implementation deps.paging3_ktx
     implementation deps.inline_activity_result
 }
 kapt {

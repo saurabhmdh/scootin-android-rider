@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.scootin.R
@@ -16,6 +17,7 @@ import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.AcceptOrderAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -64,16 +66,8 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
     private fun setupListeners() {
         Timber.i("Saurabh Rider Id? ${AppHeaders.userID}")
         viewModel.getAcceptedOrders(AppHeaders.userID).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    acceptOrderAdapter.submitList(it.data)
-                }
-                Status.ERROR -> {
-
-                }
-                Status.LOADING -> {
-
-                }
+            lifecycleScope.launch {
+                acceptOrderAdapter.submitData(it)
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.scootin.R
@@ -19,6 +20,7 @@ import com.scootin.view.adapter.orders.CompletedOrdersAdapter
 import com.scootin.view.adapter.orders.PendingOrdersAdapter
 import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 @AndroidEntryPoint
 class CompletedOrdersFragment:Fragment(R.layout.fragment_completed_orders) {
@@ -63,16 +65,8 @@ class CompletedOrdersFragment:Fragment(R.layout.fragment_completed_orders) {
 
     private fun setupListeners() {
         viewModel.getCompletedOrders(AppHeaders.userID).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    completedOrdersAdapter.submitList(it.data)
-                }
-                Status.ERROR -> {
-
-                }
-                Status.LOADING -> {
-
-                }
+            lifecycleScope.launch {
+                completedOrdersAdapter.submitData(it)
             }
         }
     }
