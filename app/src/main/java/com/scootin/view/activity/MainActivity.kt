@@ -4,7 +4,6 @@ package com.scootin.view.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -52,13 +51,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val APP_UPDATE_TYPE_SUPPORTED = AppUpdateType.IMMEDIATE
     private val REQUEST_UPDATE = 100
 
+    lateinit var appUpdateManager: AppUpdateManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkForUpdates()
 
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
+
+        checkForUpdates()
         setUpToolbar()
 
         navController = findNavController(R.id.home_navigation_fragment)
@@ -155,10 +157,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private fun checkForUpdates() {
-        val appUpdateManager = AppUpdateManagerFactory.create(baseContext)
+        appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfo = appUpdateManager.appUpdateInfo
         appUpdateInfo.addOnSuccessListener {
-            //2
             handleUpdate(appUpdateManager, appUpdateInfo)
         }
     }
@@ -172,15 +173,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun handleImmediateUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
-        Log.e(TAG, "handleImmediateUpdate -> ${info.result.updateAvailability()}, ${UpdateAvailability.UPDATE_AVAILABLE}")
-        Timber.i(TAG,"handleImmediateUpdate -> ${info.result.updateAvailability()}, ${UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS}")
-        Timber.i("handleImmediateUpdate -> ${info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)}")
-
         if ((info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                     || info.result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
             && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
         ) {
-            Timber.i(TAG,"handleImmediateUpdate -> everything done well now waiting to update..")
             manager.startUpdateFlowForResult(info.result, AppUpdateType.IMMEDIATE, this, REQUEST_UPDATE)
         }
     }
@@ -189,7 +185,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 // However, you should execute this check at all entry points into the app.
     override fun onResume() {
         super.onResume()
-        val appUpdateManager = AppUpdateManagerFactory.create(baseContext)
+
         appUpdateManager
             .appUpdateInfo
             .addOnSuccessListener { appUpdateInfo ->
