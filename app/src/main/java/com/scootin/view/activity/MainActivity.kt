@@ -1,8 +1,8 @@
 package com.scootin.view.activity
 
+//import com.birjuvachhani.locus.Locus
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -10,43 +10,36 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.scootin.R
-import com.scootin.databinding.ActivityMainBinding
-import com.scootin.network.manager.AppHeaders
-import com.scootin.viewmodel.home.HomeViewModel
-import androidx.lifecycle.observe
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
-//import com.birjuvachhani.locus.Locus
+import com.scootin.R
 import com.scootin.bindings.setCircleImage
+import com.scootin.databinding.ActivityMainBinding
 import com.scootin.interfaces.IFullScreenListener
-import com.scootin.location.LocationService
 import com.scootin.network.api.Status
-import com.scootin.viewmodel.home.LoginViewModel
+import com.scootin.network.manager.AppHeaders
+import com.scootin.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     IFullScreenListener {
 
+    private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
 
     private val topLevelDestinations = setOf(R.id.nav_dashboard)
@@ -162,7 +155,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private fun checkForUpdates() {
-        //1
         val appUpdateManager = AppUpdateManagerFactory.create(baseContext)
         val appUpdateInfo = appUpdateManager.appUpdateInfo
         appUpdateInfo.addOnSuccessListener {
@@ -180,12 +172,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun handleImmediateUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
+        Log.e(TAG, "handleImmediateUpdate -> ${info.result.updateAvailability()}, ${UpdateAvailability.UPDATE_AVAILABLE}")
+        Timber.i(TAG,"handleImmediateUpdate -> ${info.result.updateAvailability()}, ${UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS}")
+        Timber.i("handleImmediateUpdate -> ${info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)}")
+
         if ((info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                     || info.result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
             && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
         ) {
+            Timber.i(TAG,"handleImmediateUpdate -> everything done well now waiting to update..")
             manager.startUpdateFlowForResult(info.result, AppUpdateType.IMMEDIATE, this, REQUEST_UPDATE)
         }
+    }
+
+    // Checks that the update is not stalled during 'onResume()'.
+// However, you should execute this check at all entry points into the app.
+    override fun onResume() {
+        super.onResume()
+        val appUpdateManager = AppUpdateManagerFactory.create(baseContext)
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability()
+                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                ) {
+                    Timber.i(TAG,"onResume -> update is in progress..")
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.IMMEDIATE,
+                        this,
+                        REQUEST_UPDATE
+                    );
+                }
+            }
     }
 
 }
