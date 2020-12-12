@@ -1,21 +1,17 @@
 package com.scootin.view.activity
 
+//import com.birjuvachhani.locus.Locus
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,24 +19,19 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.scootin.R
+import com.scootin.bindings.setCircleImage
 import com.scootin.databinding.ActivityMainBinding
+import com.scootin.interfaces.IFullScreenListener
+import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.viewmodel.home.HomeViewModel
-import androidx.lifecycle.observe
-//import com.birjuvachhani.locus.Locus
-import com.scootin.bindings.setCircleImage
-import com.scootin.interfaces.IFullScreenListener
-import com.scootin.location.LocationService
-import com.scootin.network.api.Status
-import com.scootin.viewmodel.home.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     IFullScreenListener {
 
+    private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
 
     private val topLevelDestinations = setOf(R.id.nav_dashboard)
@@ -50,11 +41,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
+
+
         setUpToolbar()
 
         navController = findNavController(R.id.home_navigation_fragment)
