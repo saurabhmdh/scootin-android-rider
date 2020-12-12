@@ -18,12 +18,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.tasks.Task
 import com.scootin.R
 import com.scootin.bindings.setCircleImage
 import com.scootin.databinding.ActivityMainBinding
@@ -32,7 +26,6 @@ import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -48,10 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val APP_UPDATE_TYPE_SUPPORTED = AppUpdateType.IMMEDIATE
-    private val REQUEST_UPDATE = 100
 
-    lateinit var appUpdateManager: AppUpdateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             setContentView(it.root)
         }
 
-        checkForUpdates()
+
         setUpToolbar()
 
         navController = findNavController(R.id.home_navigation_fragment)
@@ -154,53 +144,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.toolbar.visibility = View.GONE
         }
     }
-
-
-    private fun checkForUpdates() {
-        appUpdateManager = AppUpdateManagerFactory.create(this)
-        val appUpdateInfo = appUpdateManager.appUpdateInfo
-        appUpdateInfo.addOnSuccessListener {
-            handleUpdate(appUpdateManager, appUpdateInfo)
-        }
-    }
-
-    private fun handleUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
-        if (APP_UPDATE_TYPE_SUPPORTED == AppUpdateType.IMMEDIATE) {
-            handleImmediateUpdate(manager, info)
-        } else if (APP_UPDATE_TYPE_SUPPORTED == AppUpdateType.FLEXIBLE) {
-//            handleFlexibleUpdate(manager, info)
-        }
-    }
-
-    private fun handleImmediateUpdate(manager: AppUpdateManager, info: Task<AppUpdateInfo>) {
-        if ((info.result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    || info.result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
-            && info.result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-        ) {
-            manager.startUpdateFlowForResult(info.result, AppUpdateType.IMMEDIATE, this, REQUEST_UPDATE)
-        }
-    }
-
-    // Checks that the update is not stalled during 'onResume()'.
-// However, you should execute this check at all entry points into the app.
-    override fun onResume() {
-        super.onResume()
-
-        appUpdateManager
-            .appUpdateInfo
-            .addOnSuccessListener { appUpdateInfo ->
-                if (appUpdateInfo.updateAvailability()
-                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
-                ) {
-                    Timber.i(TAG,"onResume -> update is in progress..")
-                    appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        AppUpdateType.IMMEDIATE,
-                        this,
-                        REQUEST_UPDATE
-                    );
-                }
-            }
-    }
-
 }

@@ -88,7 +88,7 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
     private fun launchGallery() {
         Timber.i("launchGallery with media $media")
         media?.let {
-            findNavController().navigate(AcceptedDirectOrdersFragmentDirections.directOrderFragmentToImageGallery(it))
+            findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToImageGallery(it))
         }
     }
 
