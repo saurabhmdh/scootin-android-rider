@@ -18,6 +18,7 @@ import com.scootin.viewmodel.home.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import androidx.lifecycle.observe
+import com.scootin.view.activity.SplashActivity
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -58,6 +59,13 @@ class SplashFragment : Fragment() {
     private fun startNextActivity() {
         Timber.i("Starting next activity..")
         viewModel.firstLaunch().observe(viewLifecycleOwner) {
+
+            val isRunning = activity as SplashActivity?
+
+            if (isRunning?.isRunning() == true) {
+                Timber.i("I am running")
+                return@observe
+            }
 
             if(it) {
                 gotoLoginFragment()
