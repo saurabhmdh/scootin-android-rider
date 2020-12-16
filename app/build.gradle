@@ -129,7 +129,6 @@ dependencies {
     implementation deps.paging3_ktx
 
     implementation deps.inline_activity_result
-    implementation deps.location_extension_android
 }
 kapt {
     javacOptions {

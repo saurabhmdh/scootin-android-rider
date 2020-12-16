@@ -21,11 +21,14 @@ class SplashActivity : AppCompatActivity() {
 
     private val appUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
 
+    private var isRunning = false
+    //Test for isRunning..
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
+
         checkForUpdates()
     }
 
@@ -38,6 +41,7 @@ class SplashActivity : AppCompatActivity() {
     private fun handleUpdate(manager: AppUpdateManager, info: AppUpdateInfo) {
         if (info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
             && info.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+            isRunning = true
             updateApplication(manager, info)
         }
     }
@@ -52,6 +56,7 @@ class SplashActivity : AppCompatActivity() {
         appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
                 Timber.i("onResume -> update is in progress..")
+                isRunning = true
                 updateApplication(appUpdateManager, appUpdateInfo)
             }
         }
@@ -62,6 +67,9 @@ class SplashActivity : AppCompatActivity() {
 
         if (requestCode == REQUEST_UPDATE && resultCode == Activity.RESULT_CANCELED) {
             finish()
+            isRunning = false
         }
     }
+
+    fun isRunning() = isRunning
 }

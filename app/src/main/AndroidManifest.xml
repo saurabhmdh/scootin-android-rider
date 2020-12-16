@@ -4,19 +4,18 @@
     package="com.scootin">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
 
     <application
         android:name="com.scootin.RiderApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_icon"
+        android:icon="@drawable/ic_scootin_rider_icon_only"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/ic_icon"
+        android:roundIcon="@drawable/ic_scootin_rider_icon_only"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.SplashActivity">
+        <activity android:name=".view.activity.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,7 +23,8 @@
         </activity>
 
         <activity android:name=".view.activity.MainActivity" >
-            <nav-graph android:value="@navigation/navigation_home" />
+            <nav-graph android:value="@navigation/navigation_home"
+                android:screenOrientation="portrait"/>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -48,19 +48,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <service
-            android:name=".location.LocationService"
-            android:foregroundServiceType="location" />
-
-        <receiver
-            android:name=".location.ServiceStopBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.birjuvachhani.locationextensionsample.ServiceStopBroadcastReceiver" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
