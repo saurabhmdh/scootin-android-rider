@@ -15,13 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_logo" />
-=======
-        app:layout_constraintTop_toTopOf="parent" />
 
->>>>>>> b27fcad1761100165d5e3d48e50cfd1207f3bdf6
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView"
