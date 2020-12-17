@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             setContentView(it.root)
         }
 
-        checkForUpdates()
+//        checkForUpdates()
     }
 
     private fun checkForUpdates() {

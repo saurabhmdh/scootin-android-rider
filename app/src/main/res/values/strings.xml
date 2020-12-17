@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rider</string>
+    <string name="app_name">Scootin Delivery Partner</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
 
@@ -7,8 +7,14 @@
     <string name="new_order_message">New Order Received</string>
     <string name="dialogMessage">Have you collected the cash?</string>
 
+<<<<<<< HEAD
     <string name="login_user_name">Mobile Number</string>
+=======
+    <string name="login_user_name">Mobile number</string>
+>>>>>>> b27fcad1761100165d5e3d48e50cfd1207f3bdf6
     <string name="login_password">Password</string>
 
     <string name="cancel_order_message">Order has been cancel</string>
+
+    <string name="login_sign_in">SIGN IN</string>
 </resources>
