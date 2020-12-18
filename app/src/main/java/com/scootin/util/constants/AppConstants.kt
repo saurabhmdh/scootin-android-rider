@@ -14,4 +14,6 @@ object AppConstants {
     const val LOCATION_DEBOUNCE_TIME = 3000L
 
     const val COLOR_WHITE = "ffffff"
+
+    const val INTENT_ACTION_USER_DISABLED = "USER_DISABLED"
 }
