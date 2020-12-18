@@ -8,9 +8,13 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.scootin.R
+import com.scootin.util.constants.AppConstants
 import com.scootin.util.constants.IntentConstants.openDirectOrderDetail
 import com.scootin.util.constants.IntentConstants.openOrderDetail
 import com.scootin.view.activity.MainActivity
@@ -46,6 +50,12 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
                         Timber.i("Cancel order order ID = $it")
                         cancelOrderNotification(it, false)
                     }
+                }
+                "RIDER_DISABLED" -> {
+                    //remove this user silently.
+                    WorkManager.getInstance().enqueue(OneTimeWorkRequestBuilder<DisableWorker>().build())
+                    val localIntent = Intent(AppConstants.INTENT_ACTION_USER_DISABLED)
+                    LocalBroadcastManager.getInstance(baseContext).sendBroadcast(localIntent)
                 }
             }
         }

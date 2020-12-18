@@ -2,16 +2,21 @@ package com.scootin.view.activity
 
 //import com.birjuvachhani.locus.Locus
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.observe
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,6 +29,7 @@ import com.scootin.databinding.ActivityMainBinding
 import com.scootin.interfaces.IFullScreenListener
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
+import com.scootin.util.constants.AppConstants
 import com.scootin.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,6 +71,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         setupListener()
+
+        val localBroadcastManager = LocalBroadcastManager.getInstance(this)
+        localBroadcastManager.registerReceiver(listener, IntentFilter(AppConstants.INTENT_ACTION_USER_DISABLED))
+    }
+
+    override fun onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(listener)
+        super.onDestroy()
     }
 
     private fun setupListener() {
@@ -142,6 +156,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.toolbar.visibility = View.VISIBLE
         } else {
             binding.toolbar.visibility = View.GONE
+        }
+    }
+
+    private val listener = MyBroadcastReceiver()
+
+    inner class MyBroadcastReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent){
+            when (intent.action) {
+                AppConstants.INTENT_ACTION_USER_DISABLED -> {
+                    Toast.makeText(context, "Account has been disabled by admin", Toast.LENGTH_LONG).show()
+                    finish()
+                }
+                else -> Toast.makeText(context, "Action Not Found", Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 }
