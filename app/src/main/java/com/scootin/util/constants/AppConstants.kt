@@ -1,7 +1,7 @@
 package com.scootin.util.constants
 
 object AppConstants {
-    const val APPLICATION_BASE_URL = "https://ferrous-agency-286401.el.r.appspot.com/"
+    const val APPLICATION_BASE_URL = "https://scootin-300701.el.r.appspot.com/"
     const val TIMEOUT_SECOND = 60
 
     const val USER_INFO = "user-data"
