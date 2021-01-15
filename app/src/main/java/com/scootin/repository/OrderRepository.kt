@@ -25,9 +25,9 @@ class OrderRepository @Inject constructor(
     private val services: APIService
 ) {
 
-    fun getAllUnAssigned(): Flow<PagingData<UnAssignedOrderResponse>> {
+    fun getAllUnAssigned(riderId: String): Flow<PagingData<UnAssignedOrderResponse>> {
         return Pager(config = PagingConfig(pageSize = 20, initialLoadSize = 20)) {
-            UnassignedOrderDataSource(services)
+            UnassignedOrderDataSource(services, riderId)
         }.flow
     }
 

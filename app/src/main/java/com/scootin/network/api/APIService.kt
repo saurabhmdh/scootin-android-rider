@@ -131,8 +131,9 @@ interface APIService {
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<String>
 
-    @POST("/order-history/riders/unassigned")
+    @POST("/order-history/riders/unassigned/{riderId}")
     suspend fun getAllUnAssigned(
+        @Path("riderId") riderId: String,
         @Query("page") offset: Int = 0,
         @Query("size") limit: Int = 10,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()

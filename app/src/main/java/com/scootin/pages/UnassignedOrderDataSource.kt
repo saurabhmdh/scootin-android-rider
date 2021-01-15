@@ -8,7 +8,8 @@ import timber.log.Timber
 import java.lang.RuntimeException
 
 class UnassignedOrderDataSource (
-    private val apiService: APIService
+    private val apiService: APIService,
+    private val riderId: String
 ) : PagingSource<Int, UnAssignedOrderResponse>() {
 
     var initialOffset: Int = 0
@@ -28,7 +29,7 @@ class UnassignedOrderDataSource (
             }
             Timber.i("offset $offset alrerady loaded $alreadyLoaded loadsize = ${loadsize}" )
 
-            val response: Response<List<UnAssignedOrderResponse>> = apiService.getAllUnAssigned(offset,loadsize)
+            val response: Response<List<UnAssignedOrderResponse>> = apiService.getAllUnAssigned(riderId, offset,loadsize)
             val data = response.body()
             if (response.isSuccessful && data != null) {
                 count = response.headers().get("x-total-count")?.toInt() ?: 0

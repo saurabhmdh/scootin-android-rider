@@ -11,6 +11,7 @@ import com.scootin.R
 import com.scootin.databinding.FragmentPendingOrdersBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
+import com.scootin.network.manager.AppHeaders
 import com.scootin.network.response.UnAssignedOrderResponse
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.adapter.orders.PendingOrdersAdapter
@@ -18,6 +19,8 @@ import com.scootin.viewmodel.order.OrdersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+
 @AndroidEntryPoint
 class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
     private var binding by autoCleared<FragmentPendingOrdersBinding>()
@@ -32,12 +35,11 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
         binding = FragmentPendingOrdersBinding.bind(view)
 
         setAdaper()
-
         setupListeners()
     }
 
     private fun setupListeners() {
-        viewModel.getAllUnAssigned().observe(viewLifecycleOwner) {
+        viewModel.getAllUnAssigned(AppHeaders.userID).observe(viewLifecycleOwner) {
 
             lifecycleScope.launch {
                 pendingOrdersAdapter.submitData(it)
