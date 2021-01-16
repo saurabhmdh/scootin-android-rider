@@ -15,11 +15,12 @@
         app:cardUseCompatPadding="true">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/item_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerVertical="true"
                 app:setImage="@{data.inventoryDetails.productImage.url}"
                 android:layout_marginLeft="8dp"/>
@@ -31,7 +32,7 @@
                 android:textSize="16sp"
                 android:textColor="#000"
                 android:layout_toRightOf="@id/item_img"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginLeft="8dp"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_amount"
@@ -69,6 +70,31 @@
                 android:text=")"
                 android:layout_below="@id/item_name"
                 android:layout_toRightOf="@id/qty" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shop Name: "
+                android:layout_toRightOf="@id/item_img"
+                android:layout_below="@id/txt_amount"
+                android:layout_marginLeft="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.inventoryDetails.shopManagement.name}"
+                android:layout_below="@id/amount"
+                android:layout_toRightOf="@id/txt_shop_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shop_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                setOneLineAddress="@{data.inventoryDetails.shopManagement.address}"
+                android:layout_below="@id/shop_name"
+                android:layout_toRightOf="@id/item_img"
+                android:layout_marginLeft="8dp"/>
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

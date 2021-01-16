@@ -23,7 +23,8 @@ data class NormalOrderResponse(
             val productImage: Media,
             val quantity: Int,
             val taxedGST: String,
-            val title: String
+            val title: String,
+            val shopManagement: DirectOrderResponse.ShopManagement
         )
     }
 }
