@@ -41,6 +41,7 @@
                 android:layout_below="@id/item_name"
                 android:layout_toRightOf="@id/item_img"
                 android:layout_marginLeft="8dp"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/amount"
                 android:layout_width="wrap_content"
@@ -48,27 +49,16 @@
                 app:setPrice="@{data.inventoryDetails.price}"
                 android:layout_below="@id/item_name"
                 android:layout_toRightOf="@id/txt_amount" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_qty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(Qty : "
-                android:layout_marginLeft="4dp"
-                android:layout_below="@id/item_name"
-                android:layout_toRightOf="@id/amount" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setToIntText="@{data.quantity}"
+                app:setQuantity="@{data.quantity}"
                 android:layout_below="@id/item_name"
-                android:layout_toRightOf="@id/txt_qty" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=")"
-                android:layout_below="@id/item_name"
-                android:layout_toRightOf="@id/qty" />
+                android:layout_toRightOf="@id/txt_amount" />
+
+<!--            We need to display shop information here-->
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
