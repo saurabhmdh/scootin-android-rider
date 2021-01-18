@@ -94,3 +94,8 @@ fun TextView.setDateFromOrderDate(orderDate: String?) {
         }
     }
 }
+
+@BindingAdapter("setQuantity")
+fun TextView.setQuantity(quantity: Int?) {
+    text = "(Qty : $quantity)"
+}

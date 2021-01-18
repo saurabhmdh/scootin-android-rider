@@ -4,8 +4,6 @@ data class NormalOrderResponse(
     val orderDetails: OrderDetails,
     val orderInventoryDetailsList: List<OrderInventoryDetails>
 ) {
-
-
     data class OrderInventoryDetails(
         val amount: Double,
         val deliveryFreeAmount: Int,
@@ -24,7 +22,7 @@ data class NormalOrderResponse(
             val quantity: Int,
             val taxedGST: String,
             val title: String,
-            val shopManagement: DirectOrderResponse.ShopManagement
+            val shopManagement: ShopManagement
         )
     }
 }
