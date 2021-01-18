@@ -75,7 +75,14 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_det
     }
 
     private fun setAdaper() {
-        pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors)
+        pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors,
+            object : PendingOrderDetailsItemAdapter.ItemAdapterClickLister{
+                override fun onAddressSelected(address: String?) {
+                    if (address.isNullOrEmpty().not()) {
+                        IntentConstants.moveToMapWithDirection(requireContext(), address!!)
+                    }
+                }
+            })
 
         binding.recyclerView.apply {
             adapter = pendingOrdersAdapter

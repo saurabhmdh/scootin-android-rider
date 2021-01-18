@@ -21,8 +21,10 @@ import androidx.navigation.fragment.navArgs
 import com.scootin.network.api.Status
 import com.scootin.network.manager.AppHeaders
 import com.scootin.network.request.RequestOrderAcceptedByRider
+import com.scootin.network.response.NormalOrderResponse
 import com.scootin.util.OrderType
 import com.scootin.util.constants.IntentConstants
+import com.scootin.view.adapter.orders.PendingOrdersAdapter
 import com.scootin.view.fragment.home.BaseFragment
 import com.scootin.viewmodel.home.LoginViewModel
 import timber.log.Timber
@@ -119,7 +121,16 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
 
 
     private fun setAdaper() {
-        pendingOrdersAdapter = PendingOrderDetailsItemAdapter(appExecutors)
+        pendingOrdersAdapter = PendingOrderDetailsItemAdapter(
+            appExecutors,
+            object : PendingOrderDetailsItemAdapter.ItemAdapterClickLister{
+                override fun onAddressSelected(address: String?) {
+                    if (address.isNullOrEmpty().not()) {
+                        IntentConstants.moveToMapWithDirection(requireContext(), address!!)
+                    }
+                }
+            }
+        )
 
         binding.recyclerView.apply {
             adapter = pendingOrdersAdapter

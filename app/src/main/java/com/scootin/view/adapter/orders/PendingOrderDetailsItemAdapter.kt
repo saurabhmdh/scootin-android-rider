@@ -7,15 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import com.scootin.databinding.AdapterPendingOrdersBinding
 import com.scootin.databinding.AdapterPendingOrdersItemListBinding
 import com.scootin.network.AppExecutors
-import com.scootin.network.response.NormalOrderResponse
-import com.scootin.network.response.PendingOrderItemList
-import com.scootin.network.response.PendingOrdersList
-import com.scootin.network.response.UnAssignedOrderResponse
+import com.scootin.network.response.*
 import com.scootin.view.adapter.DataBoundListAdapter
 import timber.log.Timber
 
 class PendingOrderDetailsItemAdapter (
-    val appExecutors: AppExecutors
+    val appExecutors: AppExecutors,
+    val itemAdapterClickListener: PendingOrderDetailsItemAdapter.ItemAdapterClickLister
 ) : DataBoundListAdapter<NormalOrderResponse.OrderInventoryDetails, AdapterPendingOrdersItemListBinding>(
     appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<NormalOrderResponse.OrderInventoryDetails>() {
@@ -46,5 +44,13 @@ class PendingOrderDetailsItemAdapter (
     ) {
 
         binding.data=item
+        binding.shopAddress.setOnClickListener {
+            val address = binding.shopAddress.text?.toString()
+            itemAdapterClickListener.onAddressSelected(address)
+        }
     }
+    interface ItemAdapterClickLister {
+        fun onAddressSelected(address: String?)
+    }
+
 }
