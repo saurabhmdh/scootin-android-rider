@@ -1,64 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
 
         <variable
             name="data"
-            type="com.scootin.network.response.NormalOrderResponse.OrderInventoryDetails"/>
+            type="com.scootin.network.response.NormalOrderResponse.OrderInventoryDetails" />
 
     </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/item_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerVertical="true"
-                app:setImage="@{data.inventoryDetails.productImage.url}"
-                android:layout_marginLeft="8dp"/>
+                android:layout_marginLeft="8dp"
+                app:setImage="@{data.inventoryDetails.productImage.url}" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.inventoryDetails.title}"
-                android:textSize="16sp"
-                android:textColor="#000"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_toRightOf="@id/item_img"
-                android:layout_marginTop="12dp"
-                android:layout_marginLeft="8dp"/>
+                android:text="@{data.inventoryDetails.title}"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount:"
                 android:layout_below="@id/item_name"
+                android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@id/item_img"
-                android:layout_marginLeft="8dp"/>
+                android:text="Amount:" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setPrice="@{data.inventoryDetails.price}"
                 android:layout_below="@id/item_name"
-                android:layout_toRightOf="@id/txt_amount" />
+                android:layout_toRightOf="@id/txt_amount"
+                app:setPrice="@{data.inventoryDetails.price}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setQuantity="@{data.quantity}"
                 android:layout_below="@id/item_name"
-                android:layout_toRightOf="@id/txt_amount" />
+                android:layout_toRightOf="@id/txt_amount"
+                app:setQuantity="@{data.quantity}" />
 
-<!--            We need to display shop information here-->
+            <!--            We need to display shop information here-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/qty"
+                android:layout_toRightOf="@id/item_img"
+                android:text="@{data.inventoryDetails.shopManagement.name}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shop_address"
+                setOneLineAddress="@{data.inventoryDetails.shopManagement.address}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/shop_name"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/item_img" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
