@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.scootin.R
 import com.scootin.databinding.FragmentAcceptedCitywideOrdersBinding
 import com.scootin.network.AppExecutors
@@ -57,6 +58,7 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
                     media = it.data?.media
+                    setupDeliveryListener(it.data?.paymentDetails?.paymentStatus)
 
                     if (media == null) {
                         binding.imageMedia.setVisibility(View.GONE)
@@ -76,7 +78,7 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
             }
         }
 
-        setupDeliveryListener()
+
         binding.imageMedia.setOnClickListener {
             launchGallery()
         }
@@ -104,26 +106,55 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
     }
 
 
-    private fun setupDeliveryListener() {
+    private fun setupDeliveryListener(paymentStatus: String?) {
         binding.deliveredButton.setOnClickListener {
-            showLoading()
-            viewModel.deliverOrder(orderId.toString(), RequestOrderAcceptedByRider(OrderType.CITYWIDE.name, true)).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        dismissLoading()
-                        Toast.makeText(requireContext(), "Order has been delivered to customer", Toast.LENGTH_SHORT).show()
-                        binding.deliveredButton.visibility = View.GONE
-                        findNavController().popBackStack()
-                    }
-                    Status.ERROR -> {
-                        dismissLoading()
-                        Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
-                    }
-                    Status.LOADING -> { }
+            if (paymentStatus != "COMPLETED") {
+                val alertDialog = MaterialAlertDialogBuilder(context)
+
+                alertDialog.setMessage(R.string.dialogMessage)
+                alertDialog.setIcon(android.R.drawable.ic_dialog_alert)
+
+
+                alertDialog.setPositiveButton("Yes") { dialogInterface, which ->
+                    setDelivered()
+                }
+
+                alertDialog.setNegativeButton("No") { dialogInterface, which ->
+                    Toast.makeText(context,"Please collect cash from customer", Toast.LENGTH_LONG).show()
+                }
+                alertDialog.setCancelable(false)
+
+                alertDialog.show()
+            } else {
+                setDelivered()
+            }
+        }
+    }
+    private fun setDelivered() {
+        showLoading()
+        viewModel.deliverOrder(
+            orderId.toString(),
+            RequestOrderAcceptedByRider(OrderType.CITYWIDE.name, true)
+        ).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    dismissLoading()
+                    Toast.makeText(
+                        requireContext(),
+                        "Order has been delivered to customer",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.deliveredButton.visibility = View.GONE
+                    findNavController().popBackStack()
+                }
+                Status.ERROR -> {
+                    dismissLoading()
+                    Toast.makeText(requireContext(), "Server error", Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
                 }
             }
         }
     }
-
 
 }
