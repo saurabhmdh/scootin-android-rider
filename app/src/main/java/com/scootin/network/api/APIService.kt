@@ -9,6 +9,7 @@ import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.request.RiderLocationDTO
 import com.scootin.network.response.*
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 
 
 import retrofit2.Response
@@ -27,6 +28,12 @@ interface APIService {
         @Body options: Map<String, String>,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<ResponseUser>
+
+    @POST("auth/generate-otp")
+    suspend fun requestOTP(
+        @Body options: Map<String, String>,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<ResponseBody>
 
     @POST("/notification/rider/{id}/update-fcm")
     suspend fun updateFCMID(

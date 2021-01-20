@@ -10,11 +10,12 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.scootin.databinding.ActivitySplashBinding
+import com.scootin.interfaces.IFullScreenListener
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(),IFullScreenListener {
     private lateinit var binding: ActivitySplashBinding
 
     private val REQUEST_UPDATE = 100
@@ -72,4 +73,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun isRunning() = isRunning
+    override fun showHideActionBar(visible: Boolean) {
+
+    }
 }
