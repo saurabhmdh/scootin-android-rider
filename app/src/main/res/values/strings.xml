@@ -14,4 +14,10 @@
     <string name="cancel_order_message">Order has been cancel</string>
 
     <string name="login_sign_in">SIGN IN</string>
+    <string name="server_error">server error</string>
+    <string name="success_message_otp">otp sent</string>
+    <string name="error_message_invalid_mobile">Please provide a valid mobile number</string>
+    <string name="error_message_invalid_otp">Please provide a valid OTP</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="resend_otp">Resend OTP</string>
 </resources>

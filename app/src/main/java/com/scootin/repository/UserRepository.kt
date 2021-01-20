@@ -13,6 +13,7 @@ import com.scootin.network.response.ResponseUser
 import com.scootin.network.response.RiderInfo
 import com.scootin.network.response.UserInfo
 import com.scootin.util.constants.AppConstants
+import okhttp3.ResponseBody
 import retrofit2.Response
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -30,6 +31,12 @@ class UserRepository @Inject constructor(
 
     private val KEY = "special_feature"
 
+    fun sendOTP(
+        options: Map<String, String>,
+        context: CoroutineContext
+    ): LiveData<Resource<ResponseBody>> = object : NetworkBoundResource<ResponseBody>(context) {
+        override suspend fun createCall(): Response<ResponseBody> = services.requestOTP(options)
+    }.asLiveData()
 
     fun doLogin(
         options: Map<String, String>,

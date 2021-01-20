@@ -33,34 +33,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_signIn" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_loginNum"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
+        android:id="@+id/root_mobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         android:layout_marginStart="25dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="25dp"
-        android:hint="@string/login_user_name"
-        app:boxCornerRadiusBottomEnd="2dp"
-        app:boxCornerRadiusBottomStart="2dp"
-        app:boxCornerRadiusTopEnd="2dp"
-        app:boxCornerRadiusTopStart="2dp"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/user_number"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_mobile_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            app:hintTextAppearance="@style/EtTextAppearance"
-            android:inputType="phone" />
+            android:hint="@string/login_user_name"
+            app:boxCornerRadiusBottomEnd="2dp"
+            app:boxCornerRadiusBottomStart="2dp"
+            app:boxCornerRadiusTopEnd="2dp"
+            app:boxCornerRadiusTopStart="2dp"
+            app:boxStrokeColor="@color/colorPrimary"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_PhnNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                app:hintTextAppearance="@style/EtTextAppearance"
+                android:inputType="phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/send_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:text="@string/send_otp"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_OTP" />
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_loginPass"
@@ -69,7 +90,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:hint="@string/login_password"
+        android:hint="OTP"
         app:boxCornerRadiusBottomEnd="2dp"
         app:boxCornerRadiusBottomStart="2dp"
         app:boxCornerRadiusTopEnd="2dp"
@@ -78,23 +99,34 @@
         app:boxStrokeColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_loginNum"
+        app:layout_constraintTop_toBottomOf="@+id/root_mobile"
         android:backgroundTint="@android:color/white"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_text"
+            android:id="@+id/editTextOTP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             app:hintTextAppearance="@style/EtTextAppearance"
-            android:inputType="textPassword"/>
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/senAgainLoginOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="25dp"
+        android:textStyle="bold"
+        android:text="@string/resend_otp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_loginPass" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_SignIn"
+        android:id="@+id/sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
