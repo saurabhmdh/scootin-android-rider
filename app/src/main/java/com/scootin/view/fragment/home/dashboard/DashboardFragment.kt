@@ -19,6 +19,10 @@ import com.scootin.util.fragment.autoCleared
 import com.scootin.viewmodel.home.DashBoardFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.math.BigDecimal
+import java.text.Format
+import java.text.NumberFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -81,6 +85,19 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
             when(it.status) {
                 Status.SUCCESS -> {
                     binding.ordersReceived.text = it.data.toString()
+                }
+            }
+        }
+
+        viewModel.getTotalEarnings(AppHeaders.userID).observe(viewLifecycleOwner) {
+            when(it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let {price->
+                        val format: Format = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+                        val finalValue =  format.format(BigDecimal(price))
+                        binding.totalEarning.text = finalValue
+                    }
+
                 }
             }
         }

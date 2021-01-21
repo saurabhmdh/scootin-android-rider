@@ -22,6 +22,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_total_earning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Total Earnings Recieved :"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_my_stats" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/total_earning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_total_earning"
+        app:layout_constraintStart_toEndOf="@+id/txt_total_earning"
+        app:layout_constraintTop_toTopOf="@+id/txt_total_earning" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_order_delivered"
@@ -32,7 +52,7 @@
         android:text="Total Orders Delivered :"
         android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_my_stats" />
+        app:layout_constraintTop_toBottomOf="@+id/total_earning" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/order_delivered"
@@ -59,7 +79,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="30"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/txt_earnings_received"
         app:layout_constraintStart_toEndOf="@+id/txt_earnings_received"

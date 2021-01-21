@@ -49,6 +49,13 @@ interface APIService {
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
     ): Response<ResponseUser>
 
+    @POST("/earning/rider/{riderId}")
+    suspend fun getTotalEarnings(
+        @Path("riderId") riderId: String,
+        @Body options: Map<String, String>,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<Double>
+
     @POST("/register/rider/update-location/{riderId}")
     suspend fun updateLocation(
         @Path("riderId") riderId: String,
