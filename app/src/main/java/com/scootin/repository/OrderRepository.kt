@@ -89,6 +89,10 @@ class OrderRepository @Inject constructor(
         override suspend fun createCall() = services.countReceivedOrders(orderId)
     }.asLiveData()
 
+    fun getTotalEarnings(riderId: String, options: Map<String, String>, context: CoroutineContext):
+            LiveData<Resource<Double>> = object : NetworkBoundResource<Double>(context) {
+        override suspend fun createCall() = services.getTotalEarnings(riderId, options)
+    }.asLiveData()
 
     fun acceptCityWideOrder(riderId: String, orderId: String, request: RequestCitywideOrder, context: CoroutineContext):
             LiveData<Resource<CityWideOrderResponse>> = object : NetworkBoundResource<CityWideOrderResponse>(context) {

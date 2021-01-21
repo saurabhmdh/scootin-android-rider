@@ -43,7 +43,11 @@ internal constructor(
             }
         }
     }
-
+    fun getTotalEarnings(riderId: String) = orderRepository.getTotalEarnings(
+        riderId,
+        mapOf("type" to "WEEKLY"),
+        viewModelScope.coroutineContext + Dispatchers.IO
+    )
     private val ONLINE = "online"
 
     fun onlineStatus() = cacheDao.getData(ONLINE)
