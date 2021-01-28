@@ -2,18 +2,13 @@ package com.scootin.network.response
 
 data class UserInfo(
     val active: Boolean,
-    val createdAt: Long,
     val deleted: Boolean,
-    val email: Any,
+    val email: String,
     val fcmId: String,
     val firstName: String,
-    val id: Int,
-    val lastName: Any,
+    val id: Long,
+    val lastName: String,
     val mobileNumber: String,
-    val modified: Long,
-    val otp: String,
-    val otpExpireTime: Long,
-    val password: Any,
-    val profilePicture: Any,
-    val walletInfoDetails: Any
+    val password: String,
+    val profilePicture: String
 )

@@ -6,7 +6,7 @@ data class NormalOrderResponse(
 ) {
     data class OrderInventoryDetails(
         val amount: Double,
-        val deliveryFreeAmount: Int,
+        val deliveryFreeAmount: Double,
         val id: Long,
         val inventoryDetails: InventoryDetails,
         val orderDetails: OrderDetails,

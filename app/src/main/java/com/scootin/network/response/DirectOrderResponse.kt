@@ -14,5 +14,5 @@ data class DirectOrderResponse(
     val shopManagement: ShopManagement,
     val userInfo: UserInfo,
     val orderDetails: OrderDetails,
-    val amount: Int
+    val amount: Double
 )
