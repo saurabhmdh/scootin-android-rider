@@ -7,7 +7,7 @@ data class UnAssignedOrderResponse(
         val orderType:String,
         val expressDelivery: Boolean,
         val id: Long,
-        val orderDate: Long,
+        val orderDate: String,
         val orderStatus: String,
         val rejectReason: String?,
         val totalAmount: Double,
