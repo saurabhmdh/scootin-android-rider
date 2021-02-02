@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_name"
                 android:layout_toEndOf="@id/txt_amount"
-                app:setPrice="@{data.inventoryDetails.price}" />
+                app:setPrice="@{data.inventoryDetails.merchantPrice}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/qty"

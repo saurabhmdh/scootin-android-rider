@@ -18,6 +18,7 @@ data class NormalOrderResponse(
             val description: String,
             val id: Long,
             val price: Double,
+            val merchantPrice: Double,
             val productImage: Media,
             val quantity: Int,
             val taxedGST: String,
