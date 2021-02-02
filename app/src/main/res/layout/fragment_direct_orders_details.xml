@@ -111,6 +111,64 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_Shop_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_corner"
+                android:padding="12dp"
+                android:text="Shop Details"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:layout_below="@id/image_media"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_shop_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shop Address"
+                android:textSize="15sp"
+                android:layout_below="@id/shop_name"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shop_address_line1"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_height="wrap_content"
+                app:setOneLineAddress="@{data.shopManagement.address}"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_shop_address"
+                android:drawableLeft="@drawable/ic_location_icon"
+                android:drawablePadding="4dp"
+                android:layout_marginTop="2dp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shop Name"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_Shop_details"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.shopManagement.name}"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_below="@id/txt_shop_name"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_Customer_details"
                 android:layout_width="match_parent"
@@ -123,7 +181,7 @@
                 android:text="Customer Details"
                 android:textColor="#000"
                 android:textSize="16sp"
-                android:layout_below="@id/image_media"/>
+                android:layout_below="@id/shop_address_line1"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_delivery_address"
