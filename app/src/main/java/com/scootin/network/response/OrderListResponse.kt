@@ -10,5 +10,6 @@ data class OrderListResponse(
     val rejectReason: String,
     val totalAmount: Double,
     val userInfo: UserInfo,
-    val orderType: String
+    val orderType: String,
+    val orderId: Long
 )

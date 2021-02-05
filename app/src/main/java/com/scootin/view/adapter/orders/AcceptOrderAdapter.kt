@@ -35,7 +35,7 @@ class AcceptOrderAdapter (
 
             Timber.i("item = $item ${item.id}")
             item.apply {
-                binding.orderId.setText(item.id.toString())
+                binding.orderId.setText(item.orderId.toString())
                 when(item.orderType){
                     "DIRECT"-> {
                         if (item.expressDelivery){

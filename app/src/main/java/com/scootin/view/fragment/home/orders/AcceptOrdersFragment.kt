@@ -44,15 +44,15 @@ class AcceptOrdersFragment:Fragment(R.layout.fragment_accept_orders) {
                 appExecutors,
                 object : AcceptOrderAdapter.ItemAdapterClickLister {
                     override fun onItemSelected(item: OrderListResponse) {
-                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToPendingOrderDetailsFragment(item.id))
+                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToPendingOrderDetailsFragment(item.orderId))
                     }
 
                     override fun onHandwrittenListOrderSelected(item: OrderListResponse) {
-                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToDirectOrderDetailsFragment(item.id))
+                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToDirectOrderDetailsFragment(item.orderId))
                     }
 
                     override fun onCitywideOrderSelected(view: OrderListResponse) {
-                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToCityWideOrderDetailsFragment(view.id))
+                        findNavController().navigate(AcceptOrdersFragmentDirections.actionAcceptedOrdersFragmentToCityWideOrderDetailsFragment(view.orderId))
 
                     }
 
