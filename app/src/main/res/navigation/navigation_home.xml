@@ -157,7 +157,7 @@
     <fragment
         android:id="@+id/nav_accept_orders"
         android:name="com.scootin.view.fragment.home.orders.AcceptOrdersFragment"
-        android:label="Accept Orders">
+        android:label="Accepted Orders">
 
         <action
             android:id="@+id/action_acceptedOrdersFragment_to_pendingOrderDetailsFragment"
