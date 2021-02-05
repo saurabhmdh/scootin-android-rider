@@ -46,14 +46,14 @@ class CompletedOrdersFragment:Fragment(R.layout.fragment_completed_orders) {
                 object : CompletedOrdersAdapter.ItemAdapterClickLister {
                     override fun onItemSelected(view: OrderListResponse) {
 
-                    findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToPendingOrderDetailsFragment(view.id))
+                    findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToPendingOrderDetailsFragment(view.orderId))
                 }
                     override fun onHandwrittenListOrderSelected(view: OrderListResponse) {
-                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToDirectOrderDetailsFragment(view.id))
+                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToDirectOrderDetailsFragment(view.orderId))
                     }
 
                     override fun onCitywideOrderSelected(view: OrderListResponse) {
-                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToCityWideOrderDetailsFragment(view.id))
+                        findNavController().navigate(CompletedOrdersFragmentDirections.actionCompletedOrdersFragmentToCityWideOrderDetailsFragment(view.orderId))
                     }
 
                 })
