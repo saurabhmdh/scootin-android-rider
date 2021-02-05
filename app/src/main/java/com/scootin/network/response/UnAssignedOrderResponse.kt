@@ -11,5 +11,6 @@ data class UnAssignedOrderResponse(
         val orderStatus: String,
         val rejectReason: String?,
         val totalAmount: Double,
-        val userInfo: UserInfo
+        val userInfo: UserInfo,
+        val orderId: Long
 )

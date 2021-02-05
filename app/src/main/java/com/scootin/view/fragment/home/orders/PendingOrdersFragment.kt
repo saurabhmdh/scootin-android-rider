@@ -53,16 +53,16 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
             PendingOrdersAdapter(
                 appExecutors,
                 object : PendingOrdersAdapter.ItemAdapterClickLister {
-                    override fun onItemSelected(item:UnAssignedOrderResponse) {
-                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToPendingOrderDetailsFragment(item.id))
+                    override fun onItemSelected(item: UnAssignedOrderResponse) {
+                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToPendingOrderDetailsFragment(item.orderId))
                     }
 
                     override fun onHandwrittenListOrderSelected(item: UnAssignedOrderResponse) {
-                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToDirectOrderDetailsFragment(item.id))
+                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToDirectOrderDetailsFragment(item.orderId))
                     }
 
                     override fun onCitywideOrderSelected(item: UnAssignedOrderResponse) {
-                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToCitywideOrderDetailsFragment(item.id))
+                        findNavController().navigate(PendingOrdersFragmentDirections.actionPendingOrdersFragmentToCitywideOrderDetailsFragment(item.orderId))
                     }
 
                 })
