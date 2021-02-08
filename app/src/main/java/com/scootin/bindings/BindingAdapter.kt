@@ -85,6 +85,7 @@ fun ImageView.setCircleImage(url: String?) {
 fun TextView.setDateFromOrderDate(orderDate: String?) {
     orderDate?.let {
         text = orderDate
+    }
 }
 
 @BindingAdapter("setQuantity")
