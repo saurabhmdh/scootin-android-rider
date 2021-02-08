@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_name"
                 android:layout_toEndOf="@id/amount"
-                app:setQuantity="@{data.quantity}" />
+                setQuantity="@{data.quantity}" />
 
             <!--            We need to display shop information here-->
             <androidx.appcompat.widget.AppCompatTextView
