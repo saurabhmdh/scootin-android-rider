@@ -47,6 +47,14 @@ class CompletedOrderDetailsFragment:Fragment(R.layout.fragment_pending_order_det
                     Timber.i("Samridhi ${it.data}")
                     binding.data = it.data
                     pendingOrdersAdapter.submitList(it.data?.orderInventoryDetailsList)
+                    if (it.data?.orderDetails?.deliveryDetails?.deliveredDateTime.isNullOrEmpty()) {
+                        binding.txtDeliveryDate.visibility = View.GONE
+                        binding.deliveryDate.visibility = View.GONE
+                    } else {
+                        binding.txtDeliveryDate.visibility = View.VISIBLE
+                        binding.deliveryDate.visibility = View.VISIBLE
+                       // binding.deliveryDate.text = it.data?.orderDetails?.deliveryDetails?.deliveredDateTime
+                    }
 
                 }
                 Status.ERROR -> {

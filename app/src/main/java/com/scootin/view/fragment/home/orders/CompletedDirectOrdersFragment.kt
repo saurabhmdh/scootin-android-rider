@@ -56,6 +56,14 @@ class CompletedDirectOrdersFragment : Fragment(R.layout.fragment_direct_orders_d
                     Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
                     media = it.data?.media
+                    if (it.data?.deliveryDetails?.deliveredDateTime.isNullOrEmpty()) {
+                        binding.txtDeliveryDate.visibility = View.GONE
+                        binding.deliveryDate.visibility = View.GONE
+                    } else {
+                        binding.txtDeliveryDate.visibility = View.VISIBLE
+                        binding.deliveryDate.visibility = View.VISIBLE
+                        // binding.deliveryDate.text = it.data?.orderDetails?.deliveryDetails?.deliveredDateTime
+                    }
                     if (it.data?.extraData.isNullOrEmpty().not()) {
                         val extra = Conversions.convertExtraData(it.data?.extraData)
                         Timber.i("Extra $extra")
