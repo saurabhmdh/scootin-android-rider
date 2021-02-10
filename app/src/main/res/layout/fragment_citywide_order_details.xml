@@ -90,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delivery Date :"
+                    android:visibility="gone"
                     android:layout_below="@id/txt_order_date"
                     android:layout_toRightOf="@id/pending_icon"
                     android:layout_marginLeft="8dp"/>
@@ -98,6 +99,7 @@
                     android:id="@+id/delivery_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:setDateFromOrderDate="@{data.deliveryDetails.deliveredDateTime}"
                     android:layout_toRightOf="@id/txt_delivery_date"
                     android:layout_below="@id/txt_order_date"

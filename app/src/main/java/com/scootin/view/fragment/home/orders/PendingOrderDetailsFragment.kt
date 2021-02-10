@@ -52,6 +52,7 @@ class PendingOrderDetailsFragment: BaseFragment(R.layout.fragment_pending_order_
         binding.pendingIcon.setImageResource(R.drawable.ic_pending_icon)
         binding.lifecycleOwner = this
 
+
         setAdaper()
         setUpListener()
 
