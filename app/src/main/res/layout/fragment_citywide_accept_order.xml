@@ -70,12 +70,20 @@
                     android:layout_toRightOf="@id/txt_status"
                     android:layout_marginLeft="8dp"/>
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt_order_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Date :"
+                    android:layout_toRightOf="@id/pending_icon"
+                    android:layout_below="@id/txt_status"
+                    android:layout_marginLeft="8dp"/>
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:setDateFromOrderDate="@{data.orderDate}"
-                   android:layout_below="@id/txt_status"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/pending_icon"/>
+                    android:layout_below="@id/txt_status"
+                    android:layout_toRightOf="@id/txt_order_date"
+                    android:layout_marginLeft="4dp"/>
 
             </RelativeLayout >
 
