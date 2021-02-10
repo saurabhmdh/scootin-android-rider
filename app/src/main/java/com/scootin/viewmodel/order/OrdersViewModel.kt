@@ -43,8 +43,18 @@ internal constructor(
     val loadDirectOrder = Transformations.switchMap(_direct_order) {
         orderRepository.getDirectOrder(it, viewModelScope.coroutineContext + Dispatchers.IO)
     }
-    fun getAllUnAssigned(riderId: String) =
-        orderRepository.getAllUnAssigned(riderId).cachedIn(viewModelScope).asLiveData()
+
+    private val _reload = MutableLiveData<String>()
+
+    fun reload(riderId: String) {
+        _reload.postValue(riderId)
+    }
+
+    val unAssignedOrders = _reload.switchMap {
+        orderRepository.getAllUnAssigned(it).cachedIn(viewModelScope).asLiveData()
+    }
+
+
 
     fun getAcceptedOrders(riderId: String) =
         orderRepository.getAcceptedOrders(riderId).cachedIn(viewModelScope).asLiveData()

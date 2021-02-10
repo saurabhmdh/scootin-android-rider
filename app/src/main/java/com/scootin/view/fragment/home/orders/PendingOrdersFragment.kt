@@ -39,8 +39,8 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
     }
 
     private fun setupListeners() {
-        viewModel.getAllUnAssigned(AppHeaders.userID).observe(viewLifecycleOwner) {
-
+        viewModel.reload(AppHeaders.userID)
+        viewModel.unAssignedOrders.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 pendingOrdersAdapter.submitData(it)
             }
@@ -69,6 +69,11 @@ class PendingOrdersFragment:Fragment(R.layout.fragment_pending_orders) {
 
         binding.recyclerView.apply {
             adapter = pendingOrdersAdapter
+        }
+
+        binding.swiperefresh.setOnRefreshListener {
+            viewModel.reload(AppHeaders.userID)
+            binding.swiperefresh.isRefreshing = false
         }
     }
 

@@ -129,6 +129,7 @@ dependencies {
     implementation deps.paging3_ktx
 
     implementation deps.inline_activity_result
+    implementation deps.support.swiperefreshlayout
 }
 kapt {
     javacOptions {
