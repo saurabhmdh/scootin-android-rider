@@ -20,6 +20,7 @@ import com.scootin.util.constants.IntentConstants.openOrderDetail
 import com.scootin.view.activity.MainActivity
 import timber.log.Timber
 
+//Citywide case is missing here
 class ScootinFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {

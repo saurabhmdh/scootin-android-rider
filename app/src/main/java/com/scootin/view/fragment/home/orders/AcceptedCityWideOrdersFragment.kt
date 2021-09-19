@@ -97,6 +97,14 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
                 IntentConstants.moveToMapWithDirection(requireContext(), address!!)
             }
         }
+
+        binding.pickupAddressLine1.setOnClickListener {
+            val address = binding.pickupAddressLine1.text?.toString()
+            if (address.isNullOrEmpty().not()) {
+                IntentConstants.moveToMapWithDirection(requireContext(), address!!)
+            }
+        }
+
         binding.telephone.setOnClickListener {
             val mobileNumber = binding.telephone.text?.toString()
             if (mobileNumber.isNullOrEmpty().not()) {
