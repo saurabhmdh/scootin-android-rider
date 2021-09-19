@@ -48,22 +48,31 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
         setUpListener()
 
         binding.pendingIcon.setImageResource(R.drawable.ic_accepted_icon)
-        // Timber.i("Order Detail is loading for element $args and bundle $savedInstanceState")
 
-        viewModel.doDirectOrder(orderId)
+        setupPickupListener()
 
         viewModel.getCitywideOrder(args.orderId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Timber.i("Samridhi direct ${it.data}")
                     binding.data = it.data
                     media = it.data?.media
+
+                    val pickup = it.data?.deliveryDetails?.deliveryStatus == "ACCEPTED"
+                    if (pickup) {
+                        binding.pickupButton.visibility = View.VISIBLE
+                        binding.deliveredButton.visibility = View.GONE
+                    } else {
+                        binding.pickupButton.visibility = View.GONE
+                        binding.deliveredButton.visibility = View.VISIBLE
+                    }
+
+
                     setupDeliveryListener(it.data?.paymentDetails?.paymentStatus)
 
                     if (media == null) {
                         binding.imageMedia.setVisibility(View.GONE)
                     }
-                    if(it.data?.orderStatus=="CANCEL"){
+                    if (it.data?.orderStatus=="CANCEL") {
                         binding.cancelTxt.visibility= View.VISIBLE
                         binding.deliveredButton.visibility= View.GONE
                         binding.status.setTextColor(Color.parseColor("#fe0000"))
@@ -81,6 +90,12 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
 
         binding.imageMedia.setOnClickListener {
             launchGallery()
+        }
+    }
+
+    private fun setupPickupListener() {
+        binding.pickupButton.setOnClickListener {
+            findNavController().navigate(AcceptedCityWideOrdersFragmentDirections.citywideOrderFragmentToAcceptOrder(orderId))
         }
     }
 
@@ -164,5 +179,4 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
             }
         }
     }
-
 }

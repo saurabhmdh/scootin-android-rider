@@ -228,15 +228,31 @@
                 android:layout_marginRight="16dp"
                 android:padding="4dp"
                 android:layout_marginTop="2dp"/>
+    <!-- We need to handle mark pickup -->
+         <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/pickup_button"
+                android:layout_width="240dp"
+                android:layout_height="60dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:text="PICK UP"
+                android:layout_below="@id/subtotal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:srcCompat="@drawable/delivered_button" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/delivered_button"
                 android:layout_width="240dp"
                 android:layout_height="60dp"
-                app:srcCompat="@drawable/delivered_button"
                 android:layout_below="@id/subtotal"
-                android:layout_marginTop="16dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"/>
+                android:visibility="gone"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:srcCompat="@drawable/delivered_button" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/cancel_txt"
                 android:layout_width="match_parent"
