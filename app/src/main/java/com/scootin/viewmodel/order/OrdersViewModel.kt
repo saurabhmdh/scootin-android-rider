@@ -76,6 +76,10 @@ internal constructor(
 
     fun acceptOrder(riderId: String, orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.acceptOrder(riderId, orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
 
+    fun acceptDirectOrder(riderId: String, orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.acceptDirectOrder(riderId, orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    fun acceptCityWideOrder(riderId: String, orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.acceptCityWideOrder(riderId, orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
+
     fun deliverOrder(orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.deliverOrder(orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun pickupOrder(orderId: String, requestAcceptOffer: RequestOrderAcceptedByRider) = orderRepository.pickupOrder(orderId, requestAcceptOffer, viewModelScope.coroutineContext + Dispatchers.IO)

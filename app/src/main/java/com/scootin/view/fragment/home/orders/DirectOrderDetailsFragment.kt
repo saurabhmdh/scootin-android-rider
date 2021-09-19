@@ -92,7 +92,7 @@ class DirectOrderDetailsFragment:BaseFragment(R.layout.fragment_direct_orders_de
 
         binding.acceptButton.setOnClickListener {
             showLoading()
-            viewModel.acceptOrder(
+            viewModel.acceptDirectOrder(
                 AppHeaders.userID, orderId.toString(), RequestOrderAcceptedByRider(
                     OrderType.DIRECT.name, true)
             ).observe(viewLifecycleOwner) {

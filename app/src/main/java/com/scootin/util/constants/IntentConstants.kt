@@ -44,4 +44,10 @@ object IntentConstants {
         intent.data = Uri.parse("tel: $mobileNumber") // Data with intent respective action on intent
         ContextCompat.startActivity(context, intent, null)
     }
+
+    fun openCitywideOrderDetail(orderId: String) = Uri.Builder().scheme(HTTPS)
+        .authority(PROJECT_AUTH)
+        .appendPath("order-detail-citywide")
+        .appendPath(orderId)
+        .build()
 }

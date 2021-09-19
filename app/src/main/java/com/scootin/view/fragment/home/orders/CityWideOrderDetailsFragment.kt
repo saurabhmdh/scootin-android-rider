@@ -2,6 +2,7 @@ package com.scootin.view.fragment.home.orders
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -10,7 +11,10 @@ import com.scootin.R
 import com.scootin.databinding.FragmentCitywideOrderDetailsBinding
 import com.scootin.network.AppExecutors
 import com.scootin.network.api.Status
+import com.scootin.network.manager.AppHeaders
+import com.scootin.network.request.RequestOrderAcceptedByRider
 import com.scootin.network.response.Media
+import com.scootin.util.OrderType
 import com.scootin.util.constants.IntentConstants
 import com.scootin.util.fragment.autoCleared
 import com.scootin.view.fragment.home.BaseFragment
@@ -60,12 +64,41 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
             }
         }
 
+        //Lets think for acc
         binding.acceptButton.setOnClickListener {
-            findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToAcceptOrder(orderId))
+            acceptOrder()
+            //Incase of pack
+            //findNavController().navigate(CityWideOrderDetailsFragmentDirections.citywideOrderFragmentToAcceptOrder(orderId))
+        }
+    }
+
+    private fun acceptOrder() {
+        showLoading()
+        viewModel.acceptCityWideOrder(
+            AppHeaders.userID, orderId.toString(), RequestOrderAcceptedByRider(
+                OrderType.CITYWIDE.name, true)
+        ).observe(viewLifecycleOwner) {
+            Timber.i("Saurabh Citywide acceptOrder status = ${it.status}")
+            when(it.status) {
+                Status.SUCCESS -> {
+                    Timber.i("Saurabh Citywide acceptOrder sss")
+                    dismissLoading()
+                    Toast.makeText(requireContext(), "Order Accepted", Toast.LENGTH_LONG).show()
+                    enableOrDisableVisibility(true)
+                    findNavController().popBackStack()
+                }
+                Status.ERROR -> {
+                    Timber.i("Saurabh Citywide acceptOrder error..")
+                    dismissLoading()
+                    Toast.makeText(requireContext(), "This Order has been Accepted by other rider", Toast.LENGTH_LONG).show()
+                    enableOrDisableVisibility(true)
+                }
+                Status.LOADING -> {
+
+                }
+            }
 
         }
-
-
     }
     private fun setUpListener() {
         binding.deliveryAddressLine1.setOnClickListener {
@@ -100,4 +133,9 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
         }
     }
 
+    private fun enableOrDisableVisibility(completed: Boolean) {
+        if (completed) {
+            binding.acceptButton.visibility = View.GONE
+        }
+    }
 }

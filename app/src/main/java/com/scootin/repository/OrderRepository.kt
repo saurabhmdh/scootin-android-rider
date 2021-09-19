@@ -64,9 +64,21 @@ class OrderRepository @Inject constructor(
     suspend fun uploadImage(filePart: MultipartBody.Part) = services.uploadImage(filePart)
 
     fun acceptOrder(riderId: String, orderId: String, requestOrderAcceptedByRider: RequestOrderAcceptedByRider, context: CoroutineContext):
-            LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {
+            LiveData<Resource<NormalOrderResponse>> = object : NetworkBoundResource<NormalOrderResponse>(context) {
         override suspend fun createCall() = services.acceptOrder(riderId, orderId, requestOrderAcceptedByRider)
     }.asLiveData()
+
+    fun acceptDirectOrder(riderId: String, orderId: String, requestOrderAcceptedByRider: RequestOrderAcceptedByRider, context: CoroutineContext):
+            LiveData<Resource<DirectOrderResponse>> = object : NetworkBoundResource<DirectOrderResponse>(context) {
+        override suspend fun createCall() = services.acceptDirectOrder(riderId, orderId, requestOrderAcceptedByRider)
+    }.asLiveData()
+
+    //We need to use different kind of accept orders like normal, direct or citywide
+    fun acceptCityWideOrder(riderId: String, orderId: String, requestOrderAcceptedByRider: RequestOrderAcceptedByRider, context: CoroutineContext):
+            LiveData<Resource<CityWideOrderResponse>> = object : NetworkBoundResource<CityWideOrderResponse>(context) {
+        override suspend fun createCall() = services.acceptCitywideOrder(riderId, orderId, requestOrderAcceptedByRider)
+    }.asLiveData()
+
 
     fun deliverOrder(orderId: String, requestOrderAcceptedByRider: RequestOrderAcceptedByRider, context: CoroutineContext):
             LiveData<Resource<String>> = object : NetworkBoundResource<String>(context) {

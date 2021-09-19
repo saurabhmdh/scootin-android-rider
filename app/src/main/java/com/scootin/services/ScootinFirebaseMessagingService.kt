@@ -14,13 +14,15 @@ import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.scootin.R
+import com.scootin.util.OrderType
 import com.scootin.util.constants.AppConstants
+import com.scootin.util.constants.IntentConstants.openCitywideOrderDetail
 import com.scootin.util.constants.IntentConstants.openDirectOrderDetail
 import com.scootin.util.constants.IntentConstants.openOrderDetail
 import com.scootin.view.activity.MainActivity
 import timber.log.Timber
 
-//Citywide case is missing here
+
 class ScootinFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -32,24 +34,24 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
             when (type) {
                 "NEW_NORMAL_ORDER_TO_RIDERS" -> {
                     remoteMessage.data["order_id"]?.let {
-                        addNewOrderNotification(it, true)
+                        addNewOrderNotification(it, OrderType.NORMAL)
                     }
                 }
                 "NEW_DIRECT_ORDER_TO_RIDERS" -> {
                     remoteMessage.data["order_id"]?.let {
-                        addNewOrderNotification(it, false)
+                        addNewOrderNotification(it, OrderType.DIRECT)
                     }
                 }
                 "CANCEL_ORDER_NORMAL" -> {
                     remoteMessage.data["order_id"]?.let {
                         Timber.i("Cancel order order ID = $it")
-                        cancelOrderNotification(it, true)
+                        cancelOrderNotification(it, OrderType.NORMAL)
                     }
                 }
                 "CANCEL_ORDER_DIRECT" -> {
                     remoteMessage.data["order_id"]?.let {
                         Timber.i("Cancel order order ID = $it")
-                        cancelOrderNotification(it, false)
+                        cancelOrderNotification(it, OrderType.DIRECT)
                     }
                 }
                 "RIDER_DISABLED" -> {
@@ -57,6 +59,11 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
                     WorkManager.getInstance().enqueue(OneTimeWorkRequestBuilder<DisableWorker>().build())
                     val localIntent = Intent(AppConstants.INTENT_ACTION_USER_DISABLED)
                     LocalBroadcastManager.getInstance(baseContext).sendBroadcast(localIntent)
+                }
+                "NEW_CITY_WIDE_ORDER_TO_RIDERS" -> {
+                    remoteMessage.data["order_id"]?.let {
+                        addNewOrderNotification(it, OrderType.CITYWIDE)
+                    }
                 }
             }
         }
@@ -72,13 +79,19 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
         Timber.i("sendRegistrationTokenToServer($token)")
     }
 
-    private fun addNewOrderNotification(orderId: String, isNormal: Boolean) {
+    private fun addNewOrderNotification(orderId: String, orderType: OrderType) {
         val intent = Intent(this, MainActivity::class.java)
 
-        if (isNormal) {
-            intent.data = openOrderDetail(orderId)
-        } else {
-            intent.data = openDirectOrderDetail(orderId)
+        when (orderType) {
+            OrderType.NORMAL -> {
+                intent.data = openOrderDetail(orderId)
+            }
+            OrderType.DIRECT -> {
+                intent.data = openDirectOrderDetail(orderId)
+            }
+            OrderType.CITYWIDE -> {
+                intent.data = openCitywideOrderDetail(orderId)
+            }
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
@@ -113,14 +126,21 @@ class ScootinFirebaseMessagingService : FirebaseMessagingService() {
 
 
 
-    private fun cancelOrderNotification(orderId: String, isNormal: Boolean) {
+    private fun cancelOrderNotification(orderId: String, orderType: OrderType) {
         val intent = Intent(this, MainActivity::class.java)
 
-        if (isNormal) {
-            intent.data = openOrderDetail(orderId)
-        } else {
-            intent.data = openDirectOrderDetail(orderId)
+        when (orderType) {
+            OrderType.NORMAL -> {
+                intent.data = openOrderDetail(orderId)
+            }
+            OrderType.DIRECT -> {
+                intent.data = openDirectOrderDetail(orderId)
+            }
+            OrderType.CITYWIDE -> {
+                intent.data = openCitywideOrderDetail(orderId)
+            }
         }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this, 0 /* Request code */, intent,

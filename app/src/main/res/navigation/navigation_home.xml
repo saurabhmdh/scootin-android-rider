@@ -215,7 +215,8 @@
         <argument
             android:name="order_id"
             app:argType="long" />
-        <!--        adb shell am start -a android.intent.action.VIEW -d "https://rider.scootin.com/order-detail-direct/18613"-->
+        <!--        adb shell am start -a android.intent.action.VIEW -d "https://rider.scootin.com/order-detail-citywide/18613"-->
+        <deepLink app:uri="rider.scootin.com/order-detail-citywide/{order_id}" />
         <action
             android:id="@+id/citywide_order_fragment_to_image_gallery"
             app:destination="@id/image_gallery"

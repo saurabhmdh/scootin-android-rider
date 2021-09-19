@@ -114,7 +114,24 @@ interface APIService {
         @Path("orderId") orderId: String,
         @Body requestOrderAcceptedByRider: RequestOrderAcceptedByRider,
         @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
-    ): Response<String>
+    ): Response<NormalOrderResponse>
+
+    @POST("/order/orders/accept-order-by-rider/{riderId}/{orderId}")
+    suspend fun acceptDirectOrder(
+        @Path("riderId") riderId: String,
+        @Path("orderId") orderId: String,
+        @Body requestOrderAcceptedByRider: RequestOrderAcceptedByRider,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<DirectOrderResponse>
+
+
+    @POST("/order/orders/accept-order-by-rider/{riderId}/{orderId}")
+    suspend fun acceptCitywideOrder(
+        @Path("riderId") riderId: String,
+        @Path("orderId") orderId: String,
+        @Body requestOrderAcceptedByRider: RequestOrderAcceptedByRider,
+        @HeaderMap map: Map<String, String> = AppHeaders.getHeaderMap()
+    ): Response<CityWideOrderResponse>
 
     @POST("/order/orders/deliver-order-by-rider/{orderId}")
     suspend fun deliverOrder(
