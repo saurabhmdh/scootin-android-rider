@@ -170,26 +170,50 @@
                 android:layout_marginTop="2dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_telephone"
+                android:id="@+id/txt_pickup_telephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telephone"
-                android:textSize="15sp"
                 android:layout_below="@id/delivery_address_line1"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:text="Telephone (Pickup)"
+                android:textSize="15sp" />
+
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/telephone"
+                android:id="@+id/pickup_telephone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.userInfo.mobileNumber}"
-                android:textColor="#000"
-                android:textSize="15sp"
+                android:layout_below="@id/txt_pickup_telephone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
                 android:drawableLeft="@drawable/ic_call"
                 android:drawablePadding="4dp"
-                android:layout_below="@id/txt_telephone"
+                android:text="@{data.pickupAddressDetails.mobileNumber}"
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_delivery_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pickup_telephone"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="8dp"
+                android:text="Telephone (Delivery)"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/delivery_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_delivery_telephone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:text="@{data.deliveryAddressDetails.mobileNumber}"
+                android:drawableLeft="@drawable/ic_call"
+                android:drawablePadding="4dp"
+                android:textColor="#000"
+                android:textSize="15sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_order_details"
@@ -203,7 +227,7 @@
                 android:text="Order Details"
                 android:textColor="#000"
                 android:textSize="16sp"
-                android:layout_below="@id/telephone"
+                android:layout_below="@id/delivery_telephone"
                 android:layout_marginLeft="16dp"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/subtotal"

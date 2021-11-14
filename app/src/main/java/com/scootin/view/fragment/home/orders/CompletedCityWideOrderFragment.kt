@@ -76,8 +76,14 @@ class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_o
                 IntentConstants.moveToMapWithDirection(requireContext(), address!!)
             }
         }
-        binding.telephone.setOnClickListener {
-            val mobileNumber = binding.telephone.text?.toString()
+        binding.pickupTelephone.setOnClickListener {
+            val mobileNumber = binding.pickupTelephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
+        binding.deliveryTelephone.setOnClickListener {
+            val mobileNumber = binding.deliveryTelephone.text?.toString()
             if (mobileNumber.isNullOrEmpty().not()) {
                 IntentConstants.makeCall(requireContext(), mobileNumber!!)
             }
