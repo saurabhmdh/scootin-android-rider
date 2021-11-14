@@ -35,6 +35,7 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
     lateinit var appExecutors: AppExecutors
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
+    
     private var media: Media? = null
 
     private val orderId by lazy {
