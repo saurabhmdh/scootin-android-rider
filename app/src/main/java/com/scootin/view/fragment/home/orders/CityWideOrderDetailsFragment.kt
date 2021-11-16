@@ -50,6 +50,10 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
                 Status.SUCCESS -> {
                     media = it.data?.media
                     binding.data = it.data
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
+                    }
                 }
                 Status.ERROR -> {
 

@@ -69,6 +69,10 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
                         binding.deliveredButton.visibility= View.GONE
                         binding.status.setTextColor(Color.parseColor("#fe0000"))
                     }
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
+                    }
                 }
                 Status.ERROR -> {
 

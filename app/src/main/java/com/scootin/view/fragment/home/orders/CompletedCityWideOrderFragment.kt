@@ -57,6 +57,10 @@ class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_o
                         binding.deliveryDate.visibility = View.VISIBLE
                         // binding.deliveryDate.text = it.data?.orderDetails?.deliveryDetails?.deliveredDateTime
                     }
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
+                    }
                 }
                 Status.ERROR -> {
 

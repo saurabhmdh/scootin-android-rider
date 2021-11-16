@@ -58,6 +58,10 @@ class CitywideAcceptFragment: BaseFragment(R.layout.fragment_citywide_accept_ord
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.data = it.data
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
+                    }
                 }
                 Status.ERROR -> {
 

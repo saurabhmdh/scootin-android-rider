@@ -18,80 +18,98 @@
             <RelativeLayout
                 android:id="@+id/cardview"
                 android:layout_width="match_parent"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_corner"
                 android:layout_height="80dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_corner"
                 android:paddingBottom="10dp">
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/pending_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
 
-                    app:srcCompat="@drawable/ic_accepted_icon"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_accepted_icon" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_order_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order#"
-                    android:textSize="18sp"
-                    android:layout_toRightOf="@id/pending_icon"
-                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textColor="#000"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/pending_icon"
+                    android:text="Order#"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/amt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setToIntText="@{data.id}"
-                    android:textSize="18sp"
-                    android:layout_toRightOf="@id/txt_order_id"
-                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textColor="#000"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/txt_order_id"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    app:setToIntText="@{data.id}" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status :"
                     android:layout_below="@id/txt_order_id"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/pending_icon"
-                    android:layout_marginLeft="8dp"/>
+                    android:text="Status :" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.orderStatus}"
                     android:layout_below="@id/txt_order_id"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/txt_status"
-                    android:layout_marginLeft="8dp"/>
+                    android:text="@{data.orderStatus}" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order Date :"
-                    android:layout_toRightOf="@id/pending_icon"
                     android:layout_below="@id/txt_status"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/pending_icon"
+                    android:text="Order Date :" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setDateFromOrderDate="@{data.orderDate}"
                     android:layout_below="@id/txt_status"
+                    android:layout_marginLeft="4dp"
                     android:layout_toRightOf="@id/txt_order_date"
-                    android:layout_marginLeft="4dp"/>
+                    app:setDateFromOrderDate="@{data.orderDate}" />
 
-            </RelativeLayout >
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/instruction_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/cardview"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_item_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cardview"
+                android:layout_below="@id/instruction_txt"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"

@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/samridhi/Documents/scootin-android-rider/app/src/main/res/layout/fragment_accepted_citywide_orders.xml" value="0.2" />
+        <entry key="..\:/Users/samridhi/Documents/scootin-android-rider/app/src/main/res/layout/fragment_accept_orders.xml" value="0.16111111111111112" />
+        <entry key="..\:/Users/samridhi/Documents/scootin-android-rider/app/src/main/res/layout/fragment_accepted_citywide_orders.xml" value="0.264" />
         <entry key="..\:/Users/samridhi/Documents/scootin-android-rider/app/src/main/res/layout/fragment_citywide_accept_order.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/samridhi/Documents/scootin-android-rider/app/src/main/res/layout/fragment_citywide_order_details.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/samridhi/Documents/scootin-android-rider/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
