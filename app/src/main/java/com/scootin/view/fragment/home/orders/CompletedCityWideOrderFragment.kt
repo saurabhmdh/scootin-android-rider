@@ -49,6 +49,12 @@ class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_o
                 Status.SUCCESS -> {
                     media = it.data?.media
                     binding.data = it.data
+
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
+                    }
+
                     if (it.data?.deliveryDetails?.deliveredDateTime.isNullOrEmpty()) {
                         binding.txtDeliveryDate.visibility = View.GONE
                         binding.deliveryDate.visibility = View.GONE
@@ -57,10 +63,7 @@ class CompletedCityWideOrderFragment : BaseFragment(R.layout.fragment_citywide_o
                         binding.deliveryDate.visibility = View.VISIBLE
                         // binding.deliveryDate.text = it.data?.orderDetails?.deliveryDetails?.deliveredDateTime
                     }
-                    if(it.data?.message!=null){
-                        binding.instructionTxt.visibility=View.VISIBLE
-                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
-                    }
+//
                 }
                 Status.ERROR -> {
 
