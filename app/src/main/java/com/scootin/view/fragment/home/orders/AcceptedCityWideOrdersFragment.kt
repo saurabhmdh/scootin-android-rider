@@ -35,6 +35,7 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
     lateinit var appExecutors: AppExecutors
     private val args: DirectOrderDetailsFragmentArgs by navArgs()
 
+    
     private var media: Media? = null
 
     private val orderId by lazy {
@@ -76,6 +77,10 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
                         binding.cancelTxt.visibility= View.VISIBLE
                         binding.deliveredButton.visibility= View.GONE
                         binding.status.setTextColor(Color.parseColor("#fe0000"))
+                    }
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
                     }
                 }
                 Status.ERROR -> {
@@ -120,8 +125,15 @@ class AcceptedCityWideOrdersFragment : BaseFragment(R.layout.fragment_accepted_c
             }
         }
 
-        binding.telephone.setOnClickListener {
-            val mobileNumber = binding.telephone.text?.toString()
+        binding.pickupTelephone.setOnClickListener {
+            val mobileNumber = binding.pickupTelephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
+
+        binding.deliveryTelephone.setOnClickListener {
+            val mobileNumber = binding.deliveryTelephone.text?.toString()
             if (mobileNumber.isNullOrEmpty().not()) {
                 IntentConstants.makeCall(requireContext(), mobileNumber!!)
             }

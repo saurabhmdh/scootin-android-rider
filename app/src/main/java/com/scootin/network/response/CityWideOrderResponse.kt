@@ -12,7 +12,8 @@ data class CityWideOrderResponse(
     val pickupAddressDetails: AddressDetails,
     val serviceArea: ServiceArea,
     val userInfo: UserInfo,
-    val deliveryDetails: DeliveryDetail?
+    val deliveryDetails: DeliveryDetail?,
+    val message: String?
 ) {
     data class ServiceArea(
         val deleted: Boolean,

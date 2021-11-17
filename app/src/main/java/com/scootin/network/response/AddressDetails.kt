@@ -8,7 +8,8 @@ data class AddressDetails(
     val id: Long,
     val pincode: String,
     val stateDetails: StateDetails,
-    val userInfo: UserInfo
+    val userInfo: UserInfo,
+    val mobileNumber: String
 ) {
     data class StateDetails(
         val countryDetails: CountryDetails,

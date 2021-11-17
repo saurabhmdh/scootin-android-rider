@@ -54,6 +54,10 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
                 Status.SUCCESS -> {
                     media = it.data?.media
                     binding.data = it.data
+                    if(it.data?.message!=null){
+                        binding.instructionTxt.visibility=View.VISIBLE
+                        binding.instructionTxt.text="Additional Instruction/Remark: "+it.data.message
+                    }
                 }
                 Status.ERROR -> {
 
@@ -115,12 +119,20 @@ class CityWideOrderDetailsFragment:BaseFragment(R.layout.fragment_citywide_order
             }
         }
 
-        binding.telephone.setOnClickListener {
-            val mobileNumber = binding.telephone.text?.toString()
+        binding.pickupTelephone.setOnClickListener {
+            val mobileNumber = binding.pickupTelephone.text?.toString()
             if (mobileNumber.isNullOrEmpty().not()) {
                 IntentConstants.makeCall(requireContext(), mobileNumber!!)
             }
         }
+
+        binding.deliveryTelephone.setOnClickListener {
+            val mobileNumber = binding.deliveryTelephone.text?.toString()
+            if (mobileNumber.isNullOrEmpty().not()) {
+                IntentConstants.makeCall(requireContext(), mobileNumber!!)
+            }
+        }
+
         binding.imageMedia.setOnClickListener {
             launchGallery()
         }

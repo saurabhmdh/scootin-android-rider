@@ -18,94 +18,101 @@
             <RelativeLayout
                 android:id="@+id/cardview"
                 android:layout_width="match_parent"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_corner"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_corner"
                 android:paddingBottom="10dp">
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/pending_icon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
 
-                    app:srcCompat="@drawable/ic_accepted_icon"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    app:srcCompat="@drawable/ic_accepted_icon" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_order_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount :"
-                    android:textSize="18sp"
-                    android:layout_toRightOf="@id/pending_icon"
-                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textColor="#000"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/pending_icon"
+                    android:text="Amount :"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/amt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setPrice="@{data.paymentDetails.totalAmount}"
-                    android:textSize="18sp"
-                    android:layout_toRightOf="@id/txt_order_id"
-                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
-                    android:textColor="#000"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/txt_order_id"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    app:setPrice="@{data.paymentDetails.totalAmount}" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status :"
                     android:layout_below="@id/txt_order_id"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/pending_icon"
-                    android:layout_marginLeft="8dp"/>
+                    android:text="Status :" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.orderStatus}"
                     android:layout_below="@id/txt_order_id"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/txt_status"
-                    android:layout_marginLeft="8dp"/>
+                    android:text="@{data.orderStatus}" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_order_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order Date :"
-                    android:layout_toRightOf="@id/pending_icon"
                     android:layout_below="@id/txt_status"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/pending_icon"
+                    android:text="Order Date :" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setDateFromOrderDate="@{data.orderDate}"
                     android:layout_below="@id/txt_status"
+                    android:layout_marginLeft="4dp"
                     android:layout_toRightOf="@id/txt_order_date"
-                    android:layout_marginLeft="4dp"/>
+                    app:setDateFromOrderDate="@{data.orderDate}" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txt_delivery_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delivery Date :"
-                    android:visibility="gone"
                     android:layout_below="@id/txt_order_date"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/pending_icon"
-                    android:layout_marginLeft="8dp"/>
+                    android:text="Delivery Date :"
+                    android:visibility="gone" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/delivery_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:setDateFromOrderDate="@{data.deliveryDetails.deliveredDateTime}"
-                    android:layout_toRightOf="@id/txt_delivery_date"
                     android:layout_below="@id/txt_order_date"
-                    android:layout_marginLeft="4dp"/>
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/txt_delivery_date"
+                    android:visibility="gone"
+                    app:setDateFromOrderDate="@{data.deliveryDetails.deliveredDateTime}" />
 
-            </RelativeLayout >
+            </RelativeLayout>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_item_list"
                 android:layout_width="match_parent"
@@ -147,24 +154,25 @@
                 android:id="@+id/txt_pickup_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pickup Address"
-                android:textSize="15sp"
                 android:layout_below="@id/txt_Customer_details"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:text="Pickup Address"
+                android:textSize="15sp" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pickup_address_line1"
                 android:layout_width="match_parent"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
                 android:layout_height="wrap_content"
-                app:setOneLineAddress="@{data.pickupAddressDetails}"
-                android:textColor="#000"
-                android:textSize="15sp"
                 android:layout_below="@id/txt_pickup_address"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="16dp"
                 android:drawableLeft="@drawable/ic_location_icon"
                 android:drawablePadding="4dp"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#000"
+                android:textSize="15sp"
+                app:setOneLineAddress="@{data.pickupAddressDetails}" />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_delivery_address"
                 android:layout_width="wrap_content"
@@ -174,79 +182,118 @@
                 android:layout_below="@id/pickup_address_line1"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/delivery_address_line1"
                 android:layout_width="match_parent"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
                 android:layout_height="wrap_content"
-                app:setOneLineAddress="@{data.deliveryAddressDetails}"
-                android:textColor="#000"
-                android:textSize="15sp"
                 android:layout_below="@id/txt_delivery_address"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="16dp"
                 android:drawableLeft="@drawable/ic_location_icon"
                 android:drawablePadding="4dp"
-                android:layout_marginTop="2dp"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txt_telephone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Telephone"
-                android:textSize="15sp"
-                android:layout_below="@id/delivery_address_line1"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/telephone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data.userInfo.mobileNumber}"
                 android:textColor="#000"
                 android:textSize="15sp"
+                app:setOneLineAddress="@{data.deliveryAddressDetails}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_pickup_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/delivery_address_line1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Telephone (Pickup)"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pickup_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_pickup_telephone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
                 android:drawableLeft="@drawable/ic_call"
                 android:drawablePadding="4dp"
-                android:layout_below="@id/txt_telephone"
+                android:text="@{data.pickupAddressDetails.mobileNumber}"
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_delivery_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pickup_telephone"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="8dp"
+                android:text="Telephone (Delivery)"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/delivery_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_delivery_telephone"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:text="@{data.deliveryAddressDetails.mobileNumber}"
+                android:drawableLeft="@drawable/ic_call"
+                android:drawablePadding="4dp"
+                android:textColor="#000"
+                android:textSize="15sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_order_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/delivery_telephone"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/rounded_corner"
                 android:padding="12dp"
                 android:text="Order Details"
                 android:textColor="#000"
-                android:textSize="16sp"
-                android:layout_below="@id/telephone"
-                android:layout_marginLeft="16dp"/>
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/instruction_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/txt_order_details"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/instruction_txt"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:padding="4dp"
                 android:text="Subtotal"
                 android:textColor="#000"
-                android:textSize="15sp"
-                android:layout_below="@id/txt_order_details"
-                android:padding="4dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"/>
+                android:textSize="15sp" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/subtotal_amt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setPrice="@{data.paymentDetails.totalAmount}"
-                android:textSize="15sp"
+                android:layout_below="@id/instruction_txt"
                 android:layout_alignParentRight="true"
-                android:textColor="#000"
-                android:layout_below="@id/txt_order_details"
+                android:layout_marginTop="2dp"
                 android:layout_marginRight="16dp"
                 android:padding="4dp"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#000"
+                android:textSize="15sp"
+                app:setPrice="@{data.paymentDetails.totalAmount}" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/accept_button"
