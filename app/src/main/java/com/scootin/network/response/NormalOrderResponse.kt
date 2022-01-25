@@ -12,8 +12,17 @@ data class NormalOrderResponse(
         val orderDetails: OrderDetails,
         val quantity: Int,
         val totalAmount: Double,
+        val quantityPriceDetail: QuantityPriceDetail,
         val totalGSTAmount: Double
     ) {
+        data class QuantityPriceDetail(
+            val id: Long,
+            val parentItemId: Long,
+            val discountPrice: Double,
+            val name: String,
+            val price: Double,
+            val quantity: Int
+        )
         data class InventoryDetails(
             val description: String,
             val id: Long,

@@ -55,15 +55,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_name"
                 android:layout_toEndOf="@id/txt_amount"
-                app:setPrice="@{data.inventoryDetails.merchantPrice}" />
+                app:setPrice="@{data.quantityPriceDetail.discountPrice}" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/qty"
+                setQuantity="@{data.quantity}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_name"
-                android:layout_toEndOf="@id/amount"
-                setQuantity="@{data.quantity}" />
+                android:layout_toEndOf="@id/amount" />
 
             <!--            We need to display shop information here-->
             <androidx.appcompat.widget.AppCompatTextView
